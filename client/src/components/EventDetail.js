@@ -1,9 +1,12 @@
 function EventDetail({ oneEvent }){
     return(
         <div>
-            {oneEvent.severity}
-            {oneEvent.event_time}
-            {oneEvent.content}
+            <p>Category: {oneEvent.category.category_name}</p>
+            <p>What happened? {oneEvent.content}</p>
+            <p>Severity: {oneEvent.severity}</p>
+            <p>Time: {oneEvent.event_time}</p>
+            
+            
         </div>
     )
 }

@@ -1,5 +1,5 @@
 class EventSerializer < ActiveModel::Serializer
-  attributes :id, :event_time, :severity
+  attributes :id, :severity, :content #:event_time,
   has_one :user
   has_one :category
 end

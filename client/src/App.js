@@ -41,7 +41,7 @@ function App() {
             <Profile user={user}/>
           </Route>
           <Route path="/events">
-            <Events />
+            <Events user={user}/>
           </Route>
         </Switch>
     </div>
