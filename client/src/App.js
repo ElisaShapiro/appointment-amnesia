@@ -1,23 +1,41 @@
-import logo from './logo.svg';
 import './App.css';
+import { useState, useEffect } from 'react'
+import { Route, Switch } from 'react-router-dom';
+import Signup from './components/Signup';
+import Login from './components/Login';
+import NavBar from './components/NavBar';
+import Home from './components/Home';
 
 function App() {
+  const [user, setUser] = useState(null)
+  
+  // async
+    useEffect(() => {
+    // auto-login
+    // await 
+      fetch("/me").then((r) => {
+        if (r.ok) {
+          r.json().then((user) => {
+            setUser(user)
+          });
+        }
+      });
+    }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <NavBar user={user} setUser={setUser} />
+        <Switch>
+          <Route exact path="/">
+            <Home user={user} setUser={setUser}/>
+          </Route>
+          <Route path="/login">
+            <Login setUser={setUser}/>
+          </Route>    
+          <Route path="/signup">
+            <Signup setUser={setUser}/>
+          </Route>
+          </Switch>
     </div>
   );
 }

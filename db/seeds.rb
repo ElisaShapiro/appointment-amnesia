@@ -31,8 +31,8 @@ Appointment.create(appointment_time: 2.days.ago, user_id: 1, provider_id: 1, cat
 Appointment.create(appointment_time: 4.days.ago, user_id: 1, provider_id: 2, category_id: 2)
 
 puts "Seeding Events"
-Event.create(event_time: 3.days.ago, severity: 5, user_id: 1, category_id: 1)
-Event.create(event_time: 5.days.ago, severity: 1, user_id: 1, category_id: 2)
+Event.create(content: "This is the content text for event 1", event_time: 3.days.ago, severity: 5, user_id: 1, category_id: 1)
+Event.create(content: "This is the content text for event 2", event_time: 5.days.ago, severity: 1, user_id: 1, category_id: 2)
 
 puts "Seeding Medications"
 Medication.create(medication_name: "Med1", dosage: "1 pill", user_id: 1, provider_id: 1)

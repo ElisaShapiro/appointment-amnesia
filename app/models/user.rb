@@ -6,7 +6,7 @@ class User < ApplicationRecord
     #associations
     has_many :events, dependent: :destroy 
     has_many :categories, through: :events
-    has_many :appointments dependent: :destroy 
+    has_many :appointments, dependent: :destroy 
     has_many :providers, through: :appointments
-    has_many :medications dependent: :destroy 
+    has_many :medications, dependent: :destroy 
 end
