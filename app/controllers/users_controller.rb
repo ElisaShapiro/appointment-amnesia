@@ -8,7 +8,7 @@ class UsersController < ApplicationController
     def show
         render json: @current_user, status: :ok
     end
-    # def update
+    # def update - need to edit params here to match current
     #     user = User.find_by(id: params[:id])
     #     user.update!(image_url: params[:image_url])
     #     render json: user, status: :accepted
