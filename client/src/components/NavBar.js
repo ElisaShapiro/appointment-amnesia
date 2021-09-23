@@ -24,7 +24,19 @@ function NavBar({ user, setUser }){
                 </NavLink>
             </button>
             {user ?
+            <>
+            <button className="navbar-button">
+                <NavLink exact to="/events">
+                    Events
+                </NavLink>
+            </button>
+            {/* <button className="navbar-button">
+                <NavLink exact to="/appointments">
+                    Appointments
+                </NavLink>
+            </button> */}
             <button className="navbar-button" onClick={handleLogoutClick}>Logout</button>
+            </>
             :
             <>
             <button className="navbar-button">

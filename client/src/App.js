@@ -5,6 +5,8 @@ import Signup from './components/Signup';
 import Login from './components/Login';
 import NavBar from './components/NavBar';
 import Home from './components/Home';
+import Profile from './components/Profile';
+import Events from './components/Events';
 
 function App() {
   const [user, setUser] = useState(null)
@@ -35,7 +37,13 @@ function App() {
           <Route path="/signup">
             <Signup setUser={setUser}/>
           </Route>
-          </Switch>
+          <Route path="/profile">
+            <Profile user={user}/>
+          </Route>
+          <Route path="/events">
+            <Events />
+          </Route>
+        </Switch>
     </div>
   );
 }

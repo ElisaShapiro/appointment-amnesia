@@ -7,7 +7,7 @@ function Home({ user, setUser }){
     return(
         <div>
             {user ?
-            <ProfileContainer />
+            <ProfileContainer user={user}/>
             : 
             <>
             "Login or Signup"
