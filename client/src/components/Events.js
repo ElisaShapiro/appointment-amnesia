@@ -4,7 +4,7 @@ import AddEventForm from './AddEventForm'
 
 function Events(){
     const [events, setEvents] = useState([])
-    // const [addEvents, setAddEvents] = useState([])
+    const [showAddEvents, setShowAddEvents] = useState(false)
 
     //GET events
     useEffect(() => {

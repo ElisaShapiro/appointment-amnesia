@@ -3,53 +3,96 @@ import { useHistory } from 'react-router-dom';
 
 function Profile({ user }){
     const history = useHistory()
-
     const [isEdit, setIsEdit] = useState(false)
+
     const [providers, setProviders] = useState([])
-    // const [showProviderForm, setShowProviderForm] = useState(false)
-    const [medications, setMedications] = useState([])
-    // const [showMedicationForm, setShowMedicationForm] = useState(false)
-    const [categories, setCategories] = useState([])
-    const [showCategoryForm, setShowCategoryForm] = useState(false)
-    const [categoryFormData, setCategoryFormData] = useState({
-        category_name: ""
+    const [showProviderForm, setShowProviderForm] = useState(false)
+    const [providerFormData, setProviderFormData] = useState({ 
+        provider_name: "",
+        phone_number: "",
+        address: "" 
     })
 
+    const [categories, setCategories] = useState([])
+    const [showCategoryForm, setShowCategoryForm] = useState(false)
+    const [categoryFormData, setCategoryFormData] = useState({ category_name: "" })
+    
+    const [medications, setMedications] = useState([])
+    // const [showMedicationForm, setShowMedicationForm] = useState(false)
+
+    //PROVIDERS CRU
     useEffect(() => {
         fetch('/providers')
         .then(response => response.json())
         .then(data => setProviders(data))
     }, [])
-    const providerMap = providers.map((provider) => {
-        return (
-            <div key={provider.id} style={{backgroundColor: "orange"}}>
-                {provider.provider_name}
-                {provider.phone_number}
-                {provider.address}
-            </div>
-        )
-    })
+    function manageProviderFormData(e){
+        let key = e.target.name
+        let value = e.target.value
+        if (isEdit) {
+            setProviderFormData({
+                ...providerFormData,
+                [key]: value,
+                id: providerFormData.id
+            })
+        } else {
+            setProviderFormData({
+                ...providerFormData,
+                [key]: value
+            })
+        }
+    }
+    async function handleProviderSubmit(e){
+        e.preventDefault()
+        // debugger
+        if (isEdit) {
+            fetch(`/providers/${providerFormData.id}`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(providerFormData)
+            }).then(response=>response.json())
+            .then(data => {
+                setIsEdit(false)
+                setShowProviderForm(!showProviderForm)
+                history.go('/profile')
+            })
+        } else {
+              await fetch(`/providers`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(providerFormData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                setProviders([...providers, data])
+                setShowProviderForm(!showProviderForm)
+            })
+        }
+    }
+    function setEditProvider(e){
+        setShowProviderForm(!showProviderForm)
+        let currentProvider = providers.filter(provider => provider.id == e.target.id)[0]
+        debugger
+        setProviderFormData({
+            id: e.target.id, 
+            provider_name: currentProvider.provider_name,
+            phone_number: currentProvider.phone_number,
+            address: currentProvider.address
+        })
+        setIsEdit(true)
+    }
 
-    useEffect(() => {
-        fetch('/medications')
-        .then(response => response.json())
-        .then(data => setMedications(data))
-    }, [])
-    const medicationMap = medications.map((medication) => {
-        return (
-            <div key={medication.id} style={{backgroundColor: "yellow"}}>
-                {medication.provider_name}
-                {medication.dosage}
-            </div>
-        )
-    })
-    //GET categories
+    
+    //CATEGORIES CRU
     useEffect(() => {
         fetch('/categories')
         .then(response => response.json())
         .then(data => setCategories(data))
-    }, [])
-    //POST 
+    }, []) 
     function manageCategoryFormData(e){
         let key = e.target.name
         let value = e.target.value
@@ -80,7 +123,7 @@ function Profile({ user }){
                 history.go('/profile')
             })
         } else {
-              await fetch(`/categories`, {
+            await fetch(`/categories`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -99,18 +142,57 @@ function Profile({ user }){
         setCategoryFormData({id: e.target.id, category_name: e.target.value})
         setIsEdit(true)
     }
+    
+    //MEDICATIONS R
+    useEffect(() => {
+        fetch('/medications')
+        .then(response => response.json())
+        .then(data => setMedications(data))
+    }, [])
+    const medicationMap = medications.map((medication) => {
+        return (
+            <div key={medication.id} style={{backgroundColor: "yellow"}}>
+                {medication.provider_name}
+                {medication.dosage}
+            </div>
+        )
+    }, [])
 
     return(
         <div>
-            {/* <div className="demographic-info" style={{backgroundColor: "red"}}>
+            <div className="demographic-info" style={{backgroundColor: "red"}}>
                 Name: {user.name} 
                 Age: {user.age}
                 Summary: {user.summary}
                 Avatar: <img alt="user profile pictre" src={user.avatar} style={{marginTop:"0px", maxHeight: '150px', maxWidth: '150px', padding: "5px"}}/>
                 <button>Edit</button>
-            </div> */}
-            My Providers: {providerMap}
-            My Medications: {medicationMap}
+            </div>
+            <div style={{backgroundColor: "orange"}}> 
+                My Providers: {providers.map((provider) => {
+                    return (
+                        <div key={provider.id}>
+                            {provider.provider_name}
+                            {provider.phone_number}
+                            {provider.address}
+                            <button id={provider.id} onClick={setEditProvider}>Edit Provider</button>
+                        </div>
+                     )
+                })}
+                <button onClick={() => setShowProviderForm(!showProviderForm)}>Add Provider</button>
+                {showProviderForm ?
+                <form onSubmit={handleProviderSubmit}>
+                    <label htmlFor="provider_name">Provider Name:</label>
+                    <input name="provider_name" id="provider_name" type="text" value={providerFormData.provider_name} onChange={manageProviderFormData}/>
+                    <label htmlFor="phone_number">Phone Number:</label>
+                    <input name="phone_number" id="phone_number" type="text" value={providerFormData.phone_number} onChange={manageProviderFormData}/>
+                    <label htmlFor="address">Address:</label>
+                    <input name="address" id="address" type="text" value={providerFormData.address} onChange={manageProviderFormData}/>
+                    <button >Add Provider form</button>
+                </form>
+                :
+                null}
+            </div>
+            My Medications: {medicationMap} 
             <div style={{backgroundColor: "green"}}>
                 My Categories: {categories.map((category) => {
                     return (
@@ -118,8 +200,8 @@ function Profile({ user }){
                             {category.category_name}
                             <button id={category.id} value={category.category_name} onClick={setEditCategory}>Edit Category</button>
                         </div>
-                        )
-                    })}
+                    )
+                })}
                 <button onClick={() => setShowCategoryForm(!showCategoryForm)}>Add Category</button>
                 {showCategoryForm ?
                 <form onSubmit={handleCategorySubmit}>

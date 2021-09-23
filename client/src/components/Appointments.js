@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import AppointmentDetail from './AppointmentDetail'
-// import AddAppointmentForm from './AddAppointmentForm'
+import AddAppointmentForm from './AddAppointmentForm'
 
 function Appointments(){
     const [appointments, setAppointments] = useState([])
@@ -24,6 +24,7 @@ function Appointments(){
                     </div>
                 )
             })}
+            <AddAppointmentForm setAppointments={setAppointments}/>
         </div>
     )
 }
