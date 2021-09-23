@@ -7,6 +7,7 @@ import NavBar from './components/NavBar';
 import Home from './components/Home';
 import Profile from './components/Profile';
 import Events from './components/Events';
+import Appointments from './components/Appointments';
 
 function App() {
   const [user, setUser] = useState(null)
@@ -42,6 +43,9 @@ function App() {
           </Route>
           <Route path="/events">
             <Events user={user}/>
+          </Route>
+          <Route path="/appointments">
+            <Appointments user={user} />
           </Route>
         </Switch>
     </div>

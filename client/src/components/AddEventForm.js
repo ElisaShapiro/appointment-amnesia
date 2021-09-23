@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
 function AddEventForm(){
     const history = useHistory()
+    const [eventCategories, setEventCategories] = useState([])
     const [formData, setFormData] = useState({
         // category: "",
         content: "",
@@ -42,13 +43,25 @@ function AddEventForm(){
        })
     }
 
+    useEffect(() => {
+        fetch('/categories')
+        .then(response => response.json())
+        .then(data => setEventCategories(data))
+    }, [])
+
     return(
         <div>
             <form onSubmit={handleSubmit}>
-                {/* <div>
+                <div>
                     <label htmlFor="category"> Category</label>
-                    <input onChange={manageFormData} type="text" name="category" value={formData.category} placeholder="category" />
-                </div> */}
+                    <select onChange={manageFormData} type="select" name="category" value={formData.category} placeholder="category">
+                        {eventCategories.map((eventCategory) => {
+                            return(
+                                <option key={eventCategory.id} name={eventCategory.category_name}>{eventCategory.category_name}</option>
+                            )
+                        })}
+                    </select>
+                </div>
                 <div>
                     <label htmlFor="content"> What Happened?</label>
                     <input onChange={manageFormData} type="text" name="content" value={formData.content} placeholder="content" />

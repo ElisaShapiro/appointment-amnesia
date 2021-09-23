@@ -26,6 +26,11 @@ function NavBar({ user, setUser }){
             {user ?
             <>
             <button className="navbar-button">
+                <NavLink to="/profile">
+                    Profile
+                </NavLink>
+            </button>
+            <button className="navbar-button">
                 <NavLink to="/events">
                     Events
                 </NavLink>

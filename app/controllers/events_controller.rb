@@ -8,11 +8,9 @@ class EventsController < ApplicationController
     def create
         # byebug
         # event = @current_user.events.create(event_params)
-
         event = @current_user.events.create!(content: params[:content], severity: params[:severity], category_id: 1)
         # byebug
         # (event_params)
-          
         render json: event, status: :created
     end
    
