@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
   
+  resources :appointments
+  resources :medications
+  resources :events
+  resources :providers
+  resources :categories
   resources :users
   
   #auth
