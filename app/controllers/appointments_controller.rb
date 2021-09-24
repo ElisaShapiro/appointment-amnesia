@@ -8,6 +8,11 @@ class AppointmentsController < ApplicationController
         appointment = @current_user.appointments.create!(appointment_time: params[:appointment_time], provider_id: params[:provider_id], category_id: params[:category_id])
         render json: appointment, status: :created
     end
+    def update
+        appointment = Appointment.find_by(id: params[:id])
+        appointment.update!(appointment_time: params[:appointment_time], provider_id: params[:provider_id], category_id: params[:category_id])
+        render json: appointment, status: :accepted
+    end
     def destroy
         appointment = Appointment.find_by!(id: params[:id])
         appointment.destroy

@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+// import { useHistory } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DateTimePicker from '@mui/lab/DateTimePicker';
 
 function AddEventForm({ eventCategories, formData, setFormData, manageFormData, handleSubmit, setEventTimeValue, eventTimeValue}){
-    const history = useHistory()
+    // const history = useHistory()
     // const [eventCategories, setEventCategories] = useState([])
     // const [formData, setFormData] = useState({
     //     category: "",

@@ -7,8 +7,7 @@ function Events(){
     const history = useHistory()
     const [events, setEvents] = useState([])
     const [isEdit, setIsEdit] = useState(false)
-    const [eventTimeValue, setEventTimeValue] = useState(new Date())
-
+    
     const [eventCategories, setEventCategories] = useState([])
     const [formData, setFormData] = useState({
         category: "",
@@ -16,6 +15,8 @@ function Events(){
         severity: "",
         event_time: ""
     })
+    const [eventTimeValue, setEventTimeValue] = useState(new Date())
+
     function handleClickEdit(e){
         const editedEvent = events.filter((event) => event.id == e.target.value)[0]
         setIsEdit(!isEdit)
@@ -111,7 +112,6 @@ function Events(){
                 )
             })}
            <AddEventForm 
-        //    setEvents={setEvents} 
                 setEventTimeValue={setEventTimeValue}
                 eventTimeValue={eventTimeValue}
                 eventCategories={eventCategories}

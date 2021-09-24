@@ -1,4 +1,3 @@
-# require 'byebug'
 class EventsController < ApplicationController
     # skip_before_action :authorize
     def index
@@ -12,7 +11,6 @@ class EventsController < ApplicationController
     end
     def update
         event = Event.find_by(id: params[:id])
-        # byebug
         event.update!(content: params[:content], event_time: params[:event_time], severity: params[:severity], category_id: params[:category_id])
         render json: event, status: :accepted
     end
