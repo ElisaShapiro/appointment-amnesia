@@ -1,9 +1,11 @@
-import { useState, useEffect } from 'react'
-import EventDetail from './EventDetail'
-import AddEventForm from './AddEventForm'
+import { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+import EventDetail from './EventDetail';
+import AddEventForm from './AddEventForm';
 
 function Events(){
     const [events, setEvents] = useState([])
+    const history = useHistory()
     const [showAddEvents, setShowAddEvents] = useState(false)
 
     //GET events
@@ -13,6 +15,16 @@ function Events(){
         .then(data => setEvents(data))
     }, [])
 
+    //DELETE events
+    function handleDeleteEvent(e){
+        fetch(`/events/${e.target.value}`, {
+            method: "DELETE",
+            headers: {
+                Accept: "application/json"
+            }
+        })
+        history.go("/events")
+    }
     
     return(
         <div className="events-div">
@@ -21,7 +33,7 @@ function Events(){
                     <div className="event-detail-div" key={oneEvent.id} style={{backgroundColor: "blue", margin: "10px"}}>
                         <EventDetail oneEvent={oneEvent}/>
                         <button>EDIT</button>
-                        <button>DELETE</button>
+                        <button value={oneEvent.id} onClick={handleDeleteEvent}>DELETE</button>
                     </div>
                 )
             })}

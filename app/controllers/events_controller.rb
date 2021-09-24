@@ -12,6 +12,11 @@ class EventsController < ApplicationController
         # byebug
         render json: event, status: :created
     end
+    def destroy
+        event = Event.find_by!(id: params[:id])
+        event.destroy
+        head :no_content
+    end
    
 
     private 

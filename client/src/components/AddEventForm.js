@@ -29,7 +29,6 @@ function AddEventForm(){
     async function handleSubmit(e) {
         e.preventDefault()
         const selectedCategory = eventCategories.filter((category) => category.category_name == formData.category)[0]
-        // debugger
         const newFormData = {...formData, category_id: selectedCategory.id}
         await fetch(`/events`, {
             method: "POST",
