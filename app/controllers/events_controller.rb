@@ -1,4 +1,3 @@
-require 'byebug'
 class EventsController < ApplicationController
     # skip_before_action :authorize
     def index
@@ -6,10 +5,8 @@ class EventsController < ApplicationController
         render json: events, status: :ok
     end
     def create
-        # byebug
         # event = @current_user.events.create(event_params)
         event = @current_user.events.create!(content: params[:content], event_time: params[:event_time], severity: params[:severity], category_id: params[:category_id])
-        # byebug
         render json: event, status: :created
     end
     def destroy

@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
-import AppointmentDetail from './AppointmentDetail'
-import AddAppointmentForm from './AddAppointmentForm'
+import { useHistory } from 'react-router-dom';
+import AppointmentDetail from './AppointmentDetail';
+import AddAppointmentForm from './AddAppointmentForm';
 
 function Appointments(){
+    const history = useHistory()
     const [appointments, setAppointments] = useState([])
    
 
@@ -13,6 +15,17 @@ function Appointments(){
         .then(data => setAppointments(data))
     }, [])
 
+    //DELETE appointments
+    function handleDeleteAppointment(e){
+        fetch(`/appointments/${e.target.value}`, {
+            method: "DELETE",
+            headers: {
+                Accept: "application/json"
+            }
+        })
+        history.go("/appointments")
+    }
+
     return(
         <div className="appointments-div">
             {appointments.map((oneAppointment) => {
@@ -20,7 +33,7 @@ function Appointments(){
                     <div className="appointment-detail-div" key={oneAppointment.id} style={{backgroundColor: "blue", margin: "10px"}}>
                         <AppointmentDetail oneAppointment={oneAppointment}/>
                         <button>EDIT</button>
-                        <button>DELETE</button>
+                        <button value={oneAppointment.id} onClick={handleDeleteAppointment}>DELETE</button>
                     </div>
                 )
             })}

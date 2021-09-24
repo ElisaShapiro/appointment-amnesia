@@ -88,7 +88,7 @@ function AddEventForm(){
                     </LocalizationProvider>
                 </div>
                 <div>
-                    <button type="submit">Submit new event</button>
+                    <button type="submit">Submit Event</button>
                 </div>
             </form>
         </div>

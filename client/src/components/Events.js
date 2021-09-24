@@ -4,9 +4,9 @@ import EventDetail from './EventDetail';
 import AddEventForm from './AddEventForm';
 
 function Events(){
-    const [events, setEvents] = useState([])
     const history = useHistory()
-    const [showAddEvents, setShowAddEvents] = useState(false)
+    const [events, setEvents] = useState([])
+    
 
     //GET events
     useEffect(() => {

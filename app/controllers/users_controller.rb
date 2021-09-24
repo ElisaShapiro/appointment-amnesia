@@ -8,14 +8,17 @@ class UsersController < ApplicationController
     def show
         render json: @current_user, status: :ok
     end
-    # def update - need to edit params here to match current
-    #     user = User.find_by(id: params[:id])
-    #     user.update!(image_url: params[:image_url])
-    #     render json: user, status: :accepted
-    # end
+    def update
+        user = User.find_by(id: params[:id])
+        user.update!(demo_params)
+        render json: user, status: :accepted
+    end
 
     private
     def user_params
         params.permit(:name, :email, :password, :password_confirmation)
+    end
+    def demo_params
+        params.permit(:name, :email, :age, :summary, :avatar)
     end
 end
