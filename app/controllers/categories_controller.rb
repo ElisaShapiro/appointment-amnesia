@@ -1,4 +1,4 @@
-require 'byebug'
+# require 'byebug'
 class CategoriesController < ApplicationController
     def index
         categories = Category.all

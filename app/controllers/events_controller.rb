@@ -1,4 +1,4 @@
-require 'byebug'
+# require 'byebug'
 class EventsController < ApplicationController
     # skip_before_action :authorize
     def index
