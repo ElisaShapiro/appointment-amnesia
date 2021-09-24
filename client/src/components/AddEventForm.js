@@ -1,15 +1,20 @@
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import TextField from '@mui/material/TextField';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import DateTimePicker from '@mui/lab/DateTimePicker';
 
 function AddEventForm(){
     const history = useHistory()
     const [eventCategories, setEventCategories] = useState([])
     const [formData, setFormData] = useState({
-        // category: "",
+        category: "",
         content: "",
         severity: "",
-        // time: ""
+        event_time: ""
     })
+    const [eventTimeValue, setEventTimeValue] = useState(new Date())
 
     function manageFormData(e) {
         let key = e.target.name
@@ -21,25 +26,25 @@ function AddEventForm(){
         })
     }
 
-    async function handleSubmit (e) {
+    async function handleSubmit(e) {
         e.preventDefault()
-        console.log(formData)
+        const selectedCategory = eventCategories.filter((category) => category.category_name == formData.category)[0]
+        // debugger
+        const newFormData = {...formData, category_id: selectedCategory.id}
         await fetch(`/events`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(formData)
+            body: JSON.stringify(newFormData)
         })
         .then(response => response.json())
         .then(data => {
             history.go("/events")
         })
         setFormData({
-            // category: "",
             content: "",
             severity: "",
-            // time: ""
        })
     }
 
@@ -70,10 +75,19 @@ function AddEventForm(){
                     <label htmlFor="severity"> Severity</label>
                     <input onChange={manageFormData} type="number" name="severity" value={formData.severity} placeholder="#" min="1" max="5"/>
                 </div>
-                {/* <div>
-                    <label htmlFor="time"> Time</label>
-                    <input onChange={manageFormData} type="text" name="time" value={formData.time} placeholder="time" />
-                </div> */}
+                <div>
+                    <LocalizationProvider dateAdapter={AdapterDateFns}>
+                        <DateTimePicker
+                            renderInput={(props) => <TextField {...props} />}
+                            label="Date and Time of Event"
+                            value={eventTimeValue}
+                            onChange={(newEventTimeValue) => {
+                                setFormData({...formData, event_time: newEventTimeValue})
+                                setEventTimeValue(newEventTimeValue);
+                            }}
+                        />
+                    </LocalizationProvider>
+                </div>
                 <div>
                     <button type="submit">Submit new event</button>
                 </div>

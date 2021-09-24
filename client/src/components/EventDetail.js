@@ -1,5 +1,6 @@
 import { format } from 'date-fns';
 
+
 function EventDetail({ oneEvent }){
 
 

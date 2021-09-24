@@ -8,15 +8,14 @@ class EventsController < ApplicationController
     def create
         # byebug
         # event = @current_user.events.create(event_params)
-        event = @current_user.events.create!(content: params[:content], severity: params[:severity], category_id: 1)
+        event = @current_user.events.create!(content: params[:content], event_time: params[:event_time], severity: params[:severity], category_id: params[:category_id])
         # byebug
-        # (event_params)
         render json: event, status: :created
     end
    
 
     private 
     def event_params
-        params.permit(:content, :severity)
+        params.permit(:content, :severity, :event_time)
     end
 end
