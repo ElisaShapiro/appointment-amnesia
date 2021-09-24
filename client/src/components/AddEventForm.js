@@ -5,60 +5,60 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DateTimePicker from '@mui/lab/DateTimePicker';
 
-function AddEventForm(){
+function AddEventForm({ eventCategories, formData, setFormData, manageFormData, handleSubmit, setEventTimeValue, eventTimeValue}){
     const history = useHistory()
-    const [eventCategories, setEventCategories] = useState([])
-    const [formData, setFormData] = useState({
-        category: "",
-        content: "",
-        severity: "",
-        event_time: ""
-    })
-    const [eventTimeValue, setEventTimeValue] = useState(new Date())
+    // const [eventCategories, setEventCategories] = useState([])
+    // const [formData, setFormData] = useState({
+    //     category: "",
+    //     content: "",
+    //     severity: "",
+    //     event_time: ""
+    // })
+    // const [eventTimeValue, setEventTimeValue] = useState(new Date())
 
-    function manageFormData(e) {
-        let key = e.target.name
-        let value = e.target.value
+    // function manageFormData(e) {
+    //     let key = e.target.name
+    //     let value = e.target.value
    
-        setFormData({
-          ...formData,
-          [key]: value
-        })
-    }
+    //     setFormData({
+    //       ...formData,
+    //       [key]: value
+    //     })
+    // }
 
-    async function handleSubmit(e) {
-        e.preventDefault()
-        const selectedCategory = eventCategories.filter((category) => category.category_name == formData.category)[0]
-        const newFormData = {...formData, category_id: selectedCategory.id}
-        await fetch(`/events`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(newFormData)
-        })
-        .then(response => response.json())
-        .then(data => {
-            history.go("/events")
-        })
-        setFormData({
-            content: "",
-            severity: "",
-       })
-    }
+    // async function handleSubmit(e) {
+    //     e.preventDefault()
+    //     const selectedCategory = eventCategories.filter((category) => category.category_name == formData.category)[0]
+    //     const newFormData = {...formData, category_id: selectedCategory.id}
+    //     await fetch(`/events`, {
+    //         method: "POST",
+    //         headers: {
+    //             "Content-Type": "application/json"
+    //         },
+    //         body: JSON.stringify(newFormData)
+    //     })
+    //     .then(response => response.json())
+    //     .then(data => {
+    //         history.go("/events")
+    //     })
+    //     setFormData({
+    //         content: "",
+    //         severity: "",
+    //    })
+    // }
 
-    useEffect(() => {
-        fetch('/categories')
-        .then(response => response.json())
-        .then(data => setEventCategories(data))
-    }, [])
+    // useEffect(() => {
+    //     fetch('/categories')
+    //     .then(response => response.json())
+    //     .then(data => setEventCategories(data))
+    // }, [])
 
     return(
         <div>
             <form onSubmit={handleSubmit}>
                 <div>
                     <label htmlFor="category"> Category</label>
-                    <select onChange={manageFormData} type="select" name="category" value={formData.category} placeholder="category">
+                    <select onChange={manageFormData} type="select" name="category" value={formData.category.category_name} placeholder="category">
                         {eventCategories.map((eventCategory) => {
                             return(
                                 <option key={eventCategory.id} name={eventCategory.category_name}>{eventCategory.category_name}</option>

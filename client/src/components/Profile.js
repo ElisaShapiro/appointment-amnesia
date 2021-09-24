@@ -83,7 +83,8 @@ function Profile({ user }){
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify(providerFormData)
-            }).then(response=>response.json())
+            })
+            .then(response=>response.json())
             .then(data => {
                 setIsEdit(false)
                 setShowProviderForm(!showProviderForm)
