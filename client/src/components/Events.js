@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import EventDetail from './EventDetail';
 import AddEventForm from './AddEventForm';
+import SearchBar from './SearchBar';
 
 function Events(){
     const history = useHistory()
@@ -99,24 +100,59 @@ function Events(){
         })
         history.go("/events")
     }
+
+    const [searchEvents, setSearchEvents] = useState("")
+    const [sortEventCategory, setSortEventCategory] = useState("All")
+    const [sortEventSeverity, setSortEventSeverity] = useState("All")
+    const filteredEvents = events.filter(event => {
+        if (searchEvents.length > 0) {
+            return event.content.toLowerCase().includes(searchEvents.toLowerCase())
+        } else {
+            return true
+        }
+    }).filter((event) => {
+        if (sortEventCategory === "All") {
+            return true
+        } else if (event.category.category_name.toLowerCase() === sortEventCategory.toLowerCase()) {
+            return true
+        } else {
+            return false
+        }
+    }).filter((event) => {
+        if (sortEventSeverity ==="All") {
+            return true
+        } else if (event.severity === parseInt(sortEventSeverity)) {
+            return true
+        } else {
+            return false
+        }
+    })
     
     return(
-        <div className="events-div">
-            {events.length > 1 && events.map((oneEvent) => {
-                return (
-                    <div className="event-detail-div" key={oneEvent.id} style={{backgroundColor: "blue", margin: "10px"}}>
-                        <EventDetail oneEvent={oneEvent}/>
-                        <button value={oneEvent.id} onClick={handleClickEdit}>EDIT</button>
-                        <button value={oneEvent.id} onClick={handleDeleteEvent}>DELETE</button>
-                    </div>
-                )
-            })}
-           <AddEventForm 
-                setEventTimeValue={setEventTimeValue}
-                eventTimeValue={eventTimeValue}
-                eventCategories={eventCategories}
-                formData={formData} setFormData={setFormData}
-                manageFormData={manageFormData} handleSubmit={handleSubmit}/>
+        <div>
+            <div className="searchbar-div"> 
+                <SearchBar search={searchEvents} setSearch={setSearchEvents}
+                type={"events"}
+                sortOther={sortEventSeverity} setSortOther={setSortEventSeverity} 
+                sortCategory={sortEventCategory} setSortCategory={setSortEventCategory} categories={eventCategories}/>
+            </div>    
+            <div className="events-div">
+                {filteredEvents.map((oneEvent) => {
+                    return (
+                        <div className="event-detail-div" key={oneEvent.id} style={{backgroundColor: "blue", margin: "10px"}}>
+                            <EventDetail oneEvent={oneEvent}/>
+                            <button value={oneEvent.id} onClick={handleClickEdit}>EDIT</button>
+                            <button value={oneEvent.id} onClick={handleDeleteEvent}>DELETE</button>
+                        </div>
+                    )
+                })}
+            <AddEventForm 
+                    setEventTimeValue={setEventTimeValue}
+                    eventTimeValue={eventTimeValue}
+                    eventCategories={eventCategories}
+                    formData={formData} setFormData={setFormData}
+                    manageFormData={manageFormData} handleSubmit={handleSubmit}/>
+            </div>
         </div>
     )
 }
