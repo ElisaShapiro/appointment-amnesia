@@ -133,8 +133,8 @@ function Events(){
             <div className="searchbar-div"> 
                 <SearchBar search={searchEvents} setSearch={setSearchEvents}
                 type={"events"}
-                sortOther={sortEventSeverity} setSortOther={setSortEventSeverity} 
-                sortCategory={sortEventCategory} setSortCategory={setSortEventCategory} categories={eventCategories}/>
+                setSortOther={setSortEventSeverity} 
+                categories={eventCategories} setSortCategory={setSortEventCategory}/>
             </div>    
             <div className="events-div">
                 {filteredEvents.map((oneEvent) => {
@@ -150,8 +150,11 @@ function Events(){
                     setEventTimeValue={setEventTimeValue}
                     eventTimeValue={eventTimeValue}
                     eventCategories={eventCategories}
-                    formData={formData} setFormData={setFormData}
-                    manageFormData={manageFormData} handleSubmit={handleSubmit}/>
+                    formData={formData} 
+                    setFormData={setFormData}
+                    manageFormData={manageFormData} 
+                    handleSubmit={handleSubmit}
+                />
             </div>
         </div>
     )

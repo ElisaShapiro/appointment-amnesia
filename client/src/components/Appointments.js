@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import AppointmentDetail from './AppointmentDetail';
 import AddAppointmentForm from './AddAppointmentForm';
+import SearchBar from './SearchBar';
 
 function Appointments(){
     const history = useHistory()
@@ -43,6 +44,7 @@ function Appointments(){
         e.preventDefault()
         const selectedCategory = appointmentCategories.filter((category) => category.category_name == formData.category)[0]
         const selectedProvider = appointmentProviders.filter((provider) => provider.provider_name == formData.provider)[0]
+        debugger
         const newFormData = {...formData, category_id: selectedCategory.id, provider_id: selectedProvider.id}
         if (isEdit) {
             fetch(`/appointments/${formData.id}`, {
@@ -101,25 +103,56 @@ function Appointments(){
         history.go("/appointments")
     }
 
+    const [sortAppointmentCategory, setSortAppointmentCategory] = useState("All")
+    const [sortAppointmentProvider, setSortAppointmentProvider] = useState("All")
+    const filteredAppointments = appointments.filter(appointment => {
+        if (sortAppointmentCategory === "All") {
+            return true
+        } else if (appointment.category.category_name.toLowerCase() === sortAppointmentCategory.toLowerCase()) {
+            return true
+        } else {
+            return false
+        }
+    }).filter((appointment) => {    
+        if (sortAppointmentProvider ==="All") {
+            return true
+        } else if (appointment.provider.provider_name === sortAppointmentProvider) {
+            return true
+        } else {
+            return false
+        }
+    })
+
     return(
-        <div className="appointments-div">
-            {appointments.map((oneAppointment) => {
-                return (
-                    <div className="appointment-detail-div" key={oneAppointment.id} style={{backgroundColor: "blue", margin: "10px"}}>
-                        <AppointmentDetail oneAppointment={oneAppointment}/>
-                        <button value={oneAppointment.id} onClick={handleClickAppointment}>EDIT</button>
-                        <button value={oneAppointment.id} onClick={handleDeleteAppointment}>DELETE</button>
-                    </div>
-                )
-            })}
-            <AddAppointmentForm 
-            setAppointmentTimeValue={setAppointmentTimeValue}
-            appointmentTimeValue={appointmentTimeValue}
-            appointmentCategories={appointmentCategories}
-            appointmentProviders={appointmentProviders}
-            formData={formData} setFormData={setFormData}
-            manageFormData={manageFormData} handleSubmit={handleSubmit}/>
-        </div>
+        <div>
+            <div className="searchbar-div"> 
+                <SearchBar
+                sortOther={appointmentProviders}
+                setSortOther={setSortAppointmentProvider} 
+                categories={appointmentCategories} setSortCategory={setSortAppointmentCategory}/>
+            </div>      
+            <div className="appointments-div">
+                {filteredAppointments.map((oneAppointment) => {
+                    return (
+                        <div className="appointment-detail-div" key={oneAppointment.id} style={{backgroundColor: "blue", margin: "10px"}}>
+                            <AppointmentDetail oneAppointment={oneAppointment}/>
+                            <button value={oneAppointment.id} onClick={handleClickAppointment}>EDIT</button>
+                            <button value={oneAppointment.id} onClick={handleDeleteAppointment}>DELETE</button>
+                        </div>
+                    )
+                })}
+                <AddAppointmentForm 
+                    setAppointmentTimeValue={setAppointmentTimeValue}
+                    appointmentTimeValue={appointmentTimeValue}
+                    appointmentCategories={appointmentCategories}
+                    appointmentProviders={appointmentProviders}
+                    formData={formData} 
+                    setFormData={setFormData}
+                    manageFormData={manageFormData} 
+                    handleSubmit={handleSubmit}
+                />
+            </div>
+    </div>
     )
 }
 

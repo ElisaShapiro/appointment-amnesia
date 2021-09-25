@@ -1,4 +1,4 @@
-function SearchBar({ search, setSearch, sortCategory, setSortCategory, categories, sortOther, setSortOther, type }){
+function SearchBar({ search, setSearch, categories, setSortCategory, sortOther, setSortOther, type }){
  
     function handleSearch(e){
         setSearch(e.target.value)
@@ -10,17 +10,17 @@ function SearchBar({ search, setSearch, sortCategory, setSortCategory, categorie
         setSortOther(e.target.value)
     }
 
-    // function handlePriceSort(){
-    //     setSortPrice(!sortPrice)
-    // }
-
     return(
         <div className="searchbar">
-            <label htmlFor="search">Search:</label>
-            <input type="text" id="search" placeholder="Search..."
-            value={search} onChange={handleSearch}/>
+            {type === "events" ? 
+            <div>
+                <label htmlFor="search">Search:</label>
+                <input type="text" id="search" placeholder="Search..."
+                value={search} onChange={handleSearch}/>
+            </div>
+            : null}
             <label htmlFor="searchbar-dropdown-category">Sort by Category:</label>
-                <select type="dropdown" id="searchbar-dropdown-category" onChange={handleSetCategory}>
+            <select type="dropdown" id="searchbar-dropdown-category" onChange={handleSetCategory}>
                 <option value="All">All</option>
                 {categories.length > 1 && categories.map((category) => {
                     return <option key={category.category_name} value={category.category_name}>{category.category_name}</option>
@@ -41,9 +41,11 @@ function SearchBar({ search, setSearch, sortCategory, setSortCategory, categorie
             :
             <div>
             <label htmlFor="searchbar-dropdown-provider">Sort by Provider:</label>
-            <select type="dropdown" id="searchbar-dropdown-provider"
-            // onChange={handleSetProvider}
-            >
+            <select type="dropdown" id="searchbar-dropdown-provider" onChange={handleSetOther}>
+                <option value="All">All</option>
+                {sortOther.length > 1 && sortOther.map((provider) => {
+                    return <option key={provider.provider_name} value={provider.provider_name}>{provider.provider_name}</option>
+                })} 
             </select>
             </div>
         }
