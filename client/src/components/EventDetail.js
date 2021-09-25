@@ -9,9 +9,7 @@ function EventDetail({ oneEvent }){
             <p>Category: {oneEvent.category.category_name}</p>
             <p>What happened? {oneEvent.content}</p>
             <p>Severity: {oneEvent.severity}</p>
-            <p>Occurred: {format(new Date(oneEvent.event_time), "eee MMM'-'d'-'y h':'mm bbb") }</p>
-            
-            
+            <p>Occurred: {format(new Date(oneEvent.event_time), "eee MMM'-'d'-'y h':'mm bbb") }</p>   
         </div>
     )
 }

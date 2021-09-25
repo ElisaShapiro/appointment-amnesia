@@ -5,6 +5,15 @@ function Profile({ user }){
     const history = useHistory()
     const [isEdit, setIsEdit] = useState(false)
 
+    const [showDemographicForm, setShowDemographicForm] = useState(false)
+    const [demographicFormData, setDemographicFormData] = useState({
+        email: user.email,
+        name: user.name,
+        age: user.age,
+        summary: user.summary,
+        avatar: user.avatar 
+    })
+
     const [providers, setProviders] = useState([])
     const [showProviderForm, setShowProviderForm] = useState(false)
     const [providerFormData, setProviderFormData] = useState({ 
@@ -19,6 +28,29 @@ function Profile({ user }){
     
     const [medications, setMedications] = useState([])
     // const [showMedicationForm, setShowMedicationForm] = useState(false)
+
+    //DEMOGRAPHICS U
+    function manageDemographicFormData(e){
+        let key = e.target.name
+        let value = e.target.value
+        setDemographicFormData({
+            ...demographicFormData,
+            [key]: value
+        })
+    }
+    function handleDemographicSubmit(e){
+        fetch(`/users/${user.id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(demographicFormData)
+        }).then(response=>response.json())
+        .then(data=>{
+            setShowCategoryForm(!showCategoryForm)
+            history.go('/profile')
+        })
+    }
 
     //PROVIDERS CRU
     useEffect(() => {
@@ -44,7 +76,6 @@ function Profile({ user }){
     }
     async function handleProviderSubmit(e){
         e.preventDefault()
-        // debugger
         if (isEdit) {
             fetch(`/providers/${providerFormData.id}`, {
                 method: "PATCH",
@@ -52,7 +83,8 @@ function Profile({ user }){
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify(providerFormData)
-            }).then(response=>response.json())
+            })
+            .then(response=>response.json())
             .then(data => {
                 setIsEdit(false)
                 setShowProviderForm(!showProviderForm)
@@ -76,7 +108,7 @@ function Profile({ user }){
     function setEditProvider(e){
         setShowProviderForm(!showProviderForm)
         let currentProvider = providers.filter(provider => provider.id == e.target.id)[0]
-        debugger
+        // debugger
         setProviderFormData({
             id: e.target.id, 
             provider_name: currentProvider.provider_name,
@@ -165,7 +197,23 @@ function Profile({ user }){
                 Age: {user.age}
                 Summary: {user.summary}
                 Avatar: <img alt="user profile pictre" src={user.avatar} style={{marginTop:"0px", maxHeight: '150px', maxWidth: '150px', padding: "5px"}}/>
-                <button>Edit</button>
+                <button onClick={()=>setShowDemographicForm(!showDemographicForm)}>Edit Personal Info</button>
+                {showDemographicForm ?
+                 <form onSubmit={handleDemographicSubmit}>
+                    <label htmlFor="email">Email:</label>
+                    <input name="email" id="email" type="text" value={demographicFormData.email} onChange={manageDemographicFormData}/>
+                    <label htmlFor="name">Name:</label>
+                    <input name="name" id="name" type="text" value={demographicFormData.name} onChange={manageDemographicFormData}/>
+                    <label htmlFor="age">Age:</label>
+                    <input name="age" id="age" type="number" value={demographicFormData.age} onChange={manageDemographicFormData}/>
+                    <label htmlFor="summary">Personal Summary:</label>
+                    <input name="summary" id="summary" type="text" value={demographicFormData.summary} onChange={manageDemographicFormData}/>
+                    <label htmlFor="avatar">Avatar URL:</label>
+                    <input name="avatar" id="avatar" type="text" value={demographicFormData.avatar} onChange={manageDemographicFormData}/>
+                    <button >Change Demographics</button>
+                </form>
+                :
+                null}
             </div>
             <div style={{backgroundColor: "orange"}}> 
                 My Providers: {providers.map((provider) => {
