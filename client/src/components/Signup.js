@@ -55,8 +55,8 @@ function Signup({ setUser }){
                 <input type="text" name="email" className="input-field" id="email" value={formData.email} onChange={handleChange} /><br/><br/>
                 <label htmlFor="password">Password:</label><br/>
                 <input type="password" name="password" className="input-field" id="password" value={formData.password} onChange={handleChange} /><br/><br/>
-                <label htmlFor="password-confirmation">Confirm Password:</label><br/>
-                <input type="password" name="password-confirmation" className="input-field" id="password-confirmation" value={formData.password_confirmation} onChange={handleChange} /><br/><br/>
+                <label htmlFor="password_confirmation">Confirm Password:</label><br/>
+                <input type="password" name="password_confirmation" className="input-field" id="password_confirmation" value={formData.password_confirmation} onChange={handleChange} /><br/><br/>
                 <button type="submit">Submit</button>
             </form>
         </div>

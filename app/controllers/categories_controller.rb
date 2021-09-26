@@ -1,7 +1,7 @@
-# require 'byebug'
 class CategoriesController < ApplicationController
     def index
         categories = Category.all
+        # where(user_id: @current_user.id)
         render json: categories, status: :ok
     end
     def create

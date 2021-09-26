@@ -18,13 +18,15 @@ function NavBar({ user, setUser }){
     
     return(
         <div className="navbar-div">
-            <button className="navbar-button">
-                <NavLink exact to="/">
-                    Home
-                </NavLink>
-            </button>
             {user ?
             <>
+            <button className="navbar-button">
+                <NavLink exact to="/">
+                    Welcome, {user.name}
+                </NavLink>
+                <img src={user.avatar} className="profile-pic" alt="Profile" style={{height: "15px", width: "15px" }} 
+                onError={(e)=>{e.target.onerror = null; e.target.src="https://i.imgur.com/3y8bjZJ.png"}}/>
+            </button>
             {/* <button className="navbar-button">
                 <NavLink to="/profile">
                     Profile

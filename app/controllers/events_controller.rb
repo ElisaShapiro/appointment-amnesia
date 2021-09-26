@@ -1,7 +1,7 @@
 class EventsController < ApplicationController
     # skip_before_action :authorize
     def index
-        events = Event.all
+        events = Event.where(user_id: @current_user.id)
         render json: events, status: :ok
     end
     def create

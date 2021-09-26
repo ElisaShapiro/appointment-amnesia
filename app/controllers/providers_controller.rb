@@ -2,6 +2,7 @@
 class ProvidersController < ApplicationController
     def index
         providers = Provider.all
+        # where(user_id: @current_user.id)
         render json: providers, status: :ok
     end
     def create
