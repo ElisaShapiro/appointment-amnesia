@@ -26,9 +26,6 @@ function Profile({ user }){
     const [showCategoryForm, setShowCategoryForm] = useState(false)
     const [categoryFormData, setCategoryFormData] = useState({ category_name: "" })
     
-    const [medications, setMedications] = useState([])
-    // const [showMedicationForm, setShowMedicationForm] = useState(false)
-
     //DEMOGRAPHICS U
     function manageDemographicFormData(e){
         let key = e.target.name
@@ -108,7 +105,6 @@ function Profile({ user }){
     function setEditProvider(e){
         setShowProviderForm(!showProviderForm)
         let currentProvider = providers.filter(provider => provider.id == e.target.id)[0]
-        // debugger
         setProviderFormData({
             id: e.target.id, 
             provider_name: currentProvider.provider_name,
@@ -118,7 +114,6 @@ function Profile({ user }){
         setIsEdit(true)
     }
 
-    
     //CATEGORIES CRU
     useEffect(() => {
         fetch('/categories')
@@ -174,21 +169,6 @@ function Profile({ user }){
         setCategoryFormData({id: e.target.id, category_name: e.target.value})
         setIsEdit(true)
     }
-    
-    //MEDICATIONS R
-    useEffect(() => {
-        fetch('/medications')
-        .then(response => response.json())
-        .then(data => setMedications(data))
-    }, [])
-    const medicationMap = medications.map((medication) => {
-        return (
-            <div key={medication.id} style={{backgroundColor: "yellow"}}>
-                {medication.provider_name}
-                {medication.dosage}
-            </div>
-        )
-    }, [])
 
     return(
         <div>
@@ -210,7 +190,7 @@ function Profile({ user }){
                     <input name="summary" id="summary" type="text" value={demographicFormData.summary} onChange={manageDemographicFormData}/>
                     <label htmlFor="avatar">Avatar URL:</label>
                     <input name="avatar" id="avatar" type="text" value={demographicFormData.avatar} onChange={manageDemographicFormData}/>
-                    <button >Change Demographics</button>
+                    <button>Change Demographics</button>
                 </form>
                 :
                 null}
@@ -240,7 +220,6 @@ function Profile({ user }){
                 :
                 null}
             </div>
-            My Medications: {medicationMap} 
             <div style={{backgroundColor: "green"}}>
                 My Categories: {categories.map((category) => {
                     return (

@@ -8,6 +8,7 @@ import Home from './components/Home';
 import Profile from './components/Profile';
 import Events from './components/Events';
 import Appointments from './components/Appointments';
+import Medications from './components/Medications';
 
 function App() {
   const [user, setUser] = useState(null)
@@ -38,14 +39,17 @@ function App() {
           <Route path="/signup">
             <Signup setUser={setUser}/>
           </Route>
-          <Route path="/profile">
+          {/* <Route path="/profile">
             <Profile user={user}/>
-          </Route>
+          </Route> */}
           <Route path="/events">
             <Events user={user}/>
           </Route>
           <Route path="/appointments">
             <Appointments user={user} />
+          </Route>
+          <Route path="/medications">
+            <Medications user={user} />
           </Route>
         </Switch>
     </div>
