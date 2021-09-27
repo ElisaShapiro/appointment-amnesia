@@ -2,13 +2,18 @@ import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
 function Medications() {
+    const history = useHistory()
     const [medications, setMedications] = useState([])
     const [showMedicationForm, setShowMedicationForm] = useState(false)
     const [genericMedication, setGenericMedication] = useState(false)
     const [medicationName, setMedicationName] = useState("")
     const [medicationsFromAPI, setMedicationsFromAPI] = useState([])
-    const [oneMedication, setOneMedication] = useState([])
     const [medicationProviders, setMedicationProviders] = useState([])
+    const [radioSelectedOption, setRadioSelectedOption] = useState("")
+    const [medicationFormData, setMedicationFormData] = useState({
+        dosage: "",
+        provider_name: ""
+    })
 
     useEffect(() => {
         fetch('/medications')
@@ -19,12 +24,11 @@ function Medications() {
     useEffect(() => {
         fetch('/providers')
         .then(response => response.json())
-        .then(dataProviders => setMedicationProviders(dataProviders))
+        .then(dataProviders => {
+            setMedicationFormData({...medicationFormData, provider_name: dataProviders[0].provider_name})
+            setMedicationProviders(dataProviders)
+        })
     }, [])
-
-    function handleOneMedicationChange(e){
-        setOneMedication(e.target.value)
-    }
 
     function searchMedicationsOnAPI(e){
         e.preventDefault()
@@ -51,13 +55,51 @@ function Medications() {
             })
             .then(response => response.json())
             .then(data => {
-                debugger
                 let savedBrandInfo = data.results[0].products.map((product) => {
                     return product.active_ingredients[0]
                 })
                 setMedicationsFromAPI(savedBrandInfo)
             })
         }
+    }
+
+    function manageMedicationFormData(e){
+        let key = e.target.name
+        let value = e.target.value
+        setMedicationFormData({
+            ...medicationFormData,
+            [key]: value
+        })
+    }
+
+    function handleMedicationSubmit(e){
+        e.preventDefault()
+        const selectedMedication = medicationsFromAPI.filter((medication) => medication.strength == radioSelectedOption)[0]
+        const selectedProvider = medicationProviders.filter((provider) => provider.provider_name == medicationFormData.provider_name)[0]
+        let newMedicationFormData = {...medicationFormData, provider_id: selectedProvider.id, medication_name: selectedMedication.name}
+        fetch(`/medications`, {
+            method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(newMedicationFormData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            setShowMedicationForm(!showMedicationForm)
+            history.go('/medications')
+        })
+    }
+
+    //DELETE medications
+    function handleDeleteMedication(e){
+        fetch(`/medications/${e.target.value}`, {
+            method: "DELETE",
+            headers: {
+                Accept: "application/json"
+            }
+        })
+        history.go("/medications")
     }
 
     return(
@@ -68,46 +110,53 @@ function Medications() {
                         <div key={medication.id}>
                             Medicine: {medication.medication_name}
                             Dosage: {medication.dosage}
-                            Prescribed by: {medicationProviders.provider_name}
+                            Prescribed by: {medication.provider.provider_name}
+                            <button value={medication.id} onClick={handleDeleteMedication}>
+                                DELETE
+                            </button>
                         </div>
                     )
                 })}
                 <button onClick={() => setShowMedicationForm(!showMedicationForm)}>Add Medication</button>
                 {showMedicationForm ?
-                <form 
-                // onSubmit={handleMedicationSubmit}
-                >
-                    <label htmlFor="switch-api-search">Generic? (check if generic medication, otherwise leave unchecked for brand)</label>
-                    <input type="checkbox" id="switch-api-search" checked={genericMedication} onChange={() => setGenericMedication(!genericMedication)} />
-                    <label htmlFor="medicationName">Search by Medication Name:</label>
-                    <input name="medicationName" id="medication" type="text" value={medicationName} onChange={(e) => setMedicationName(e.target.value)} />
+                <form onSubmit={handleMedicationSubmit}>
+                    <label htmlFor="switch-api-search">Generic?</label>
+                    <input type="checkbox" id="switch-api-search" checked={genericMedication} 
+                        onChange={() => setGenericMedication(!genericMedication)} />
+                    <label htmlFor="medicationName">Search Database by Medication Name:</label>
+                    <input name="medicationName" id="medication" type="text" 
+                        value={medicationName} onChange={(e) => setMedicationName(e.target.value)} />
                     <button onClick={searchMedicationsOnAPI}>Search Medications</button>
                     {medicationsFromAPI.length > 0 ?
-                    medicationsFromAPI.map((medFromAPI) => {
-                        return (
-                            <div>
-                                {/* <input type="radio" onChange={handleOneMedicationChange}>NAME: {medFromAPI.name} STRENGTH: {medFromAPI.strength}</input> */}
-                                NAME: {medFromAPI.name} STRENGTH: {medFromAPI.strength}
-                            </div>
-                        )
-                    }) 
-                    : null }
+                    <div>
+                        {medicationsFromAPI.map((medFromAPI) => {
+                            return (
+                                    <label key={medFromAPI}>
+                                        <input type="radio" value={medFromAPI.strength} name="radioMedications" 
+                                            onChange={(e)=>setRadioSelectedOption(e.target.value)}/>
+                                        NAME: {medFromAPI.name} STRENGTH: {medFromAPI.strength} <br />
+                                    </label>
+                            )
+                        })} 
+                    </div>
+                    : null } <br />
                     <label htmlFor="dosage">Directions:</label>
                     <input name="dosage" id="dosage" type="text" 
-                    // value={medication_name} onChange={manageMedication}
-                    />
-                    <label htmlFor="providers">Select Prescribing Provider:</label>
-                    <select type="dropdown" id="profile-dropdown-provider" 
-                    // onChange={handleSetOther}
-                    >
-                    {medicationProviders.length > 1 && medicationProviders.map((provider) => {
-                    return <option key={medicationProviders.provider_name} value={medicationProviders.provider_name}>{provider.provider_name}</option>
-                    })} 
-                </select>
-                    <button>Add Medication Form</button>
+                    value={medicationFormData.medication_name} onChange={manageMedicationFormData}/>
+                    <label htmlFor="providers">Prescribing Provider:</label>
+                    <select type="dropdown" id="medication-dropdown-provider" name="provider_name"
+                        value={medicationFormData.provider_name} onChange={manageMedicationFormData}>
+                        {medicationProviders.length > 1 && medicationProviders.map((provider) => {
+                            return (
+                                <option key={medicationProviders.provider_name} value={medicationProviders.provider_name}>
+                                    {provider.provider_name}
+                                </option>
+                            )
+                        })} 
+                    </select>
+                <button>Add Medication Form</button>
                 </form>
-                :
-                null}
+                : null}
             </div>
         </div>
     )

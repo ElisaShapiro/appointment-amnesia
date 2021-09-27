@@ -50,13 +50,17 @@ function Signup({ setUser }){
             <form className="login-signup-form" onSubmit={handleSubmit}>
                 <br/>
                 <label htmlFor="name" >Name:</label><br/>
-                <input type="text" name="name" className="input-field" id="name" value={formData.name} onChange={handleChange} /><br/><br/>
+                <input type="text" name="name" className="input-field" id="name" 
+                    value={formData.name} onChange={handleChange} /><br/><br/>
                 <label htmlFor="email">Email:</label><br/>
-                <input type="text" name="email" className="input-field" id="email" value={formData.email} onChange={handleChange} /><br/><br/>
+                <input type="text" name="email" className="input-field" id="email" 
+                    value={formData.email} onChange={handleChange} /><br/><br/>
                 <label htmlFor="password">Password:</label><br/>
-                <input type="password" name="password" className="input-field" id="password" value={formData.password} onChange={handleChange} /><br/><br/>
+                <input type="password" name="password" className="input-field" id="password" 
+                    value={formData.password} onChange={handleChange} /><br/><br/>
                 <label htmlFor="password_confirmation">Confirm Password:</label><br/>
-                <input type="password" name="password_confirmation" className="input-field" id="password_confirmation" value={formData.password_confirmation} onChange={handleChange} /><br/><br/>
+                <input type="password" name="password_confirmation" className="input-field" 
+                    id="password_confirmation" value={formData.password_confirmation} onChange={handleChange} /><br/><br/>
                 <button type="submit">Submit</button>
             </form>
         </div>

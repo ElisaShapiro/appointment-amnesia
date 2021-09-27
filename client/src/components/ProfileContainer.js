@@ -3,7 +3,7 @@ import Profile from './Profile'
 function ProfileContainer({ user }){
     return(
         <div>
-            i'm profile container you're logged in
+            You're Logged in! Select an option from the navigation bar above!
             <Profile user={user}/>
         </div>
     )

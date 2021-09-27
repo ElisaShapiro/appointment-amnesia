@@ -26,7 +26,7 @@ function Profile({ user }){
     const [showCategoryForm, setShowCategoryForm] = useState(false)
     const [categoryFormData, setCategoryFormData] = useState({ category_name: "" })
     
-    //DEMOGRAPHICS U
+    //DEMOGRAPHICS RU
     function manageDemographicFormData(e){
         let key = e.target.name
         let value = e.target.value
@@ -176,24 +176,31 @@ function Profile({ user }){
                 Name: {user.name} 
                 Age: {user.age}
                 Summary: {user.summary}
-                Avatar: <img alt="user profile pictre" src={user.avatar} style={{marginTop:"0px", maxHeight: '150px', maxWidth: '150px', padding: "5px"}}/>
-                <button onClick={()=>setShowDemographicForm(!showDemographicForm)}>Edit Personal Info</button>
+                Avatar: <img alt="user profile pictre" src={user.avatar} 
+                    style={{marginTop:"0px", maxHeight: '150px', maxWidth: '150px', padding: "5px"}}/>
+                <button onClick={()=>setShowDemographicForm(!showDemographicForm)}>
+                    Edit Personal Info
+                </button>
                 {showDemographicForm ?
-                 <form onSubmit={handleDemographicSubmit}>
+                <form onSubmit={handleDemographicSubmit}>
                     <label htmlFor="email">Email:</label>
-                    <input name="email" id="email" type="text" value={demographicFormData.email} onChange={manageDemographicFormData}/>
+                    <input name="email" id="email" type="text" 
+                        value={demographicFormData.email} onChange={manageDemographicFormData}/>
                     <label htmlFor="name">Name:</label>
-                    <input name="name" id="name" type="text" value={demographicFormData.name} onChange={manageDemographicFormData}/>
+                    <input name="name" id="name" type="text" 
+                        value={demographicFormData.name} onChange={manageDemographicFormData}/>
                     <label htmlFor="age">Age:</label>
-                    <input name="age" id="age" type="number" value={demographicFormData.age} onChange={manageDemographicFormData}/>
+                    <input name="age" id="age" type="number" 
+                        value={demographicFormData.age} onChange={manageDemographicFormData}/>
                     <label htmlFor="summary">Personal Summary:</label>
-                    <input name="summary" id="summary" type="text" value={demographicFormData.summary} onChange={manageDemographicFormData}/>
+                    <textarea name="summary" id="summary" rows="5" cols="50" style={{ width: "400px", height: "100px" }}
+                        value={demographicFormData.summary} onChange={manageDemographicFormData}/>
                     <label htmlFor="avatar">Avatar URL:</label>
-                    <input name="avatar" id="avatar" type="text" value={demographicFormData.avatar} onChange={manageDemographicFormData}/>
-                    <button>Change Demographics</button>
+                    <input name="avatar" id="avatar" type="text" 
+                        value={demographicFormData.avatar} onChange={manageDemographicFormData}/>
+                    <button>Update Demographics</button>
                 </form>
-                :
-                null}
+                : null}
             </div>
             <div style={{backgroundColor: "orange"}}> 
                 My Providers: {providers.map((provider) => {
@@ -206,16 +213,19 @@ function Profile({ user }){
                         </div>
                      )
                 })}
-                <button onClick={() => setShowProviderForm(!showProviderForm)}>Add Provider</button>
+                <button onClick={() => setShowProviderForm(!showProviderForm)}>Add Provider to List</button>
                 {showProviderForm ?
                 <form onSubmit={handleProviderSubmit}>
                     <label htmlFor="provider_name">Provider Name:</label>
-                    <input name="provider_name" id="provider_name" type="text" value={providerFormData.provider_name} onChange={manageProviderFormData}/>
+                    <input name="provider_name" id="provider_name" type="text" 
+                        value={providerFormData.provider_name} onChange={manageProviderFormData}/>
                     <label htmlFor="phone_number">Phone Number:</label>
-                    <input name="phone_number" id="phone_number" type="text" value={providerFormData.phone_number} onChange={manageProviderFormData}/>
+                    <input name="phone_number" id="phone_number" type="text" 
+                        value={providerFormData.phone_number} onChange={manageProviderFormData}/>
                     <label htmlFor="address">Address:</label>
-                    <input name="address" id="address" type="text" value={providerFormData.address} onChange={manageProviderFormData}/>
-                    <button >Add Provider form</button>
+                    <textarea name="address" id="address" type="text" rows="5" cols="50" style={{ width: "200px", height: "50px" }}
+                        value={providerFormData.address} onChange={manageProviderFormData}/>
+                    <button >Add Provider</button>
                 </form>
                 :
                 null}
@@ -225,19 +235,20 @@ function Profile({ user }){
                     return (
                         <div key={category.id}>
                             {category.category_name}
-                            <button id={category.id} value={category.category_name} onClick={setEditCategory}>Edit Category</button>
+                            <button id={category.id} value={category.category_name} 
+                                onClick={setEditCategory}>Edit Category</button>
                         </div>
                     )
                 })}
-                <button onClick={() => setShowCategoryForm(!showCategoryForm)}>Add Category</button>
+                <button onClick={() => setShowCategoryForm(!showCategoryForm)}>Add Category to List</button>
                 {showCategoryForm ?
                 <form onSubmit={handleCategorySubmit}>
                     <label htmlFor="category">Add Category</label>
-                    <input name="category_name" id="category" type="text" value={categoryFormData.category_name} onChange={manageCategoryFormData}/>
-                    <button >Add Category form</button>
+                    <input name="category_name" id="category" type="text" 
+                        value={categoryFormData.category_name} onChange={manageCategoryFormData}/>
+                    <button >Add Category</button>
                 </form>
-                :
-                null}
+                : null}
             </div>
         </div>
     )

@@ -132,9 +132,8 @@ function Events(){
         <div>
             <div className="searchbar-div"> 
                 <SearchBar search={searchEvents} setSearch={setSearchEvents}
-                type={"events"}
-                setSortOther={setSortEventSeverity} 
-                categories={eventCategories} setSortCategory={setSortEventCategory}/>
+                    type={"events"} setSortOther={setSortEventSeverity} 
+                    categories={eventCategories} setSortCategory={setSortEventCategory}/>
             </div>    
             <div className="events-div">
                 {filteredEvents.map((oneEvent) => {

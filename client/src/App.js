@@ -39,9 +39,9 @@ function App() {
           <Route path="/signup">
             <Signup setUser={setUser}/>
           </Route>
-          {/* <Route path="/profile">
+          <Route path="/profile">
             <Profile user={user}/>
-          </Route> */}
+          </Route>
           <Route path="/events">
             <Events user={user}/>
           </Route>

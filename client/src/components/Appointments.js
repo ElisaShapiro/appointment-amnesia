@@ -18,6 +18,7 @@ function Appointments(){
     })
     const [appointmentTimeValue, setAppointmentTimeValue] = useState(new Date())
 
+    //Appointments CU
     function handleClickAppointment(e){
         const editedAppointment = appointments.filter((appointment) => appointment.id == e.target.value)[0]
         setIsEdit(!isEdit)
@@ -127,9 +128,10 @@ function Appointments(){
         <div>
             <div className="searchbar-div"> 
                 <SearchBar
-                sortOther={appointmentProviders}
-                setSortOther={setSortAppointmentProvider} 
-                categories={appointmentCategories} setSortCategory={setSortAppointmentCategory}/>
+                    sortOther={appointmentProviders}
+                    setSortOther={setSortAppointmentProvider} 
+                    categories={appointmentCategories} setSortCategory={setSortAppointmentCategory}
+                />
             </div>      
             <div className="appointments-div">
                 {filteredAppointments.map((oneAppointment) => {
