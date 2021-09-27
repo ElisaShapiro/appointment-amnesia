@@ -11,7 +11,7 @@ function SearchBar({ search, setSearch, categories, setSortCategory, sortOther, 
     }
 
     return(
-        <div className="searchbar">
+        <div className="searchbar" style={{backgroundColor: "purple"}}>
             {type === "events" ? 
                 <div>
                     <label htmlFor="search">Search:</label>
