@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
-function Profile({ user }){
+function Profile({ user, setHasUpdate, hasUpdate }){
     const history = useHistory()
     const [isEdit, setIsEdit] = useState(false)
 
@@ -14,7 +14,7 @@ function Profile({ user }){
         avatar: user.avatar 
     })
 
-    const [providers, setProviders] = useState([])
+    const [providers, setProviders] = useState(user.user_providers)
     const [showProviderForm, setShowProviderForm] = useState(false)
     const [providerFormData, setProviderFormData] = useState({ 
         provider_name: "",
@@ -22,7 +22,7 @@ function Profile({ user }){
         address: "" 
     })
 
-    const [categories, setCategories] = useState([])
+    const [categories, setCategories] = useState(user.user_categories)
     const [showCategoryForm, setShowCategoryForm] = useState(false)
     const [categoryFormData, setCategoryFormData] = useState({ category_name: "" })
     
@@ -50,11 +50,6 @@ function Profile({ user }){
     }
 
     //PROVIDERS CRU
-    useEffect(() => {
-        fetch('/providers')
-        .then(response => response.json())
-        .then(data => setProviders(data))
-    }, [])
     function manageProviderFormData(e){
         let key = e.target.name
         let value = e.target.value
@@ -99,6 +94,7 @@ function Profile({ user }){
             .then(data => {
                 setProviders([...providers, data])
                 setShowProviderForm(!showProviderForm)
+                setHasUpdate(!hasUpdate)
             })
         }
     }
@@ -115,11 +111,6 @@ function Profile({ user }){
     }
 
     //CATEGORIES CRU
-    useEffect(() => {
-        fetch('/categories')
-        .then(response => response.json())
-        .then(data => setCategories(data))
-    }, []) 
     function manageCategoryFormData(e){
         let key = e.target.name
         let value = e.target.value
@@ -147,7 +138,7 @@ function Profile({ user }){
             .then(data=>{
                 setIsEdit(false)
                 setShowCategoryForm(!showCategoryForm)
-                history.go('/profile')
+                history.go('/')
             })
         } else {
             await fetch(`/categories`, {
@@ -161,6 +152,7 @@ function Profile({ user }){
             .then(data => {
                 setCategories([...categories, data])
                 setShowCategoryForm(!showCategoryForm)
+                setHasUpdate(!hasUpdate)
             })
         }
     }

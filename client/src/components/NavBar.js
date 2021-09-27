@@ -11,7 +11,7 @@ function NavBar({ user, setUser }){
         .then((r) => {
             if (r.ok) {
             setUser(null);
-            history.push('/login')
+            history.push('/')
             }
         });          
     }

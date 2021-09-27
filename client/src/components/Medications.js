@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
-function Medications() {
+function Medications({ user, univeralProviders}) {
     const history = useHistory()
     const [medications, setMedications] = useState([])
     const [showMedicationForm, setShowMedicationForm] = useState(false)
@@ -21,15 +21,14 @@ function Medications() {
         .then(data => setMedications(data))
     }, [])
 
-    useEffect(() => {
-        fetch('/providers')
-        .then(response => response.json())
-        .then(dataProviders => {
-            setMedicationFormData({...medicationFormData, provider_name: dataProviders[0].provider_name})
-            setMedicationProviders(dataProviders)
-        })
-    }, [])
 
+    useEffect(() => {
+        if (user && user.user_providers.length > 0) {
+            setMedicationProviders(user.user_providers)
+            setMedicationFormData({...medicationFormData, provider_name: user.user_providers[0].provider_name})
+        }
+    }, [user])
+    
     function searchMedicationsOnAPI(e){
         e.preventDefault()
         if (genericMedication) {
@@ -131,11 +130,11 @@ function Medications() {
                     <div>
                         {medicationsFromAPI.map((medFromAPI) => {
                             return (
-                                    <label key={medFromAPI}>
-                                        <input type="radio" value={medFromAPI.strength} name="radioMedications" 
-                                            onChange={(e)=>setRadioSelectedOption(e.target.value)}/>
-                                        NAME: {medFromAPI.name} STRENGTH: {medFromAPI.strength} <br />
-                                    </label>
+                                <label key={medFromAPI}>
+                                    <input type="radio" value={medFromAPI.strength} name="radioMedications" 
+                                        onChange={(e)=>setRadioSelectedOption(e.target.value)}/>
+                                    NAME: {medFromAPI.name} STRENGTH: {medFromAPI.strength} <br />
+                                </label>
                             )
                         })} 
                     </div>
@@ -146,7 +145,7 @@ function Medications() {
                     <label htmlFor="providers">Prescribing Provider:</label>
                     <select type="dropdown" id="medication-dropdown-provider" name="provider_name"
                         value={medicationFormData.provider_name} onChange={manageMedicationFormData}>
-                        {medicationProviders.length > 1 && medicationProviders.map((provider) => {
+                        {medicationProviders.length > 0 && medicationProviders.map((provider) => {
                             return (
                                 <option key={medicationProviders.provider_name} value={medicationProviders.provider_name}>
                                     {provider.provider_name}

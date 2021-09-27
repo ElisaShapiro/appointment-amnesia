@@ -2,12 +2,14 @@
 import Login from './Login'
 import ProfileContainer from './ProfileContainer';
 
-function Home({ user, setUser }){
+function Home({ user, setUser, setHasUpdate, hasUpdate }){
 
     return(
         <div>
             {user ?
-            <ProfileContainer user={user}/>
+            <ProfileContainer user={user}
+            setHasUpdate={setHasUpdate} hasUpdate={hasUpdate}
+             />
             : 
             <>
             "Login or Signup"

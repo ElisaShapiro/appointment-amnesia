@@ -3,7 +3,7 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DateTimePicker from '@mui/lab/DateTimePicker';
 
-function AddAppointmentForm({ appointmentCategories, appointmentProviders, formData, setFormData, manageFormData, handleSubmit, setAppointmentTimeValue, appointmentTimeValue}){
+function AddAppointmentForm({ universalCategories, universalProviders, appointmentCategories, appointmentProviders, formData, setFormData, manageFormData, handleSubmit, setAppointmentTimeValue, appointmentTimeValue}){
 
     return(
         <div> 
@@ -12,7 +12,7 @@ function AddAppointmentForm({ appointmentCategories, appointmentProviders, formD
                     <label htmlFor="category">Category</label>
                     <select onChange={manageFormData} type="select" 
                         name="category" value={formData.category.category_name}>
-                        {appointmentCategories.map((appointmentCategory) => {
+                        {universalCategories.map((appointmentCategory) => {
                             return(
                                 <option key={appointmentCategory.id} name={appointmentCategory.category_name}>
                                     {appointmentCategory.category_name}
@@ -25,7 +25,7 @@ function AddAppointmentForm({ appointmentCategories, appointmentProviders, formD
                     <label htmlFor="provider">Provider</label>
                     <select onChange={manageFormData} type="select" name="provider" 
                         value={formData.provider.provider_name}>
-                        {appointmentProviders.map((appointmentProvider) => {
+                        {universalProviders.map((appointmentProvider) => {
                             return(
                                 <option key={appointmentProvider.id} name={appointmentProvider.provider_name}>
                                     {appointmentProvider.provider_name}

@@ -3,8 +3,7 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DateTimePicker from '@mui/lab/DateTimePicker';
 
-function AddEventForm({ eventCategories, formData, setFormData, manageFormData, handleSubmit, setEventTimeValue, eventTimeValue}){
-    
+function AddEventForm({ universalCategories, eventCategories, formData, setFormData, manageFormData, handleSubmit, setEventTimeValue, eventTimeValue}){
     return(
         <div>
             <form onSubmit={handleSubmit}>
@@ -12,7 +11,7 @@ function AddEventForm({ eventCategories, formData, setFormData, manageFormData, 
                     <label htmlFor="category">Category</label>
                     <select onChange={manageFormData} type="select" name="category" 
                         value={formData.category.category_name} placeholder="category">
-                        {eventCategories.map((eventCategory) => {
+                        {universalCategories.map((eventCategory) => {
                             return(
                                 <option key={eventCategory.id} name={eventCategory.category_name}>
                                     {eventCategory.category_name}

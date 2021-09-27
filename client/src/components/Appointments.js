@@ -4,11 +4,10 @@ import AppointmentDetail from './AppointmentDetail';
 import AddAppointmentForm from './AddAppointmentForm';
 import SearchBar from './SearchBar';
 
-function Appointments(){
+function Appointments({ user, universalCategories, universalProviders }){
     const history = useHistory()
     const [appointments, setAppointments] = useState([])
     const [isEdit, setIsEdit] = useState(false)
-
     const [appointmentCategories, setAppointmentCategories] = useState([])
     const [appointmentProviders, setAppointmentProviders] = useState([])
     const [formData, setFormData] = useState({
@@ -17,6 +16,16 @@ function Appointments(){
         appointment_time: ""
     })
     const [appointmentTimeValue, setAppointmentTimeValue] = useState(new Date())
+
+    useEffect(()=>{
+        if (user && user.user_categories.length > 0) {
+            setAppointmentCategories(user.user_categories)
+        }
+        if (user && user.user_providers.length > 0) {
+            setAppointmentProviders(user.user_providers)
+        }
+    }, [user])
+
 
     //Appointments CU
     function handleClickAppointment(e){
@@ -43,9 +52,8 @@ function Appointments(){
     }
     async function handleSubmit(e) {
         e.preventDefault()
-        const selectedCategory = appointmentCategories.filter((category) => category.category_name == formData.category)[0]
-        const selectedProvider = appointmentProviders.filter((provider) => provider.provider_name == formData.provider)[0]
-        debugger
+        const selectedCategory = universalCategories.filter((category) => category.category_name == formData.category)[0]
+        const selectedProvider = universalProviders.filter((provider) => provider.provider_name == formData.provider)[0]
         const newFormData = {...formData, category_id: selectedCategory.id, provider_id: selectedProvider.id}
         if (isEdit) {
             fetch(`/appointments/${formData.id}`, {
@@ -74,17 +82,6 @@ function Appointments(){
             })
         }
     }
-
-    useEffect(() => {
-        fetch('/categories')
-        .then(response => response.json())
-        .then(dataCategories => setAppointmentCategories(dataCategories))
-    }, [])
-    useEffect(() => {
-        fetch('/providers')
-        .then(response => response.json())
-        .then(dataProviders => setAppointmentProviders(dataProviders))
-    }, [])
 
     //GET appointments
     useEffect(() => {
@@ -146,8 +143,10 @@ function Appointments(){
                 <AddAppointmentForm 
                     setAppointmentTimeValue={setAppointmentTimeValue}
                     appointmentTimeValue={appointmentTimeValue}
-                    appointmentCategories={appointmentCategories}
-                    appointmentProviders={appointmentProviders}
+                    // appointmentCategories={appointmentCategories}
+                    // appointmentProviders={appointmentProviders}
+                    universalCategories={universalCategories}
+                    universalProviders={universalProviders} 
                     formData={formData} 
                     setFormData={setFormData}
                     manageFormData={manageFormData} 

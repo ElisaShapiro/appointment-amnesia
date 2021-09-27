@@ -4,11 +4,10 @@ import EventDetail from './EventDetail';
 import AddEventForm from './AddEventForm';
 import SearchBar from './SearchBar';
 
-function Events(){
+function Events({ user, universalCategories }){
     const history = useHistory()
     const [events, setEvents] = useState([])
     const [isEdit, setIsEdit] = useState(false)
-    
     const [eventCategories, setEventCategories] = useState([])
     const [formData, setFormData] = useState({
         category: "",
@@ -16,6 +15,12 @@ function Events(){
         severity: "",
         event_time: ""
     })
+    useEffect(()=>{
+        if (user && user.user_categories.length > 0) {
+            setEventCategories(user.user_categories)
+        }
+    }, [user])
+
     const [eventTimeValue, setEventTimeValue] = useState(new Date())
 
     function handleClickEdit(e){
@@ -42,7 +47,7 @@ function Events(){
     }
     async function handleSubmit(e) {
         e.preventDefault()
-        const selectedCategory = eventCategories.filter((category) => category.category_name == formData.category)[0]
+        const selectedCategory = universalCategories.filter((category) => category.category_name == formData.category)[0]
         const newFormData = {...formData, category_id: selectedCategory.id}
         if (isEdit) {
             fetch(`/events/${formData.id}`, {
@@ -76,11 +81,11 @@ function Events(){
         }
     }
 
-    useEffect(() => {
-        fetch('/categories')
-        .then(response => response.json())
-        .then(data => setEventCategories(data))
-    }, [])
+    // useEffect(() => {
+    //     fetch('/categories')
+    //     .then(response => response.json())
+    //     .then(data => setEventCategories(data))
+    // }, [])
     
 
     //GET events
@@ -148,7 +153,8 @@ function Events(){
             <AddEventForm 
                     setEventTimeValue={setEventTimeValue}
                     eventTimeValue={eventTimeValue}
-                    eventCategories={eventCategories}
+                    // eventCategories={eventCategories}
+                    universalCategories={universalCategories}
                     formData={formData} 
                     setFormData={setFormData}
                     manageFormData={manageFormData} 

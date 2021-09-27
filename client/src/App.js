@@ -12,6 +12,19 @@ import Medications from './components/Medications';
 
 function App() {
   const [user, setUser] = useState(null)
+  const [universalCategories, setUniversalCategories] = useState([])
+  const [universalProviders, setUniversalProviders] = useState([])
+  const [hasUpdate, setHasUpdate] = useState(false)
+  useEffect(() => {
+    fetch('/categories')
+    .then(response => response.json())
+    .then(data => setUniversalCategories(data))
+  }, [hasUpdate])  
+  useEffect(() => {
+    fetch('/providers')
+    .then(response => response.json())
+    .then(data => setUniversalProviders(data))
+  }, [hasUpdate])  
   
   // async
     useEffect(() => {
@@ -31,7 +44,10 @@ function App() {
       <NavBar user={user} setUser={setUser} />
         <Switch>
           <Route exact path="/">
-            <Home user={user} setUser={setUser}/>
+            <Home user={user} setUser={setUser}
+         
+            setHasUpdate={setHasUpdate} hasUpdate={hasUpdate}
+            />
           </Route>
           <Route path="/login">
             <Login setUser={setUser}/>
@@ -39,17 +55,29 @@ function App() {
           <Route path="/signup">
             <Signup setUser={setUser}/>
           </Route>
-          <Route path="/profile">
-            <Profile user={user}/>
-          </Route>
+          {/* <Route path="/profile">
+            <Profile user={user}
+            setHasUpdate={setHasUpdate} hasUpdate={hasUpdate}
+              universalCategories={universalCategories} 
+              universalProviders={universalProviders} 
+            />
+          </Route> */}
           <Route path="/events">
-            <Events user={user}/>
+            <Events user={user}
+              universalCategories={universalCategories} 
+              universalProviders={universalProviders} 
+            />
           </Route>
           <Route path="/appointments">
-            <Appointments user={user} />
+            <Appointments user={user} 
+              universalCategories={universalCategories} 
+              universalProviders={universalProviders}
+            />
           </Route>
           <Route path="/medications">
-            <Medications user={user} />
+            <Medications user={user} 
+              universalProviders={universalProviders}
+            />
           </Route>
         </Switch>
     </div>

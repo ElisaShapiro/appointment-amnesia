@@ -22,7 +22,7 @@ function SearchBar({ search, setSearch, categories, setSortCategory, sortOther, 
             <label htmlFor="dropdown-category">Sort by Category:</label>
             <select type="dropdown" id="dropdown-category" onChange={handleSetCategory}>
                 <option value="All">All</option>
-                {categories.length > 1 && categories.map((category) => {
+                {categories.length > 0 && categories.map((category) => {
                     return <option key={category.category_name} value={category.category_name}>
                         {category.category_name}</option>
                 })}
@@ -44,7 +44,7 @@ function SearchBar({ search, setSearch, categories, setSortCategory, sortOther, 
                 <label htmlFor="searchbar-dropdown-provider">Sort by Provider:</label>
                 <select type="dropdown" id="searchbar-dropdown-provider" onChange={handleSetOther}>
                     <option value="All">All</option>
-                    {sortOther.length > 1 && sortOther.map((provider) => {
+                    {sortOther.length > 0 && sortOther.map((provider) => {
                         return <option key={provider.provider_name} value={provider.provider_name}>
                             {provider.provider_name}</option>
                     })} 
