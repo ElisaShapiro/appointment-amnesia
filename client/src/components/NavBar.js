@@ -1,4 +1,5 @@
 import { NavLink, useHistory } from 'react-router-dom';
+import Avatar from '@mui/material/Avatar';
 
 function NavBar({ user, setUser }){
     const history = useHistory()
@@ -20,18 +21,18 @@ function NavBar({ user, setUser }){
         <div className="navbar-div">
             {user ?
             <>
+                <Avatar alt="profile picture" src={user.avatar} 
+                    sx={{ height: 30, width: 30 }}/>
                 <button className="navbar-button">
                     <NavLink exact to="/">
                         Welcome, {user.name}
                     </NavLink>
-                    <img src={user.avatar} className="profile-pic" alt="Profile" style={{height: "12px", width: "12px" }} 
-                    onError={(e)=>{e.target.onerror = null; e.target.src="https://i.imgur.com/3y8bjZJ.png"}}/>
                 </button>
-                <button className="navbar-button">
+                {/* <button className="navbar-button">
                     <NavLink to="/profile">
                         Profile
                     </NavLink>
-                </button>
+                </button> */}
                 <button className="navbar-button">
                     <NavLink to="/events">
                         Events

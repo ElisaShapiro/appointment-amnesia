@@ -165,11 +165,11 @@ function Profile({ user, setHasUpdate, hasUpdate }){
     return(
         <div>
             <div className="demographic-info" style={{backgroundColor: "red"}}>
-                Name: {user.name} 
-                Age: {user.age}
-                Summary: {user.summary}
-                Avatar: <img alt="user profile pictre" src={user.avatar} 
-                    style={{marginTop:"0px", maxHeight: '150px', maxWidth: '150px', padding: "5px"}}/>
+                <p>Name: {user.name} 
+                <br />Age: {user.age}
+                <br />Summary: {user.summary}
+                <br />Avatar: <img alt="user profile pictre" src={user.avatar} 
+                    style={{marginTop:"0px", maxHeight: '150px', maxWidth: '150px', padding: "5px"}}/></p>
                 <button onClick={()=>setShowDemographicForm(!showDemographicForm)}>
                     Edit Personal Info
                 </button>
@@ -198,14 +198,14 @@ function Profile({ user, setHasUpdate, hasUpdate }){
                 My Providers: {providers.map((provider) => {
                     return (
                         <div key={provider.id}>
-                            {provider.provider_name}
-                            {provider.phone_number}
-                            {provider.address}
-                            <button id={provider.id} onClick={setEditProvider}>Edit Provider</button>
+                            <p>{provider.provider_name}
+                            <br />{provider.phone_number}
+                            <br />{provider.address}
+                            <br /><button id={provider.id} onClick={setEditProvider}>Edit Provider</button></p>
                         </div>
                      )
                 })}
-                <button onClick={() => setShowProviderForm(!showProviderForm)}>Add Provider to List</button>
+                <button onClick={() => setShowProviderForm(!showProviderForm)}>Show Add Provider Form</button>
                 {showProviderForm ?
                 <form onSubmit={handleProviderSubmit}>
                     <label htmlFor="provider_name">Provider Name:</label>
@@ -232,10 +232,10 @@ function Profile({ user, setHasUpdate, hasUpdate }){
                         </div>
                     )
                 })}
-                <button onClick={() => setShowCategoryForm(!showCategoryForm)}>Add Category to List</button>
+                <button onClick={() => setShowCategoryForm(!showCategoryForm)}>Show Add Category Form</button>
                 {showCategoryForm ?
                 <form onSubmit={handleCategorySubmit}>
-                    <label htmlFor="category">Add Category</label>
+                    <label htmlFor="category">Category:</label>
                     <input name="category_name" id="category" type="text" 
                         value={categoryFormData.category_name} onChange={manageCategoryFormData}/>
                     <button >Add Category</button>

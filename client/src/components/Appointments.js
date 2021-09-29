@@ -140,7 +140,7 @@ function Appointments({ user, universalCategories, universalProviders }){
                         </div>
                     )
                 })}
-                <AddAppointmentForm 
+                <br /><AddAppointmentForm 
                     setAppointmentTimeValue={setAppointmentTimeValue}
                     appointmentTimeValue={appointmentTimeValue}
                     // appointmentCategories={appointmentCategories}

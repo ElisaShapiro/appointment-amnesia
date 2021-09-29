@@ -9,7 +9,7 @@ function AddAppointmentForm({ universalCategories, universalProviders, appointme
         <div> 
             <form onSubmit={handleSubmit}>
                 <div>
-                    <label htmlFor="category">Category</label>
+                    <label htmlFor="category">Category:</label>
                     <select onChange={manageFormData} type="select" 
                         name="category" value={formData.category.category_name}>
                         {universalCategories.map((appointmentCategory) => {
@@ -22,7 +22,7 @@ function AddAppointmentForm({ universalCategories, universalProviders, appointme
                     </select>
                 </div>
                 <div>
-                    <label htmlFor="provider">Provider</label>
+                    <label htmlFor="provider">Provider:</label>
                     <select onChange={manageFormData} type="select" name="provider" 
                         value={formData.provider.provider_name}>
                         {universalProviders.map((appointmentProvider) => {
@@ -33,7 +33,7 @@ function AddAppointmentForm({ universalCategories, universalProviders, appointme
                             )
                         })}
                     </select>
-                </div>
+                </div><br />
                 <div>
                     <LocalizationProvider dateAdapter={AdapterDateFns}>
                         <DateTimePicker

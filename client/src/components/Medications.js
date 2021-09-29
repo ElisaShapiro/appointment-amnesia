@@ -1,7 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Switch from '@mui/material/Switch';
 
-function Medications({ user, univeralProviders}) {
+function Medications({ user, universalProviders}) {
     const history = useHistory()
     const [medications, setMedications] = useState([])
     const [showMedicationForm, setShowMedicationForm] = useState(false)
@@ -40,10 +43,14 @@ function Medications({ user, univeralProviders}) {
             })
             .then(response => response.json())
             .then(data => {
-                let savedGenericInfo = data.results[0].products.map((product) => {
-                    return product.active_ingredients[0]
-                })
-                setMedicationsFromAPI(savedGenericInfo)
+                if (!data.error) {
+                    let savedGenericInfo = data.results[0].products.map((product) => {
+                        return product.active_ingredients[0]
+                    })
+                    setMedicationsFromAPI(savedGenericInfo)
+                } else {
+                    alert('Generic medication not found! Please search again.')
+                }
             })
         } else {
             fetch(`https://api.fda.gov/drug/drugsfda.json?search=openfda.brand_name:${medicationName}`, {
@@ -54,10 +61,14 @@ function Medications({ user, univeralProviders}) {
             })
             .then(response => response.json())
             .then(data => {
-                let savedBrandInfo = data.results[0].products.map((product) => {
-                    return product.active_ingredients[0]
-                })
-                setMedicationsFromAPI(savedBrandInfo)
+                if (!data.error) {
+                    let savedBrandInfo = data.results[0].products.map((product) => {
+                        return product.active_ingredients[0]
+                    })
+                    setMedicationsFromAPI(savedBrandInfo)
+                } else {
+                    alert('Brand name medication not found! Please search again.')
+                }
             })
         }
     }
@@ -69,6 +80,10 @@ function Medications({ user, univeralProviders}) {
             ...medicationFormData,
             [key]: value
         })
+    }
+
+    function handleChangeGenericMedication(){
+        setGenericMedication(!genericMedication)
     }
 
     function handleMedicationSubmit(e){
@@ -103,25 +118,31 @@ function Medications({ user, univeralProviders}) {
 
     return(
         <div>
-            <div style={{backgroundColor: "yellow"}}> 
+            <div> 
                 My Medications: {medications.map((medication) => {
                     return (
-                        <div key={medication.id}>
-                            Medicine: {medication.medication_name}
-                            Dosage: {medication.dosage}
-                            Prescribed by: {medication.provider.provider_name}
+                        <div key={medication.id} style={{backgroundColor: "yellow"}}>
+                            <p>Medicine: {medication.medication_name}
+                            <br />Dosage: {medication.dosage}
+                            <br />Prescribed by: {medication.provider.provider_name}</p>
                             <button value={medication.id} onClick={handleDeleteMedication}>
                                 DELETE
                             </button>
                         </div>
                     )
                 })}
-                <button onClick={() => setShowMedicationForm(!showMedicationForm)}>Add Medication</button>
+                <br /><button onClick={() => setShowMedicationForm(!showMedicationForm)}>Show Add Medication Form</button>
                 {showMedicationForm ?
-                <form onSubmit={handleMedicationSubmit}>
-                    <label htmlFor="switch-api-search">Generic?</label>
+                <form onSubmit={handleMedicationSubmit} style={{backgroundColor: "yellow"}}>
+                    {/* <label htmlFor="switch-api-search">Generic?</label>
                     <input type="checkbox" id="switch-api-search" checked={genericMedication} 
-                        onChange={() => setGenericMedication(!genericMedication)} />
+                        onChange={() => setGenericMedication(!genericMedication)} /> */}
+                    <FormGroup>
+                        <FormControlLabel control={<Switch />} 
+                        label="Generic?" id="medication" 
+                        checked={genericMedication}
+                        onChange={handleChangeGenericMedication}/>
+                    </FormGroup>   
                     <label htmlFor="medicationName">Search Database by Medication Name:</label>
                     <input name="medicationName" id="medication" type="text" 
                         value={medicationName} onChange={(e) => setMedicationName(e.target.value)} />
@@ -142,7 +163,7 @@ function Medications({ user, univeralProviders}) {
                     <label htmlFor="dosage">Directions:</label>
                     <input name="dosage" id="dosage" type="text" 
                     value={medicationFormData.medication_name} onChange={manageMedicationFormData}/>
-                    <label htmlFor="providers">Prescribing Provider:</label>
+                    <br /><label htmlFor="providers">Prescribing Provider:</label>
                     <select type="dropdown" id="medication-dropdown-provider" name="provider_name"
                         value={medicationFormData.provider_name} onChange={manageMedicationFormData}>
                         {medicationProviders.length > 0 && medicationProviders.map((provider) => {
@@ -153,7 +174,7 @@ function Medications({ user, univeralProviders}) {
                             )
                         })} 
                     </select>
-                <button>Add Medication Form</button>
+                <br /><button>Add Medication Button</button>
                 </form>
                 : null}
             </div>

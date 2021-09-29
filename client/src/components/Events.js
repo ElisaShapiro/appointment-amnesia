@@ -4,6 +4,8 @@ import EventDetail from './EventDetail';
 import AddEventForm from './AddEventForm';
 import SearchBar from './SearchBar';
 
+
+
 function Events({ user, universalCategories }){
     const history = useHistory()
     const [events, setEvents] = useState([])
@@ -132,6 +134,8 @@ function Events({ user, universalCategories }){
             return false
         }
     })
+
+   
     
     return(
         <div>

@@ -32,11 +32,11 @@ function SearchBar({ search, setSearch, categories, setSortCategory, sortOther, 
                     <label htmlFor="dropdown-severity">Sort by Severity:</label>
                     <select type="dropdown" id="dropdown-severity" onChange={handleSetOther}>
                         <option value="All">All</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
+                        <option value="1">1 :D</option>
+                        <option value="2">2 :)</option>
+                        <option value="3">3 :|</option>
+                        <option value="4">4 :(</option>
+                        <option value="5">5 >:</option>
                     </select>
                 </div>
             :
