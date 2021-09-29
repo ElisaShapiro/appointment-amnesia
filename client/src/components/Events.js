@@ -27,6 +27,7 @@ function Events({ user, universalCategories }){
 
     function handleClickEdit(e){
         const editedEvent = events.filter((event) => event.id == e.target.value)[0]
+        // let formDataEvent = {...editedEvent, category: editedEvent.category.category_name}
         setIsEdit(!isEdit)
         setFormData(editedEvent)
         setEventTimeValue(editedEvent.event_time)

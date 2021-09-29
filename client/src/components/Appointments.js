@@ -54,6 +54,7 @@ function Appointments({ user, universalCategories, universalProviders }){
         e.preventDefault()
         const selectedCategory = universalCategories.filter((category) => category.category_name == formData.category)[0]
         const selectedProvider = universalProviders.filter((provider) => provider.provider_name == formData.provider)[0]
+        debugger
         const newFormData = {...formData, category_id: selectedCategory.id, provider_id: selectedProvider.id}
         if (isEdit) {
             fetch(`/appointments/${formData.id}`, {

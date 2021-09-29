@@ -10,6 +10,9 @@ import Events from './components/Events';
 import Appointments from './components/Appointments';
 import Medications from './components/Medications';
 
+import theme from './components/Theme';
+import { ThemeProvider } from '@mui/material/styles';
+
 function App() {
   const [user, setUser] = useState(null)
   const [universalCategories, setUniversalCategories] = useState([])
@@ -40,7 +43,8 @@ function App() {
     }, []);
 
   return (
-    <div className="App">
+    // <div className="App">
+    <ThemeProvider theme={theme}>
       <NavBar user={user} setUser={setUser} />
         <Switch>
           <Route exact path="/">
@@ -80,7 +84,8 @@ function App() {
             />
           </Route>
         </Switch>
-    </div>
+      </ThemeProvider>
+    // </div>
   );
 }
 

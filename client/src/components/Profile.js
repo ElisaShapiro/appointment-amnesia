@@ -1,6 +1,14 @@
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Typography from '@mui/material/Typography';
+import { Button, CardActionArea, CardActions } from '@mui/material';
+
+import Container from '@mui/material/Container';
+
 function Profile({ user, setHasUpdate, hasUpdate }){
     const history = useHistory()
     const [isEdit, setIsEdit] = useState(false)
@@ -164,48 +172,91 @@ function Profile({ user, setHasUpdate, hasUpdate }){
 
     return(
         <div>
-            <div className="demographic-info" style={{backgroundColor: "red"}}>
-                <p>Name: {user.name} 
-                <br />Age: {user.age}
-                <br />Summary: {user.summary}
-                <br />Avatar: <img alt="user profile pictre" src={user.avatar} 
-                    style={{marginTop:"0px", maxHeight: '150px', maxWidth: '150px', padding: "5px"}}/></p>
-                <button onClick={()=>setShowDemographicForm(!showDemographicForm)}>
-                    Edit Personal Info
-                </button>
-                {showDemographicForm ?
-                <form onSubmit={handleDemographicSubmit}>
-                    <label htmlFor="email">Email:</label>
-                    <input name="email" id="email" type="text" 
-                        value={demographicFormData.email} onChange={manageDemographicFormData}/>
-                    <label htmlFor="name">Name:</label>
-                    <input name="name" id="name" type="text" 
-                        value={demographicFormData.name} onChange={manageDemographicFormData}/>
-                    <label htmlFor="age">Age:</label>
-                    <input name="age" id="age" type="number" 
-                        value={demographicFormData.age} onChange={manageDemographicFormData}/>
-                    <label htmlFor="summary">Personal Summary:</label>
-                    <textarea name="summary" id="summary" rows="5" cols="50" style={{ width: "400px", height: "100px" }}
-                        value={demographicFormData.summary} onChange={manageDemographicFormData}/>
-                    <label htmlFor="avatar">Avatar URL:</label>
-                    <input name="avatar" id="avatar" type="text" 
-                        value={demographicFormData.avatar} onChange={manageDemographicFormData}/>
-                    <button>Update Demographics</button>
-                </form>
-                : null}
-            </div>
-            <div style={{backgroundColor: "orange"}}> 
-                My Providers: {providers.map((provider) => {
+            <Container fixed>
+                <Card sx={{ maxWidth: 345 }}>
+                    <CardActionArea>
+                        <CardMedia
+                            component="img"
+                            height="150"
+                            image={user.avatar}
+                            alt="user profile picture"
+                        />
+                        <CardContent>
+                        <Typography gutterBottom variant="h5" component="div">
+                            {user.name} 
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">
+                            Age: {user.age}<br />
+                            Bio: {user.summary}
+                        </Typography>
+                        </CardContent>
+                    </CardActionArea>
+                    <CardActions>
+                        <Button size="small" color="primary" onClick={()=>setShowDemographicForm(!showDemographicForm)}>
+                        Edit Demographic Info
+                        </Button>
+                    </CardActions>
+                    </Card>
+                <div className="demographic-info" style={{backgroundColor: "red"}}>
+                    {/* <p>Name: {user.name} 
+                    <br />Age: {user.age}
+                    <br />Summary: {user.summary}
+                    <br />Avatar: <img alt="user profile picture" src={user.avatar} 
+                        style={{marginTop:"0px", maxHeight: '150px', maxWidth: '150px', padding: "5px"}}/></p>
+                    <button onClick={()=>setShowDemographicForm(!showDemographicForm)}>
+                        Edit Personal Info
+                    </button> */}
+                    {showDemographicForm ?
+                    <form onSubmit={handleDemographicSubmit}>
+                        <label htmlFor="email">Email:</label>
+                        <input name="email" id="email" type="text" 
+                            value={demographicFormData.email} onChange={manageDemographicFormData}/>
+                        <label htmlFor="name">Name:</label>
+                        <input name="name" id="name" type="text" 
+                            value={demographicFormData.name} onChange={manageDemographicFormData}/>
+                        <label htmlFor="age">Age:</label>
+                        <input name="age" id="age" type="number" 
+                            value={demographicFormData.age} onChange={manageDemographicFormData}/>
+                        <label htmlFor="summary">Personal Summary:</label>
+                        <textarea name="summary" id="summary" rows="5" cols="50" style={{ width: "400px", height: "100px" }}
+                            value={demographicFormData.summary} onChange={manageDemographicFormData}/>
+                        <label htmlFor="avatar">Avatar URL:</label>
+                        <input name="avatar" id="avatar" type="text" 
+                            value={demographicFormData.avatar} onChange={manageDemographicFormData}/>
+                        <button>Update Demographics</button>
+                    </form>
+                    : null}
+                </div>
+            </Container>
+            <Container>
+                <CardContent>
+                    <Typography sx={{ fontSize: 14 }} color="text.secondary">
+                        My Providers: {providers.map((provider) => {
                     return (
-                        <div key={provider.id}>
-                            <p>{provider.provider_name}
-                            <br />{provider.phone_number}
+                        // <div key={provider.id}>
+                        //     <p>{provider.provider_name}
+                        //     <br />{provider.phone_number}
+                        //     <br />{provider.address}
+                        //     <br /><button id={provider.id} onClick={setEditProvider}>Edit Provider</button></p>
+                        // </div>
+                        <>
+                        <Typography variant="h5" component="div">
+                            {provider.provider_name}
+                        </Typography>
+                        <Typography>
+                            {provider.phone_number}
                             <br />{provider.address}
-                            <br /><button id={provider.id} onClick={setEditProvider}>Edit Provider</button></p>
-                        </div>
+                        </Typography>
+                        <CardActions>
+                            <Button id={provider.id} onClick={setEditProvider}>Edit Provider</Button>
+                        </CardActions>
+                        </>
                      )
-                })}
+                    })}
+                    </Typography>
                 <button onClick={() => setShowProviderForm(!showProviderForm)}>Show Add Provider Form</button>
+                </CardContent>
+                            <div style={{backgroundColor: "orange"}}> 
                 {showProviderForm ?
                 <form onSubmit={handleProviderSubmit}>
                     <label htmlFor="provider_name">Provider Name:</label>
@@ -222,6 +273,7 @@ function Profile({ user, setHasUpdate, hasUpdate }){
                 :
                 null}
             </div>
+            </Container>
             <div style={{backgroundColor: "green"}}>
                 My Categories: {categories.map((category) => {
                     return (

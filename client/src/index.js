@@ -1,13 +1,35 @@
-import React from 'react';
+  import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom'
 import reportWebVitals from './reportWebVitals';
+// import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
+
+// const theme = createTheme({
+//   palette: {
+//     type: 'light',
+//     primary: {
+//       main: '#bce2d7',
+//     },
+//     secondary: {
+//       main: '#3b1c32',
+//     },
+//     background: {
+//       default: '#188fa7',
+//       paper: '#769fb6',
+//     },
+//     typography: {
+//       fontFamily: 'Quicksand, sans-serif'
+//     },
+//   }
+// })
 
 ReactDOM.render(
   <BrowserRouter>
-    <App />
+    {/* <ThemeProvider theme={theme}> */}
+      <App />
+    {/* </ThemeProvider> */}
   </BrowserRouter>,
   document.getElementById('root')
 );

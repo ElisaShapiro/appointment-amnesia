@@ -1,6 +1,7 @@
 import { NavLink, useHistory } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
 
+
 function NavBar({ user, setUser }){
     const history = useHistory()
     
