@@ -274,17 +274,31 @@ function Profile({ user, setHasUpdate, hasUpdate }){
                 null}
             </div>
             </Container>
-            <div style={{backgroundColor: "green"}}>
+            <Container>
+                <CardContent>
+                    <Typography variant="h3" color="text.secondary">
                 My Categories: {categories.map((category) => {
                     return (
-                        <div key={category.id}>
+                        // <div key={category.id}>
+                        //     {category.category_name}
+                        //     <button id={category.id} value={category.category_name} 
+                        //         onClick={setEditCategory}>Edit Category</button>
+                        // </div>
+                        <>
+                        <Typography variant="h5" component="div">
                             {category.category_name}
-                            <button id={category.id} value={category.category_name} 
-                                onClick={setEditCategory}>Edit Category</button>
-                        </div>
+                        </Typography>
+                        <CardActions>
+                            <Button id={category.id} value={category.category_name} onClick={setEditCategory}>Edit Category</Button>
+                        </CardActions>
+                        </>
                     )
                 })}
+                    </Typography>
                 <button onClick={() => setShowCategoryForm(!showCategoryForm)}>Show Add Category Form</button>
+                </CardContent>
+            
+                <div style={{backgroundColor: "green"}}>
                 {showCategoryForm ?
                 <form onSubmit={handleCategorySubmit}>
                     <label htmlFor="category">Category:</label>
@@ -294,6 +308,7 @@ function Profile({ user, setHasUpdate, hasUpdate }){
                 </form>
                 : null}
             </div>
+            </Container>
         </div>
     )
 

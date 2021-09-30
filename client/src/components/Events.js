@@ -82,14 +82,7 @@ function Events({ user, universalCategories }){
                 severity: "",
             })
         }
-    }
-
-    // useEffect(() => {
-    //     fetch('/categories')
-    //     .then(response => response.json())
-    //     .then(data => setEventCategories(data))
-    // }, [])
-    
+    } 
 
     //GET events
     useEffect(() => {

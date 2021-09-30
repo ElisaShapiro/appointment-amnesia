@@ -49,7 +49,6 @@ function App() {
         <Switch>
           <Route exact path="/">
             <Home user={user} setUser={setUser}
-         
             setHasUpdate={setHasUpdate} hasUpdate={hasUpdate}
             />
           </Route>
@@ -59,13 +58,6 @@ function App() {
           <Route path="/signup">
             <Signup setUser={setUser}/>
           </Route>
-          {/* <Route path="/profile">
-            <Profile user={user}
-            setHasUpdate={setHasUpdate} hasUpdate={hasUpdate}
-              universalCategories={universalCategories} 
-              universalProviders={universalProviders} 
-            />
-          </Route> */}
           <Route path="/events">
             <Events user={user}
               universalCategories={universalCategories} 

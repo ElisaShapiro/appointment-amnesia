@@ -1,13 +1,12 @@
-// import { useState, useEffect } from 'react';
 import Login from './Login'
-import ProfileContainer from './ProfileContainer';
+import Profile from './Profile';
 
 function Home({ user, setUser, setHasUpdate, hasUpdate }){
 
     return(
         <div>
             {user ?
-            <ProfileContainer user={user}
+            <Profile user={user}
             setHasUpdate={setHasUpdate} hasUpdate={hasUpdate}
              />
             : 
