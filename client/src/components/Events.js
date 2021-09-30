@@ -4,6 +4,8 @@ import EventDetail from './EventDetail';
 import AddEventForm from './AddEventForm';
 import SearchBar from './SearchBar';
 
+import { Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Container, Grid, TextField, Typography } from '@mui/material';
+
 
 
 function Events({ user, universalCategories }){
@@ -145,25 +147,26 @@ function Events({ user, universalCategories }){
                     categories={eventCategories} setSortCategory={setSortEventCategory}/>
             </div>    
             <div className="events-div">
+            <Container>
                 {filteredEvents.map((oneEvent) => {
                     return (
-                        <div className="event-detail-div" key={oneEvent.id} style={{backgroundColor: "blue", margin: "10px"}}>
+                        <Card key={oneEvent.id}>
                             <EventDetail oneEvent={oneEvent}/>
-                            <button value={oneEvent.id} onClick={handleClickEdit}>EDIT</button>
-                            <button value={oneEvent.id} onClick={handleDeleteEvent}>DELETE</button>
-                        </div>
+                            <Button size="small" color="primary" value={oneEvent.id} onClick={handleClickEdit}>EDIT</Button>
+                            <Button size="small" color="primary" value={oneEvent.id} onClick={handleDeleteEvent}>DELETE</Button>
+                        </Card>
                     )
                 })}
+            </Container>
             <AddEventForm 
-                    setEventTimeValue={setEventTimeValue}
-                    eventTimeValue={eventTimeValue}
-                    // eventCategories={eventCategories}
-                    universalCategories={universalCategories}
-                    formData={formData} 
-                    setFormData={setFormData}
-                    manageFormData={manageFormData} 
-                    handleSubmit={handleSubmit}
-                />
+                setEventTimeValue={setEventTimeValue}
+                eventTimeValue={eventTimeValue}
+                universalCategories={universalCategories}
+                formData={formData} 
+                setFormData={setFormData}
+                manageFormData={manageFormData} 
+                handleSubmit={handleSubmit}
+            />
             </div>
         </div>
     )

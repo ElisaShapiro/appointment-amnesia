@@ -10,6 +10,8 @@ import SentimentSatisfiedIcon from '@mui/icons-material/SentimentSatisfied';
 import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAltOutlined';
 import SentimentVerySatisfiedIcon from '@mui/icons-material/SentimentVerySatisfied';
 
+import { Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Container, FormControl, Grid, InputLabel, MenuItem, Select, Typography } from '@mui/material';
+
 
 const customIcons = {
     1: {
@@ -43,32 +45,35 @@ const customIcons = {
     value: PropTypes.number.isRequired,
   };
   
-function AddEventForm({ universalCategories, eventCategories, formData, setFormData, manageFormData, handleSubmit, setEventTimeValue, eventTimeValue}){
+function AddEventForm({ universalCategories, formData, setFormData, manageFormData, handleSubmit, setEventTimeValue, eventTimeValue}){
 
     
     return(
-        <div>
-              
+        <div>  
             <form onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor="category">Category</label>
-                    <select onChange={manageFormData} type="select" name="category" 
-                        value={formData.category.category_name} placeholder="category">
+                <FormControl style={{minWidth: 120}}>
+                    <InputLabel id="category-label">Category</InputLabel>
+                    <Select
+                        labelId="category-label"
+                        id="category"
+                        label="Category"
+                        name="category"
+                        value={formData.category.category_name}
+                        onChange={manageFormData}
+                    >
                         {universalCategories.map((eventCategory) => {
                             return(
-                                <option key={eventCategory.id} name={eventCategory.category_name}>
+                                <MenuItem key={eventCategory.id} name={eventCategory.category_name} value={eventCategory.category_name}>
                                     {eventCategory.category_name}
-                                </option>
+                                </MenuItem>
                             )
                         })}
-                    </select>
-                </div>
+                    </Select>
+                </FormControl>
                 <div>
-                    <label htmlFor="severity"> Severity</label>
-                    {/* <input onChange={manageFormData} type="number" name="severity" 
-                        value={formData.severity} placeholder="#" min="1" max="5"/> */}
-                  <Rating
-                    onChange={manageFormData}
+                <Typography component="legend">Severity</Typography>
+                    <Rating
+                        onChange={manageFormData}
                         name="severity"
                         defaultValue={3}
                         value={parseInt(formData.severity)}
@@ -77,12 +82,17 @@ function AddEventForm({ universalCategories, eventCategories, formData, setFormD
                     />
                 </div>
                 <div>
-                    <label htmlFor="content">What Happened?</label>
-                    <textarea onChange={manageFormData} name="content" rows="5" cols="50" 
-                        style={{ width: "400px", height: "100px" }}
-                        value={formData.content} placeholder="Describe Event Here..." />
-                </div><br />
-                <div>
+                <TextField
+                    multiline
+                    rows={5}
+                    id="content"
+                    label="What Happened?"
+                    name="content"
+                    value={formData.content}
+                    onChange={manageFormData}    
+                />
+                </div>
+                <div><br />
                     <LocalizationProvider dateAdapter={AdapterDateFns}>
                         <DateTimePicker
                             renderInput={(props) => <TextField {...props} />}
@@ -96,7 +106,7 @@ function AddEventForm({ universalCategories, eventCategories, formData, setFormD
                     </LocalizationProvider>
                 </div>
                 <div>
-                    <button type="submit">Add New Event</button>
+                    <Button type="submit">Add New Event</Button>
                 </div>
             </form>
         </div>

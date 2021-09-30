@@ -1,6 +1,10 @@
 import { NavLink, useHistory } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
 
+// import AppBar from '@material-ui/core/AppBar';
+// import Toolbar from '@material-ui/core/Toolbar';
+// import Typography from '@material-ui/core/Typography';
+
 
 function NavBar({ user, setUser }){
     const history = useHistory()
@@ -29,11 +33,6 @@ function NavBar({ user, setUser }){
                         Welcome, {user.name}
                     </NavLink>
                 </button>
-                {/* <button className="navbar-button">
-                    <NavLink to="/profile">
-                        Profile
-                    </NavLink>
-                </button> */}
                 <button className="navbar-button">
                     <NavLink to="/events">
                         Events

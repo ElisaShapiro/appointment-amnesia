@@ -3,38 +3,52 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DateTimePicker from '@mui/lab/DateTimePicker';
 
+import { Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Container, FormControl, Grid, InputLabel, MenuItem, Select, Typography } from '@mui/material';
+
 function AddAppointmentForm({ universalCategories, universalProviders, appointmentCategories, appointmentProviders, formData, setFormData, manageFormData, handleSubmit, setAppointmentTimeValue, appointmentTimeValue}){
 
     return(
         <div> 
             <form onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor="category">Category:</label>
-                    <select onChange={manageFormData} type="select" 
-                        name="category" value={formData.category.category_name}>
+                <FormControl style={{minWidth: 120}}>
+                    <InputLabel id="category-label">Category</InputLabel>
+                    <Select
+                        labelId="category-label"
+                        id="category"
+                        label="Category"
+                        name="category"
+                        value={formData.category.category_name}
+                        onChange={manageFormData}
+                    >
                         {universalCategories.map((appointmentCategory) => {
                             return(
-                                <option key={appointmentCategory.id} name={appointmentCategory.category_name}>
+                                <MenuItem key={appointmentCategory.id} name={appointmentCategory.category_name} value={appointmentCategory.category_name}>
                                     {appointmentCategory.category_name}
-                                </option>
+                                </MenuItem>
                             )
                         })}
-                    </select>
-                </div>
-                <div>
-                    <label htmlFor="provider">Provider:</label>
-                    <select onChange={manageFormData} type="select" name="provider" 
-                        value={formData.provider.provider_name}>
+                    </Select>
+                </FormControl>
+                <FormControl style={{minWidth: 120}}>
+                    <InputLabel id="provider-label">Provider</InputLabel>
+                    <Select
+                        labelId="provider-label"
+                        id="provider"
+                        label="Provder"
+                        name="provider"
+                        value={formData.provider.provider_name}
+                        onChange={manageFormData}
+                    >
                         {universalProviders.map((appointmentProvider) => {
                             return(
-                                <option key={appointmentProvider.id} name={appointmentProvider.provider_name}>
+                                <MenuItem key={appointmentProvider.id} name={appointmentProvider.provider_name} value={appointmentProvider.provider_name}>
                                     {appointmentProvider.provider_name}
-                                </option>
+                                </MenuItem>
                             )
                         })}
-                    </select>
-                </div><br />
-                <div>
+                    </Select>
+                </FormControl>
+                <div><br />
                     <LocalizationProvider dateAdapter={AdapterDateFns}>
                         <DateTimePicker
                             renderInput={(props) => <TextField {...props} />}
@@ -48,7 +62,7 @@ function AddAppointmentForm({ universalCategories, universalProviders, appointme
                     </LocalizationProvider>
                 </div>
                 <div>
-                    <button type="submit">Add New Appointment</button>
+                    <Button type="submit">Add New Appointment</Button>
                 </div>
             </form>
         </div>

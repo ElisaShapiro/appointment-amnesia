@@ -4,6 +4,8 @@ import AppointmentDetail from './AppointmentDetail';
 import AddAppointmentForm from './AddAppointmentForm';
 import SearchBar from './SearchBar';
 
+import { Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Container, Grid, TextField, Typography } from '@mui/material';
+
 function Appointments({ user, universalCategories, universalProviders }){
     const history = useHistory()
     const [appointments, setAppointments] = useState([])
@@ -143,20 +145,20 @@ function Appointments({ user, universalCategories, universalProviders }){
                 />
             </div>      
             <div className="appointments-div">
+            <Container>
                 {filteredAppointments.map((oneAppointment) => {
                     return (
-                        <div className="appointment-detail-div" key={oneAppointment.id} style={{backgroundColor: "blue", margin: "10px"}}>
+                        <Card key={oneAppointment.id}>
                             <AppointmentDetail oneAppointment={oneAppointment}/>
-                            <button value={oneAppointment.id} onClick={handleClickAppointment}>EDIT</button>
-                            <button value={oneAppointment.id} onClick={handleDeleteAppointment}>DELETE</button>
-                        </div>
+                            <Button size="small" color="primary" value={oneAppointment.id} onClick={handleClickAppointment}>EDIT</Button>
+                            <Button size="small" color="primary" value={oneAppointment.id} onClick={handleDeleteAppointment}>DELETE</Button>
+                        </Card>
                     )
                 })}
+                </Container>
                 <br /><AddAppointmentForm 
                     setAppointmentTimeValue={setAppointmentTimeValue}
                     appointmentTimeValue={appointmentTimeValue}
-                    // appointmentCategories={appointmentCategories}
-                    // appointmentProviders={appointmentProviders}
                     universalCategories={universalCategories}
                     universalProviders={universalProviders} 
                     formData={formData} 

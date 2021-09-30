@@ -1,13 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import { Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Container, Grid, TextField, Typography } from '@mui/material';
 
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
-import { Button, CardActionArea, CardActions } from '@mui/material';
-
-import Container from '@mui/material/Container';
 
 function Profile({ user, setHasUpdate, hasUpdate }){
     const history = useHistory()
@@ -100,7 +94,7 @@ function Profile({ user, setHasUpdate, hasUpdate }){
             })
             .then(response => response.json())
             .then(data => {
-                setProviders([...providers, data])
+                // setProviders([...providers, data])
                 setShowProviderForm(!showProviderForm)
                 setHasUpdate(!hasUpdate)
             })
@@ -135,6 +129,7 @@ function Profile({ user, setHasUpdate, hasUpdate }){
     }
     async function handleCategorySubmit(e){
         e.preventDefault()
+        debugger
         if (isEdit) {
             fetch(`/categories/${categoryFormData.id}`, {
                 method: "PATCH",
@@ -158,7 +153,7 @@ function Profile({ user, setHasUpdate, hasUpdate }){
             })
             .then(response => response.json())
             .then(data => {
-                setCategories([...categories, data])
+                // setCategories([...categories, data])
                 setShowCategoryForm(!showCategoryForm)
                 setHasUpdate(!hasUpdate)
             })
@@ -172,9 +167,8 @@ function Profile({ user, setHasUpdate, hasUpdate }){
 
     return(
         <div>
-            <Container fixed>
+            <Container>
                 <Card sx={{ maxWidth: 345 }}>
-                    <CardActionArea>
                         <CardMedia
                             component="img"
                             height="150"
@@ -190,56 +184,69 @@ function Profile({ user, setHasUpdate, hasUpdate }){
                             Bio: {user.summary}
                         </Typography>
                         </CardContent>
-                    </CardActionArea>
                     <CardActions>
                         <Button size="small" color="primary" onClick={()=>setShowDemographicForm(!showDemographicForm)}>
                         Edit Demographic Info
                         </Button>
                     </CardActions>
                     </Card>
-                <div className="demographic-info" style={{backgroundColor: "red"}}>
-                    {/* <p>Name: {user.name} 
-                    <br />Age: {user.age}
-                    <br />Summary: {user.summary}
-                    <br />Avatar: <img alt="user profile picture" src={user.avatar} 
-                        style={{marginTop:"0px", maxHeight: '150px', maxWidth: '150px', padding: "5px"}}/></p>
-                    <button onClick={()=>setShowDemographicForm(!showDemographicForm)}>
-                        Edit Personal Info
-                    </button> */}
+                <div>
                     {showDemographicForm ?
                     <form onSubmit={handleDemographicSubmit}>
-                        <label htmlFor="email">Email:</label>
-                        <input name="email" id="email" type="text" 
-                            value={demographicFormData.email} onChange={manageDemographicFormData}/>
-                        <label htmlFor="name">Name:</label>
-                        <input name="name" id="name" type="text" 
-                            value={demographicFormData.name} onChange={manageDemographicFormData}/>
-                        <label htmlFor="age">Age:</label>
-                        <input name="age" id="age" type="number" 
-                            value={demographicFormData.age} onChange={manageDemographicFormData}/>
-                        <label htmlFor="summary">Personal Summary:</label>
-                        <textarea name="summary" id="summary" rows="5" cols="50" style={{ width: "400px", height: "100px" }}
-                            value={demographicFormData.summary} onChange={manageDemographicFormData}/>
-                        <label htmlFor="avatar">Avatar URL:</label>
-                        <input name="avatar" id="avatar" type="text" 
-                            value={demographicFormData.avatar} onChange={manageDemographicFormData}/>
-                        <button>Update Demographics</button>
+                        <TextField
+                            id="email"
+                            label="Email"
+                            name="email"
+                            value={demographicFormData.email}
+                            onChange={manageDemographicFormData}
+                        />
+                        <TextField
+                            id="name"
+                            label="Name"
+                            name="name"
+                            value={demographicFormData.name}
+                            onChange={manageDemographicFormData}
+                        />
+                        <TextField
+                            id="age"
+                            label="Age"
+                            name="age"
+                            value={demographicFormData.age}
+                            onChange={manageDemographicFormData}
+                        />
+                        <TextField
+                            multiline
+                            rows={5}
+                            id="summary"
+                            label="Bio/Summary"
+                            name="summary"
+                            value={demographicFormData.summary}
+                            onChange={manageDemographicFormData}
+                        />
+                        <TextField
+                            id="avatar"
+                            label="Avatar URL"
+                            name="avatar"
+                            value={demographicFormData.avatar}
+                            onChange={manageDemographicFormData}
+                        />
+                        <Button type="submit">Update Demographics</Button>
                     </form>
                     : null}
                 </div>
             </Container>
             <Container>
                 <CardContent>
-                    <Typography sx={{ fontSize: 14 }} color="text.secondary">
-                        My Providers: {providers.map((provider) => {
+                    <Typography variant="h2" color="text.secondary">
+                        My Providers: 
+                    <Grid container 
+                        direction="row"
+                        justifyContent="flex-start"
+                        alignItems="center"
+                    >
+                    {providers.map((provider) => {
                     return (
-                        // <div key={provider.id}>
-                        //     <p>{provider.provider_name}
-                        //     <br />{provider.phone_number}
-                        //     <br />{provider.address}
-                        //     <br /><button id={provider.id} onClick={setEditProvider}>Edit Provider</button></p>
-                        // </div>
-                        <>
+                        <Card key={provider.id}>
                         <Typography variant="h5" component="div">
                             {provider.provider_name}
                         </Typography>
@@ -250,25 +257,40 @@ function Profile({ user, setHasUpdate, hasUpdate }){
                         <CardActions>
                             <Button id={provider.id} onClick={setEditProvider}>Edit Provider</Button>
                         </CardActions>
-                        </>
+                        </Card>
                      )
                     })}
+                    </Grid>
                     </Typography>
-                <button onClick={() => setShowProviderForm(!showProviderForm)}>Show Add Provider Form</button>
+                <Button onClick={() => setShowProviderForm(!showProviderForm)}>Show Add Provider Form</Button>
                 </CardContent>
-                            <div style={{backgroundColor: "orange"}}> 
+                <div> 
                 {showProviderForm ?
                 <form onSubmit={handleProviderSubmit}>
-                    <label htmlFor="provider_name">Provider Name:</label>
-                    <input name="provider_name" id="provider_name" type="text" 
-                        value={providerFormData.provider_name} onChange={manageProviderFormData}/>
-                    <label htmlFor="phone_number">Phone Number:</label>
-                    <input name="phone_number" id="phone_number" type="text" 
-                        value={providerFormData.phone_number} onChange={manageProviderFormData}/>
-                    <label htmlFor="address">Address:</label>
-                    <textarea name="address" id="address" type="text" rows="5" cols="50" style={{ width: "200px", height: "50px" }}
-                        value={providerFormData.address} onChange={manageProviderFormData}/>
-                    <button >Add Provider</button>
+                    <TextField
+                        id="provider_name"
+                        label="Provider Name"
+                        name="provider_name"
+                        value={providerFormData.provider_name}
+                        onChange={manageProviderFormData}
+                        />
+                    <TextField
+                        id="phone_number"
+                        label="Phone Number"
+                        name="phone_number"
+                        value={providerFormData.phone_number}
+                        onChange={manageProviderFormData}
+                        />
+                    <TextField
+                        multiline
+                        rows={3}
+                        id="address"
+                        label="Address"
+                        name="address"
+                        value={providerFormData.address}
+                        onChange={manageProviderFormData}
+                        />
+                     <Button type="submit">Add Provider</Button>
                 </form>
                 :
                 null}
@@ -276,35 +298,40 @@ function Profile({ user, setHasUpdate, hasUpdate }){
             </Container>
             <Container>
                 <CardContent>
-                    <Typography variant="h3" color="text.secondary">
-                My Categories: {categories.map((category) => {
+                    <Typography variant="h2" color="text.secondary">
+                My Categories: 
+                <Grid container 
+                    direction="row"
+                    justifyContent="flex-start"
+                    alignItems="center"
+                >
+                {categories.map((category) => {
                     return (
-                        // <div key={category.id}>
-                        //     {category.category_name}
-                        //     <button id={category.id} value={category.category_name} 
-                        //         onClick={setEditCategory}>Edit Category</button>
-                        // </div>
-                        <>
+                        <Card key={category.id}>
                         <Typography variant="h5" component="div">
                             {category.category_name}
                         </Typography>
                         <CardActions>
                             <Button id={category.id} value={category.category_name} onClick={setEditCategory}>Edit Category</Button>
                         </CardActions>
-                        </>
+                        </Card>
                     )
                 })}
+                </Grid>
                     </Typography>
-                <button onClick={() => setShowCategoryForm(!showCategoryForm)}>Show Add Category Form</button>
+                <Button onClick={() => setShowCategoryForm(!showCategoryForm)}>Show Add Provider Form</Button>    
                 </CardContent>
-            
-                <div style={{backgroundColor: "green"}}>
+                <div>
                 {showCategoryForm ?
                 <form onSubmit={handleCategorySubmit}>
-                    <label htmlFor="category">Category:</label>
-                    <input name="category_name" id="category" type="text" 
-                        value={categoryFormData.category_name} onChange={manageCategoryFormData}/>
-                    <button >Add Category</button>
+                    <TextField
+                        id="category"
+                        label="category"
+                        name="category_name"
+                        value={categoryFormData.category_name}
+                        onChange={manageCategoryFormData}
+                        />
+                        <Button type="submit">Add Category</Button>
                 </form>
                 : null}
             </div>
