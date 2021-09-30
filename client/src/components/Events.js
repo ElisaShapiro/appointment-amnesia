@@ -144,7 +144,7 @@ function Events({ user, universalCategories }){
             <div className="searchbar-div"> 
                 <SearchBar search={searchEvents} setSearch={setSearchEvents}
                     type={"events"} setSortOther={setSortEventSeverity} 
-                    categories={eventCategories} setSortCategory={setSortEventCategory}/>
+                    categories={eventCategories} sortCategory={sortEventCategory} setSortCategory={setSortEventCategory}/>
             </div>    
             <div className="events-div">
             <Container>

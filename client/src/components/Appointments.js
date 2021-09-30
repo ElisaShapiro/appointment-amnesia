@@ -141,7 +141,8 @@ function Appointments({ user, universalCategories, universalProviders }){
                 <SearchBar
                     sortOther={appointmentProviders}
                     setSortOther={setSortAppointmentProvider} 
-                    categories={appointmentCategories} setSortCategory={setSortAppointmentCategory}
+                    categories={appointmentCategories} 
+                    sortCategory={sortAppointmentCategory} setSortCategory={setSortAppointmentCategory}
                 />
             </div>      
             <div className="appointments-div">

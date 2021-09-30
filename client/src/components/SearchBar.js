@@ -1,4 +1,6 @@
-function SearchBar({ search, setSearch, categories, setSortCategory, sortOther, setSortOther, type }){
+import { Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Container, FormControl, Grid, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material';
+
+function SearchBar({ search, setSearch, categories, sortCategory, setSortCategory, sortOther, setSortOther, type }){
  
     function handleSearch(e){
         setSearch(e.target.value)
@@ -11,46 +13,78 @@ function SearchBar({ search, setSearch, categories, setSortCategory, sortOther, 
     }
 
     return(
-        <div className="searchbar" style={{backgroundColor: "purple"}}>
+        <Container>
             {type === "events" ? 
-                <div>
-                    <label htmlFor="search">Search:</label>
-                    <input type="text" id="search" placeholder="Search events..." 
-                    value={search} onChange={handleSearch}/>
-                </div>
+                <TextField
+                    id="search"
+                    label="search"
+                    name="search"
+                    value={search}
+                    onChange={handleSearch}
+                >
+                </TextField>
             : null}
-            <label htmlFor="dropdown-category">Sort by Category:</label>
-            <select type="dropdown" id="dropdown-category" onChange={handleSetCategory}>
-                <option value="All">All</option>
-                {categories.length > 0 && categories.map((category) => {
-                    return <option key={category.category_name} value={category.category_name}>
-                        {category.category_name}</option>
-                })}
-            </select>
+                <FormControl style={{minWidth: 120}}>
+                    <InputLabel id="category-label">Sort By Category</InputLabel>
+                    <Select
+                        labelId="category-label"
+                        id="category"
+                        label="Category"
+                        name="category"
+                        value={sortCategory.category_name}
+                        onChange={handleSetCategory}
+                    >
+                        <MenuItem value="All">All</MenuItem>
+                        {categories.length > 0 && categories.map((category) => {
+                            return (
+                                <MenuItem key={category.category_name} value={category.category_name} name={category.category_name}>
+                                    {category.category_name}
+                                </MenuItem>
+                            )
+                        })}
+                    </Select>
+                </FormControl>
             {type === "events" ? 
-                <div>
-                    <label htmlFor="dropdown-severity">Sort by Severity:</label>
-                    <select type="dropdown" id="dropdown-severity" onChange={handleSetOther}>
-                        <option value="All">All</option>
-                        <option value="1">1 :D</option>
-                        <option value="2">2 :)</option>
-                        <option value="3">3 :|</option>
-                        <option value="4">4 :(</option>
-                        <option value="5">5 >:</option>
-                    </select>
-                </div>
+                <FormControl style={{minWidth: 120}}>
+                    <InputLabel id="severity-label">Sort By Severity</InputLabel>
+                    <Select
+                        labelId="severity-label"
+                        id="severity"
+                        label="Severity"
+                        name="severity"
+                        value={sortOther}
+                        onChange={handleSetOther}
+                    >
+                        <MenuItem value="All">All</MenuItem>
+                        <MenuItem value="1">1 :D</MenuItem>
+                        <MenuItem value="2">2 :)</MenuItem>
+                        <MenuItem value="3">3 :|</MenuItem>
+                        <MenuItem value="4">4 :(</MenuItem>
+                        <MenuItem value="5">5 >:</MenuItem>
+                    </Select>
+                </FormControl>
             :
-            <div>
-                <label htmlFor="searchbar-dropdown-provider">Sort by Provider:</label>
-                <select type="dropdown" id="searchbar-dropdown-provider" onChange={handleSetOther}>
-                    <option value="All">All</option>
-                    {sortOther.length > 0 && sortOther.map((provider) => {
-                        return <option key={provider.provider_name} value={provider.provider_name}>
-                            {provider.provider_name}</option>
-                    })} 
-                </select>
-            </div>}
-        </div>   
+            <FormControl style={{minWidth: 120}}>
+                    <InputLabel id="provider-label">Sort By Provider</InputLabel>
+                    <Select
+                        labelId="provider-label"
+                        id="provider"
+                        label="Provider"
+                        name="provider"
+                        value={sortCategory.category_name}
+                        onChange={handleSetOther}
+                    >
+                        <MenuItem value="All">All</MenuItem>
+                        {sortOther.length > 0 && sortOther.map((provider) => {
+                            return (
+                                <MenuItem key={provider.provider_name} value={provider.provider_name} name={provider.provider_name}>
+                                    {provider.provider_name}
+                                </MenuItem>
+                            )
+                        })}
+                </Select>
+            </FormControl>}
+        </Container>  
     )
 }
 export default SearchBar;
