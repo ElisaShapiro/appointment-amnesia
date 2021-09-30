@@ -52,9 +52,20 @@ function Appointments({ user, universalCategories, universalProviders }){
     }
     async function handleSubmit(e) {
         e.preventDefault()
-        const selectedCategory = universalCategories.filter((category) => category.category_name == formData.category)[0]
-        const selectedProvider = universalProviders.filter((provider) => provider.provider_name == formData.provider)[0]
-        debugger
+        const selectedCategory = universalCategories.filter((category) => {
+            if (typeof formData.category == 'string') {
+                return category.category_name == formData.category
+            } else {
+                return category.category_name == formData.category.category_name
+            }
+        })[0]
+        const selectedProvider = universalProviders.filter((provider) => {
+            if (typeof formData.provider == 'string') {
+                return provider.provider_name == formData.provider
+            } else {
+                return provider.provider_name == formData.provider.provider_name
+            }
+        })[0]
         const newFormData = {...formData, category_id: selectedCategory.id, provider_id: selectedProvider.id}
         if (isEdit) {
             fetch(`/appointments/${formData.id}`, {
