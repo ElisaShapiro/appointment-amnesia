@@ -16,6 +16,9 @@ const theme = createTheme({
       text: {
           primary: '#222',
           secondary: '#666666'
+      },
+      buttonColor: {
+          main: '#222'
       }
     },
     typography: {

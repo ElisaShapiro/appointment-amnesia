@@ -1,10 +1,6 @@
 import { NavLink, useHistory } from 'react-router-dom';
-import Avatar from '@mui/material/Avatar';
-
-// import AppBar from '@material-ui/core/AppBar';
-// import Toolbar from '@material-ui/core/Toolbar';
-// import Typography from '@material-ui/core/Typography';
-
+import { format } from 'date-fns';
+import { AppBar, Avatar, Button, styled, Toolbar, Typography } from '@mui/material';
 
 function NavBar({ user, setUser }){
     const history = useHistory()
@@ -23,48 +19,54 @@ function NavBar({ user, setUser }){
     }
     
     return(
-        <div className="navbar-div">
-            {user ?
-            <>
+        <AppBar position="fixed">
+            <Toolbar>
+                <Typography>
+                    Today is {format(new Date(), "eeee MMMM d',' y")}
+                </Typography>
+                {user ?
+                <>
                 <Avatar alt="profile picture" src={user.avatar} 
-                    sx={{ height: 30, width: 30 }}/>
-                <button className="navbar-button">
-                    <NavLink exact to="/">
-                        Welcome, {user.name}
-                    </NavLink>
-                </button>
-                <button className="navbar-button">
-                    <NavLink to="/events">
-                        Events
-                    </NavLink>
-                </button>
-                <button className="navbar-button">
-                    <NavLink to="/appointments">
-                        Appointments
-                    </NavLink>
-                </button>
-                <button className="navbar-button">
-                    <NavLink to="/medications">
-                        Medications
-                    </NavLink>
-                </button>
-                <button className="navbar-button" onClick={handleLogoutClick}>Logout</button>
-            </>
-            :
-            <>
-                <button className="navbar-button">
-                    <NavLink to="/login">
-                        Login
-                    </NavLink>
-                </button>
-                <button className="navbar-button">
-                    <NavLink to="/signup">
-                        Register
-                    </NavLink>
-                </button>
+                    sx={{ height: 30, width: 30 }}
+                />
+            <NavLink exact to="/" style={{ textDecoration: 'none' }}>
+                <Button color="buttonColor" className="navbar-button">
+                    <Typography>Welcome, {user.name}</Typography>
+                </Button>
+            </NavLink>
+            <NavLink to="/events" style={{ textDecoration: 'none' }}>
+                <Button color="buttonColor" className="navbar-button">
+                    Events
+                </Button>
+            </NavLink>
+            <NavLink to="/appointments" style={{ textDecoration: 'none' }}>
+                <Button color="buttonColor" className="navbar-button">
+                    Appointments
+                </Button>
+            </NavLink>
+            <NavLink to="/medications" style={{ textDecoration: 'none' }}>
+                <Button color="buttonColor" className="navbar-button">
+                    Medications
+                </Button>
+            </NavLink>
+            <Button color="buttonColor" className="navbar-button" onClick={handleLogoutClick}>Logout</Button>
+        </>
+        :
+        <>
+            <NavLink to="/login" style={{ textDecoration: 'none' }}>
+                <Button color="buttonColor" className="navbar-button">
+                    Login
+                </Button>
+            </NavLink>
+            <NavLink to="/signup" style={{ textDecoration: 'none' }}>
+                <Button color="buttonColor" className="navbar-button">
+                    Register
+                </Button>
+            </NavLink>
             </>
             }
-        </div>
+            </Toolbar>
+        </AppBar>
     )
 
 
