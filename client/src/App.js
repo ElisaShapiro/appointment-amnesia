@@ -46,43 +46,41 @@ function App() {
     }, []);
 
   return (
-    // <div className="App">
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <NavBar user={user} setUser={setUser} />
       <Offset />
-        <Switch>
-          <Route exact path="/">
-            <Home user={user} setUser={setUser}
+      <Switch>
+        <Route exact path="/">
+          <Home user={user} setUser={setUser}
             setHasUpdate={setHasUpdate} hasUpdate={hasUpdate}
-            />
-          </Route>
-          <Route path="/login">
-            <Login setUser={setUser}/>
-          </Route>    
-          <Route path="/signup">
-            <Signup setUser={setUser}/>
-          </Route>
-          <Route path="/events">
-            <Events user={user}
-              universalCategories={universalCategories} 
-              universalProviders={universalProviders} 
-            />
-          </Route>
-          <Route path="/appointments">
-            <Appointments user={user} 
-              universalCategories={universalCategories} 
-              universalProviders={universalProviders}
-            />
-          </Route>
-          <Route path="/medications">
-            <Medications user={user} 
-              universalProviders={universalProviders}
-            />
-          </Route>
-        </Switch>
-      </ThemeProvider>
-    // </div>
+          />
+        </Route>
+        <Route path="/login">
+          <Login setUser={setUser}/>
+        </Route>    
+        <Route path="/signup">
+          <Signup setUser={setUser}/>
+        </Route>
+        <Route path="/events">
+          <Events user={user}
+            universalCategories={universalCategories} 
+            universalProviders={universalProviders} 
+          />
+        </Route>
+        <Route path="/appointments">
+          <Appointments user={user} 
+            universalCategories={universalCategories} 
+            universalProviders={universalProviders}
+          />
+        </Route>
+        <Route path="/medications">
+          <Medications user={user} 
+            universalProviders={universalProviders}
+          />
+        </Route>
+      </Switch>
+    </ThemeProvider>
   );
 }
 

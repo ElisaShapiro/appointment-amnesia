@@ -151,11 +151,28 @@ function Appointments({ user, universalCategories, universalProviders }){
             >
                 <Toolbar /> 
                 <Box sx={{ overflow: 'auto' }}> <br />
-                <SearchBar
-                    sortOther={appointmentProviders} setSortOther={setSortAppointmentProvider} 
-                    categories={appointmentCategories} 
-                    sortCategory={sortAppointmentCategory} setSortCategory={setSortAppointmentCategory} />
+                    <Grid
+                        container
+                        spacing={0}
+                        direction="column"
+                        alignItems="center"
+                        justify="center"
+                        style={{ minHeight: 200 }}
+                    >
+                        <SearchBar
+                            sortOther={appointmentProviders} setSortOther={setSortAppointmentProvider} 
+                            categories={appointmentCategories} 
+                            sortCategory={sortAppointmentCategory} setSortCategory={setSortAppointmentCategory} 
+                        />
+                    </Grid>
                     <Divider />
+                    <Grid
+                        container
+                        spacing={0}
+                        direction="column"
+                        alignItems="center"
+                        justify="center"
+                    >
                         <AddAppointmentForm 
                             setAppointmentTimeValue={setAppointmentTimeValue}
                             appointmentTimeValue={appointmentTimeValue}
@@ -166,9 +183,9 @@ function Appointments({ user, universalCategories, universalProviders }){
                             manageFormData={manageFormData} 
                             handleSubmit={handleSubmit}
                         />
-                    </Box>
+                    </Grid>
+                </Box>
             </Drawer>     
-            <div className="appointments-div">
             <Container>
                 {filteredAppointments.map((oneAppointment) => {
                     return (
@@ -180,7 +197,6 @@ function Appointments({ user, universalCategories, universalProviders }){
                     )
                 })}
                 </Container>
-            </div>
     </Box>
     )
 }

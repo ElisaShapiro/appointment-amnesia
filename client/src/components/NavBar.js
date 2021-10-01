@@ -27,7 +27,7 @@ function NavBar({ user, setUser }){
                 {user ?
                 <>
                 <Avatar alt="profile picture" src={user.avatar} 
-                    sx={{ height: 30, width: 30 }}
+                    sx={{ height: 30, width: 30, marginLeft: 3 }}
                 />
             <NavLink exact to="/" style={{ textDecoration: 'none' }}>
                 <Button color="buttonColor" className="navbar-button">

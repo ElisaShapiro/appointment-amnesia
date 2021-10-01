@@ -152,20 +152,38 @@ function Events({ user, universalCategories }){
             >
                 <Toolbar /> 
                 <Box sx={{ overflow: 'auto' }}> <br />
-                    <SearchBar search={searchEvents} setSearch={setSearchEvents}
-                        type={"events"} setSortOther={setSortEventSeverity} 
-                        categories={eventCategories} sortCategory={sortEventCategory} setSortCategory={setSortEventCategory}/>
-                    <Divider />
-                    <AddEventForm 
-                        setEventTimeValue={setEventTimeValue}
-                        eventTimeValue={eventTimeValue}
-                        universalCategories={universalCategories}
-                        formData={formData} 
-                        setFormData={setFormData}
-                        manageFormData={manageFormData} 
-                        handleSubmit={handleSubmit}
+                    <Grid
+                        container
+                        spacing={0}
+                        direction="column"
+                        alignItems="center"
+                        justify="center"
+                        style={{ minHeight: 200 }}
+                    >
+                        <SearchBar search={searchEvents} setSearch={setSearchEvents}
+                            type={"events"} setSortOther={setSortEventSeverity} 
+                            categories={eventCategories} sortCategory={sortEventCategory} setSortCategory={setSortEventCategory}
                         />
-                    </Box>
+                    </Grid>
+                    <Divider />
+                    <Grid
+                        container
+                        spacing={0}
+                        direction="column"
+                        alignItems="center"
+                        justify="center"
+                    >
+                        <AddEventForm 
+                            setEventTimeValue={setEventTimeValue}
+                            eventTimeValue={eventTimeValue}
+                            universalCategories={universalCategories}
+                            formData={formData} 
+                            setFormData={setFormData}
+                            manageFormData={manageFormData} 
+                            handleSubmit={handleSubmit}
+                        />
+                    </Grid>
+                </Box>
             </Drawer> 
             <Container>
                 {filteredEvents.map((oneEvent) => {

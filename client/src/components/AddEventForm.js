@@ -50,10 +50,10 @@ function AddEventForm({ universalCategories, formData, setFormData, manageFormDa
 
     
     return(
-        <div>  
+        <Container>  
             <form onSubmit={handleSubmit}>
                 <Typography><AddBoxSharpIcon />Log Event</Typography>
-                <FormControl style={{minWidth: 120}}>
+                <FormControl style={{minWidth: 174}}>
                     <InputLabel id="category-label">Category</InputLabel>
                     <Select
                         labelId="category-label"
@@ -72,7 +72,6 @@ function AddEventForm({ universalCategories, formData, setFormData, manageFormDa
                         })}
                     </Select>
                 </FormControl>
-                <div>
                 <Typography component="legend">Severity</Typography>
                     <Rating
                         onChange={manageFormData}
@@ -82,8 +81,6 @@ function AddEventForm({ universalCategories, formData, setFormData, manageFormDa
                         IconContainerComponent={IconContainer}
                         highlightSelectedOnly
                     />
-                </div>
-                <div>
                 <TextField
                     multiline
                     rows={5}
@@ -92,9 +89,7 @@ function AddEventForm({ universalCategories, formData, setFormData, manageFormDa
                     name="content"
                     value={formData.content}
                     onChange={manageFormData}    
-                />
-                </div>
-                <div><br />
+                /><br />
                     <LocalizationProvider dateAdapter={AdapterDateFns}>
                         <DateTimePicker
                             renderInput={(props) => <TextField {...props} />}
@@ -106,12 +101,9 @@ function AddEventForm({ universalCategories, formData, setFormData, manageFormDa
                             }}
                         />
                     </LocalizationProvider>
-                </div>
-                <div>
-                    <Button type="submit"><AddSharpIcon />New Event</Button>
-                </div>
+                <Button type="submit"><AddSharpIcon />New Event</Button>
             </form>
-        </div>
+        </Container>
     )
 }
 export default AddEventForm;

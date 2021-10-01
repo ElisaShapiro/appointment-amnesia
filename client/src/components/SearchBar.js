@@ -26,7 +26,7 @@ function SearchBar({ search, setSearch, categories, sortCategory, setSortCategor
                 >
                 </TextField>
             : null}
-                <FormControl style={{minWidth: 120}}>
+                <FormControl style={{minWidth: 174}}>
                     <InputLabel id="category-label">Sort By Category</InputLabel>
                     <Select
                         labelId="category-label"
@@ -47,7 +47,7 @@ function SearchBar({ search, setSearch, categories, sortCategory, setSortCategor
                     </Select>
                 </FormControl>
             {type === "events" ? 
-                <FormControl style={{minWidth: 120}}>
+                <FormControl style={{minWidth: 174}}>
                     <InputLabel id="severity-label">Sort By Severity</InputLabel>
                     <Select
                         labelId="severity-label"
@@ -66,7 +66,7 @@ function SearchBar({ search, setSearch, categories, sortCategory, setSortCategor
                     </Select>
                 </FormControl>
             :
-            <FormControl style={{minWidth: 120}}>
+            <FormControl style={{minWidth: 174}}>
                     <InputLabel id="provider-label">Sort By Provider</InputLabel>
                     <Select
                         labelId="provider-label"

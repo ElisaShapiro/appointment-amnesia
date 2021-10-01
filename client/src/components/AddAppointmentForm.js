@@ -10,10 +10,10 @@ import AddBoxSharpIcon from '@mui/icons-material/AddBoxSharp';
 function AddAppointmentForm({ universalCategories, universalProviders, appointmentCategories, appointmentProviders, formData, setFormData, manageFormData, handleSubmit, setAppointmentTimeValue, appointmentTimeValue}){
 
     return(
-        <div> 
+        <Container> 
             <form onSubmit={handleSubmit}>
                 <Typography><AddBoxSharpIcon />Add Appointment</Typography>
-                <FormControl style={{minWidth: 120}}>
+                <FormControl style={{minWidth: 174}}>
                     <InputLabel id="category-label">Category</InputLabel>
                     <Select
                         labelId="category-label"
@@ -32,7 +32,7 @@ function AddAppointmentForm({ universalCategories, universalProviders, appointme
                         })}
                     </Select>
                 </FormControl>
-                <FormControl style={{minWidth: 120}}>
+                <FormControl style={{minWidth: 174}}>
                     <InputLabel id="provider-label">Provider</InputLabel>
                     <Select
                         labelId="provider-label"
@@ -50,12 +50,11 @@ function AddAppointmentForm({ universalCategories, universalProviders, appointme
                             )
                         })}
                     </Select>
-                </FormControl>
-                <div><br />
+                </FormControl><br />
                     <LocalizationProvider dateAdapter={AdapterDateFns}>
                         <DateTimePicker
                             renderInput={(props) => <TextField {...props} />}
-                            label="Date and Time of Appointment"
+                            label="Date and Time"
                             value={appointmentTimeValue}
                             onChange={(newAppointmentTimeValue) => {
                                 setFormData({...formData, appointment_time: newAppointmentTimeValue})
@@ -63,12 +62,9 @@ function AddAppointmentForm({ universalCategories, universalProviders, appointme
                             }}
                         />
                     </LocalizationProvider>
-                </div>
-                <div>
-                    <Button type="submit"><AddSharpIcon />New Appointment</Button>
-                </div>
+                <Button type="submit"><AddSharpIcon />New Appointment</Button>              
             </form>
-        </div>
+        </Container>
     )
 }
 

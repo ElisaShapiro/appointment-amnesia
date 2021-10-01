@@ -134,7 +134,15 @@ function Medications({ user, universalProviders}) {
             >
                 <Toolbar /> 
                 <Box sx={{ overflow: 'auto' }}> <br />
-                <Typography><AddBoxSharpIcon />Medication Form</Typography>
+                    <Typography paddingLeft={3}><AddBoxSharpIcon />Medication Form</Typography>
+                        <Grid
+                            container
+                            spacing={0}
+                            direction="column"
+                            alignItems="center"
+                            justify="center"
+                            paddingLeft={3}
+                        >
                     <form onSubmit={handleMedicationSubmit}>
                         <FormGroup>
                             <FormControlLabel control={<Switch />} 
@@ -172,7 +180,7 @@ function Medications({ user, universalProviders}) {
                             value={medicationFormData.medication_name}
                             onChange={manageMedicationFormData}
                         />
-                        <FormControl style={{minWidth: 120}}>
+                        <FormControl style={{minWidth: 174}}>
                             <InputLabel id="provider-label">Prescribing Provider</InputLabel>
                             <Select
                                 labelId="provider-label"
@@ -193,6 +201,7 @@ function Medications({ user, universalProviders}) {
                         </FormControl>
                         <br /><Button type="submit"><AddSharpIcon />Medication to List</Button>
                     </form>
+                    </Grid>
                 </Box>
             </Drawer>
             <Container> 
