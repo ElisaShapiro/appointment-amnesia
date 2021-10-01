@@ -15,7 +15,7 @@ function SearchBar({ search, setSearch, categories, sortCategory, setSortCategor
 
     return(
         <Container>
-            <SearchSharpIcon />
+            <Typography><SearchSharpIcon />Search</Typography>
             {type === "events" ? 
                 <TextField
                     id="search"

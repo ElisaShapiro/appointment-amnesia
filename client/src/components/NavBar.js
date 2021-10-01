@@ -19,7 +19,7 @@ function NavBar({ user, setUser }){
     }
     
     return(
-        <AppBar position="fixed">
+        <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
             <Toolbar>
                 <Typography>
                     Today is {format(new Date(), "eeee MMMM d',' y")}

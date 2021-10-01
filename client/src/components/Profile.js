@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Chip, Container, Grid, TextField, Typography } from '@mui/material';
+import { Box, Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Chip, Container, Divider, Drawer, Grid, TextField, Toolbar, Typography } from '@mui/material';
 import EditSharpIcon from '@mui/icons-material/EditSharp';
 import AddSharpIcon from '@mui/icons-material/AddSharp';
 import AddBoxSharpIcon from '@mui/icons-material/AddBoxSharp';
 import PersonAddAlt1SharpIcon from '@mui/icons-material/PersonAddAlt1Sharp';
+
 
 function Profile({ user, setHasUpdate, hasUpdate }){
     const history = useHistory()
@@ -132,7 +133,6 @@ function Profile({ user, setHasUpdate, hasUpdate }){
     }
     async function handleCategorySubmit(e){
         e.preventDefault()
-        debugger
         if (isEdit) {
             fetch(`/categories/${categoryFormData.id}`, {
                 method: "PATCH",
@@ -169,7 +169,59 @@ function Profile({ user, setHasUpdate, hasUpdate }){
     }
 
     return(
-        <div>
+        <Box sx={{display: 'flex'}}>
+            <Drawer
+                variant="permanent"
+                sx={{
+                width: 240,
+                flexShrink: 0,
+                [`& .MuiDrawer-paper`]: { width: 240, boxSizing: 'border-box' },
+                }}
+            >
+                <Toolbar /> 
+                <Box sx={{ overflow: 'auto' }}> <br />
+                <Typography><AddBoxSharpIcon />Provider Form</Typography>
+                <form onSubmit={handleProviderSubmit}>
+                    <TextField
+                        id="provider_name"
+                        label="Provider Name"
+                        name="provider_name"
+                        value={providerFormData.provider_name}
+                        onChange={manageProviderFormData}
+                        />
+                    <TextField
+                        id="phone_number"
+                        label="Phone Number"
+                        name="phone_number"
+                        value={providerFormData.phone_number}
+                        onChange={manageProviderFormData}
+                        />
+                    <TextField
+                        multiline
+                        rows={3}
+                        id="address"
+                        label="Address"
+                        name="address"
+                        value={providerFormData.address}
+                        onChange={manageProviderFormData}
+                        />
+                     <Button type="submit"><AddSharpIcon />Provider</Button>
+                </form>
+                    <Divider />
+                    <Typography><AddBoxSharpIcon />Category Form</Typography>
+                    <form onSubmit={handleCategorySubmit}>
+                    <TextField
+                        id="category"
+                        label="category"
+                        name="category_name"
+                        value={categoryFormData.category_name}
+                        onChange={manageCategoryFormData}
+                        />
+                        <Button type="submit"><AddSharpIcon />Category</Button>
+                </form>
+                </Box>
+            </Drawer>
+            <Container>
             <Container>
                 <Card sx={{ maxWidth: 345 }}>
                         <CardMedia
@@ -265,9 +317,9 @@ function Profile({ user, setHasUpdate, hasUpdate }){
                     })}
                     </Grid>
                     </Typography>
-                <Button onClick={() => setShowProviderForm(!showProviderForm)}><AddBoxSharpIcon />Provider Form</Button>
+                {/* <Button onClick={() => setShowProviderForm(!showProviderForm)}><AddBoxSharpIcon />Provider Form</Button> */}
                 </CardContent>
-                <div> 
+                {/* <div> 
                 {showProviderForm ?
                 <form onSubmit={handleProviderSubmit}>
                     <TextField
@@ -297,11 +349,11 @@ function Profile({ user, setHasUpdate, hasUpdate }){
                 </form>
                 :
                 null}
-            </div>
+            </div> */}
             </Container>
             <Container>
                 <CardContent>
-                    <Typography variant="h2" color="text.secondary">
+                <Typography variant="h2" color="text.secondary">
                 My Categories: 
                 <Grid container 
                     direction="row"
@@ -322,9 +374,9 @@ function Profile({ user, setHasUpdate, hasUpdate }){
                 })}
                 </Grid>
                     </Typography>
-                <Button onClick={() => setShowCategoryForm(!showCategoryForm)}><AddBoxSharpIcon />Category Form</Button>    
+                {/* <Button onClick={() => setShowCategoryForm(!showCategoryForm)}><AddBoxSharpIcon />Category Form</Button>     */}
                 </CardContent>
-                <div>
+                {/* <div>
                 {showCategoryForm ?
                 <form onSubmit={handleCategorySubmit}>
                     <TextField
@@ -337,9 +389,10 @@ function Profile({ user, setHasUpdate, hasUpdate }){
                         <Button type="submit"><AddSharpIcon />Category</Button>
                 </form>
                 : null}
-            </div>
+            </div> */}
             </Container>
-        </div>
+            </Container>
+        </Box>
     )
 
 }

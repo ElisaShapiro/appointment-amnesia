@@ -5,7 +5,7 @@ import AddEventForm from './AddEventForm';
 import SearchBar from './SearchBar';
 import EditSharpIcon from '@mui/icons-material/EditSharp';
 import DeleteSharpIcon from '@mui/icons-material/DeleteSharp';
-import { Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Container, Grid, TextField, Typography } from '@mui/material';
+import { Box, Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Container, Divider, Drawer, Grid, TextField, Toolbar, Typography } from '@mui/material';
 
 
 
@@ -28,11 +28,11 @@ function Events({ user, universalCategories }){
 
     const [eventTimeValue, setEventTimeValue] = useState(new Date())
 
-    function handleClickEdit(e){
-        const editedEvent = events.filter((event) => event.id == e.target.value)[0]
-        // let formDataEvent = {...editedEvent, category: editedEvent.category.category_name}
+    function handleClickEdit(eventId){
+        const editedEvent = events.filter((event) => event.id == eventId)[0]
+        let formDataEvent = {...editedEvent, category: editedEvent.category.category_name}
         setIsEdit(!isEdit)
-        setFormData(editedEvent)
+        setFormData(formDataEvent)
         setEventTimeValue(editedEvent.event_time)
     }
     function manageFormData(e) {
@@ -101,8 +101,8 @@ function Events({ user, universalCategories }){
     }, [])
 
     //DELETE events
-    function handleDeleteEvent(e){
-        fetch(`/events/${e.target.value}`, {
+    function handleDeleteEvent(eventId){
+        fetch(`/events/${eventId}`, {
             method: "DELETE",
             headers: {
                 Accept: "application/json"
@@ -141,35 +141,44 @@ function Events({ user, universalCategories }){
    
     
     return(
-        <div>
-            <div className="searchbar-div"> 
-                <SearchBar search={searchEvents} setSearch={setSearchEvents}
-                    type={"events"} setSortOther={setSortEventSeverity} 
-                    categories={eventCategories} sortCategory={sortEventCategory} setSortCategory={setSortEventCategory}/>
-            </div>    
-            <div className="events-div">
+        <Box sx={{display: 'flex'}}>
+            <Drawer
+                variant="permanent"
+                sx={{
+                width: 240,
+                flexShrink: 0,
+                [`& .MuiDrawer-paper`]: { width: 240, boxSizing: 'border-box' },
+                }}
+            >
+                <Toolbar /> 
+                <Box sx={{ overflow: 'auto' }}> <br />
+                    <SearchBar search={searchEvents} setSearch={setSearchEvents}
+                        type={"events"} setSortOther={setSortEventSeverity} 
+                        categories={eventCategories} sortCategory={sortEventCategory} setSortCategory={setSortEventCategory}/>
+                    <Divider />
+                    <AddEventForm 
+                        setEventTimeValue={setEventTimeValue}
+                        eventTimeValue={eventTimeValue}
+                        universalCategories={universalCategories}
+                        formData={formData} 
+                        setFormData={setFormData}
+                        manageFormData={manageFormData} 
+                        handleSubmit={handleSubmit}
+                        />
+                    </Box>
+            </Drawer> 
             <Container>
                 {filteredEvents.map((oneEvent) => {
                     return (
                         <Card key={oneEvent.id}>
                             <EventDetail oneEvent={oneEvent}/>
-                            <Button size="small" color="primary" value={oneEvent.id} onClick={handleClickEdit}><EditSharpIcon/></Button>
-                            <Button size="small" color="primary" value={oneEvent.id} onClick={handleDeleteEvent}><DeleteSharpIcon/></Button>
+                            <Button size="small" color="primary" value={oneEvent.id} onClick={()=>handleClickEdit(oneEvent.id)}><EditSharpIcon /></Button>
+                            <Button size="small" color="primary" value={oneEvent.id} onClick={()=>handleDeleteEvent(oneEvent.id)}><DeleteSharpIcon/></Button>
                         </Card>
                     )
                 })}
             </Container>
-            <AddEventForm 
-                setEventTimeValue={setEventTimeValue}
-                eventTimeValue={eventTimeValue}
-                universalCategories={universalCategories}
-                formData={formData} 
-                setFormData={setFormData}
-                manageFormData={manageFormData} 
-                handleSubmit={handleSubmit}
-            />
-            </div>
-        </div>
+        </Box>
     )
 }
 

@@ -11,6 +11,7 @@ import Appointments from './components/Appointments';
 import Medications from './components/Medications';
 
 import theme from './components/Theme';
+import CssBaseline from '@mui/material/CssBaseline';
 import { styled, ThemeProvider } from '@mui/material/styles';
 
 const Offset = styled('div')(({ theme }) => theme.mixins.toolbar);
@@ -47,6 +48,7 @@ function App() {
   return (
     // <div className="App">
     <ThemeProvider theme={theme}>
+      <CssBaseline />
       <NavBar user={user} setUser={setUser} />
       <Offset />
         <Switch>

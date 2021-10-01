@@ -4,7 +4,7 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 
-import { Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Container, FormControl, FormLabel, Grid, InputLabel, MenuItem, Radio, RadioGroup, Select, TextField, Typography } from '@mui/material';
+import { Box, Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Container, Divider, Drawer, FormControl, FormLabel, Grid, InputLabel, MenuItem, Radio, RadioGroup, Select, TextField, Toolbar, Typography } from '@mui/material';
 import DeleteSharpIcon from '@mui/icons-material/DeleteSharp';
 import AddBoxSharpIcon from '@mui/icons-material/AddBoxSharp';
 import SearchSharpIcon from '@mui/icons-material/SearchSharp';
@@ -123,89 +123,102 @@ function Medications({ user, universalProviders}) {
     }
 
     return(
-        <div>
-            <div> 
-                My Medications: {medications.map((medication) => {
-                    return (
-                        <Card key={medication.id}>
-                            <CardContent variant="body2" color="text.secondary">
-                            Medicine: {medication.medication_name}<br />
-                            Dosage: {medication.dosage}<br />
-                            Prescribed by: {medication.provider.provider_name} <br />
-                            <Button value={medication.id} onClick={handleDeleteMedication}><DeleteSharpIcon /></Button>
-                            </CardContent>
-                        </Card>
-                    )
-                })}
-                <br /><Button onClick={() => setShowMedicationForm(!showMedicationForm)}><AddBoxSharpIcon />Medication Form</Button>
-                {showMedicationForm ?
-                <form onSubmit={handleMedicationSubmit}>
-                    <FormGroup>
-                        <FormControlLabel control={<Switch />} 
-                        label="Generic?" id="medication" 
-                        checked={genericMedication}
-                        onChange={handleChangeGenericMedication}/>
-                    </FormGroup>
-                    <TextField
-                        id="medication-name"
-                        label="Search Database by Medication Name"
-                        name="medication-name"
-                        value={medicationName}
-                        onChange={(e) => setMedicationName(e.target.value)}
-                    />   
-                    {/* <label htmlFor="medicationName">Search Database by Medication Name:</label>
-                    <input name="medicationName" id="medication" type="text" 
-                        value={medicationName} onChange={(e) => setMedicationName(e.target.value)} /> */}
-                    <Button onClick={searchMedicationsOnAPI}><SearchSharpIcon />Medications</Button>
-                          
-                {medicationsFromAPI.length > 0 ?
-                    <FormControl component="fieldset">
-                    <FormLabel component="legend">Medications from Database</FormLabel>
-                    <RadioGroup
-                        aria-label="medication"
-                        name="controlled-radio-buttons-group"
-                        value={radioSelectedOption}
-                        onChange={(e)=>setRadioSelectedOption(e.target.value)}
-                    >
-                        {medicationsFromAPI.map((medFromAPI) => {
-                        return <FormControlLabel value={medFromAPI.strength} control={<Radio />} label={`NAME: ${medFromAPI.name} STRENGTH: ${medFromAPI.strength}`} />
-                                                    
+        <Box sx={{display: 'flex'}}>
+            <Drawer
+                variant="permanent"
+                sx={{
+                width: 240,
+                flexShrink: 0,
+                [`& .MuiDrawer-paper`]: { width: 240, boxSizing: 'border-box' },
+                }}
+            >
+                <Toolbar /> 
+                <Box sx={{ overflow: 'auto' }}> <br />
+                <Typography><AddBoxSharpIcon />Medication Form</Typography>
+                    <form onSubmit={handleMedicationSubmit}>
+                        <FormGroup>
+                            <FormControlLabel control={<Switch />} 
+                            label="Generic?" id="medication" 
+                            checked={genericMedication}
+                            onChange={handleChangeGenericMedication}/>
+                        </FormGroup>
+                        <TextField
+                            id="medication-name"
+                            label="Search by Medication Name"
+                            name="medication-name"
+                            value={medicationName}
+                            onChange={(e) => setMedicationName(e.target.value)}
+                        />   
+                        <Button onClick={searchMedicationsOnAPI}><SearchSharpIcon />Medications</Button>         
+                        {medicationsFromAPI.length > 0 ?
+                        <FormControl component="fieldset">
+                            <FormLabel component="legend">Medications from Database</FormLabel>
+                            <RadioGroup
+                                aria-label="medication"
+                                name="controlled-radio-buttons-group"
+                                value={radioSelectedOption}
+                                onChange={(e)=>setRadioSelectedOption(e.target.value)}
+                            >
+                                {medicationsFromAPI.map((medFromAPI) => {
+                                    return <FormControlLabel value={medFromAPI.strength} control={<Radio />} label={`NAME: ${medFromAPI.name} STRENGTH: ${medFromAPI.strength}`} />
                                 })} 
-                    </RadioGroup>
-                    </FormControl>
-                                : null } 
-                    <TextField
-                        id="dosage"
-                        label="Directions"
-                        name="dosage"
-                        value={medicationFormData.medication_name}
-                        onChange={manageMedicationFormData}
-                    />
-            
-                    <FormControl style={{minWidth: 120}}>
-                        <InputLabel id="provider-label">Prescribing Provider</InputLabel>
-                        <Select
-                            labelId="provider-label"
-                            id="provider_name"
-                            label="Provider"
-                            name="provider_name"
-                            value={medicationFormData.provider_name}
+                            </RadioGroup>
+                            </FormControl>
+                        : null } <br />
+                        <TextField
+                            id="dosage"
+                            label="Directions"
+                            name="dosage"
+                            value={medicationFormData.medication_name}
                             onChange={manageMedicationFormData}
-                        >
-                            {medicationProviders.length > 0 && medicationProviders.map((provider) => {
-                                return (
-                                    <MenuItem key={medicationProviders.provider_name} value={provider.provider_name}>
-                                        {provider.provider_name}
-                                    </MenuItem>
-                                )
-                            })} 
-                        </Select>
-                    </FormControl>
-                <br /><Button type="submit"><AddSharpIcon />Medication Button</Button>
-                </form>
-                : null}
-            </div>
-        </div>
+                        />
+                        <FormControl style={{minWidth: 120}}>
+                            <InputLabel id="provider-label">Prescribing Provider</InputLabel>
+                            <Select
+                                labelId="provider-label"
+                                id="provider_name"
+                                label="Provider"
+                                name="provider_name"
+                                value={medicationFormData.provider_name}
+                                onChange={manageMedicationFormData}
+                            >
+                                {medicationProviders.length > 0 && medicationProviders.map((provider) => {
+                                    return (
+                                        <MenuItem key={medicationProviders.provider_name} value={provider.provider_name}>
+                                            {provider.provider_name}
+                                        </MenuItem>
+                                    )
+                                })} 
+                            </Select>
+                        </FormControl>
+                        <br /><Button type="submit"><AddSharpIcon />Medication to List</Button>
+                    </form>
+                </Box>
+            </Drawer>
+            <Container> 
+                <Typography variant="h2" color="text.secondary">                      
+                    My Medications: 
+                    <Grid container 
+                        direction="row"
+                        justifyContent="flex-start"
+                        alignItems="center"
+                    >
+                        {medications.map((medication) => {
+                        return (
+                            <Card key={medication.id}>
+                                <CardContent variant="body2" color="text.secondary">
+                                Medicine: {medication.medication_name}<br />
+                                Dosage: {medication.dosage}<br />
+                                Prescribed by: {medication.provider.provider_name} <br />
+                                <Button value={medication.id} onClick={handleDeleteMedication}><DeleteSharpIcon /></Button>
+                                </CardContent>
+                            </Card>
+                        )
+                        })}
+                    </Grid>
+                </Typography>
+            </Container>
+        </Box>
     )
 }
 

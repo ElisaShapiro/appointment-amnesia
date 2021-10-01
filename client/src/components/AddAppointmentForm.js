@@ -5,12 +5,14 @@ import DateTimePicker from '@mui/lab/DateTimePicker';
 
 import { Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Container, FormControl, Grid, InputLabel, MenuItem, Select, Typography } from '@mui/material';
 import AddSharpIcon from '@mui/icons-material/AddSharp';
+import AddBoxSharpIcon from '@mui/icons-material/AddBoxSharp';
 
 function AddAppointmentForm({ universalCategories, universalProviders, appointmentCategories, appointmentProviders, formData, setFormData, manageFormData, handleSubmit, setAppointmentTimeValue, appointmentTimeValue}){
 
     return(
         <div> 
             <form onSubmit={handleSubmit}>
+                <Typography><AddBoxSharpIcon />Add Appointment</Typography>
                 <FormControl style={{minWidth: 120}}>
                     <InputLabel id="category-label">Category</InputLabel>
                     <Select
@@ -18,7 +20,7 @@ function AddAppointmentForm({ universalCategories, universalProviders, appointme
                         id="category"
                         label="Category"
                         name="category"
-                        value={formData.category.category_name}
+                        value={formData.category}
                         onChange={manageFormData}
                     >
                         {universalCategories.map((appointmentCategory) => {
@@ -37,7 +39,7 @@ function AddAppointmentForm({ universalCategories, universalProviders, appointme
                         id="provider"
                         label="Provder"
                         name="provider"
-                        value={formData.provider.provider_name}
+                        value={formData.provider}
                         onChange={manageFormData}
                     >
                         {universalProviders.map((appointmentProvider) => {

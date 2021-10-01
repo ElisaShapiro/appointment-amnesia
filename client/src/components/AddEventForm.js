@@ -12,6 +12,7 @@ import SentimentVerySatisfiedIcon from '@mui/icons-material/SentimentVerySatisfi
 
 import { Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Container, FormControl, Grid, InputLabel, MenuItem, Select, Typography } from '@mui/material';
 import AddSharpIcon from '@mui/icons-material/AddSharp';
+import AddBoxSharpIcon from '@mui/icons-material/AddBoxSharp';
 
 const customIcons = {
     1: {
@@ -51,6 +52,7 @@ function AddEventForm({ universalCategories, formData, setFormData, manageFormDa
     return(
         <div>  
             <form onSubmit={handleSubmit}>
+                <Typography><AddBoxSharpIcon />Log Event</Typography>
                 <FormControl style={{minWidth: 120}}>
                     <InputLabel id="category-label">Category</InputLabel>
                     <Select
@@ -58,7 +60,7 @@ function AddEventForm({ universalCategories, formData, setFormData, manageFormDa
                         id="category"
                         label="Category"
                         name="category"
-                        value={formData.category.category_name}
+                        value={formData.category}
                         onChange={manageFormData}
                     >
                         {universalCategories.map((eventCategory) => {

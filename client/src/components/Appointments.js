@@ -4,7 +4,7 @@ import AppointmentDetail from './AppointmentDetail';
 import AddAppointmentForm from './AddAppointmentForm';
 import SearchBar from './SearchBar';
 
-import { Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Container, Grid, TextField, Typography } from '@mui/material';
+import { Box, Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Container, Divider, Drawer, Grid, TextField, Toolbar, Typography } from '@mui/material';
 import EditSharpIcon from '@mui/icons-material/EditSharp';
 import DeleteSharpIcon from '@mui/icons-material/DeleteSharp';
 
@@ -32,10 +32,12 @@ function Appointments({ user, universalCategories, universalProviders }){
 
 
     //Appointments CU
-    function handleClickAppointment(e){
-        const editedAppointment = appointments.filter((appointment) => appointment.id == e.target.value)[0]
+    function handleClickAppointment(appointmentId){
+        const editedAppointment = appointments.filter((appointment) => appointment.id == appointmentId)[0]
+        let formDataAppointment = {...editedAppointment, category: editedAppointment.category.category_name, provider: editedAppointment.provider.provider_name}
+        debugger
         setIsEdit(!isEdit)
-        setFormData(editedAppointment)
+        setFormData(formDataAppointment)
         setAppointmentTimeValue(editedAppointment.appointment_time)
     }
     function manageFormData(e) {
@@ -107,8 +109,8 @@ function Appointments({ user, universalCategories, universalProviders }){
     }, [])
 
     //DELETE appointments
-    function handleDeleteAppointment(e){
-        fetch(`/appointments/${e.target.value}`, {
+    function handleDeleteAppointment(appointmentId){
+        fetch(`/appointments/${appointmentId}`, {
             method: "DELETE",
             headers: {
                 Accept: "application/json"
@@ -138,39 +140,48 @@ function Appointments({ user, universalCategories, universalProviders }){
     })
 
     return(
-        <div>
-            <div className="searchbar-div"> 
+        <Box sx={{display: 'flex'}}>
+            <Drawer
+                variant="permanent"
+                sx={{
+                width: 240,
+                flexShrink: 0,
+                [`& .MuiDrawer-paper`]: { width: 240, boxSizing: 'border-box' },
+                }}
+            >
+                <Toolbar /> 
+                <Box sx={{ overflow: 'auto' }}> <br />
                 <SearchBar
-                    sortOther={appointmentProviders}
-                    setSortOther={setSortAppointmentProvider} 
+                    sortOther={appointmentProviders} setSortOther={setSortAppointmentProvider} 
                     categories={appointmentCategories} 
-                    sortCategory={sortAppointmentCategory} setSortCategory={setSortAppointmentCategory}
-                />
-            </div>      
+                    sortCategory={sortAppointmentCategory} setSortCategory={setSortAppointmentCategory} />
+                    <Divider />
+                        <AddAppointmentForm 
+                            setAppointmentTimeValue={setAppointmentTimeValue}
+                            appointmentTimeValue={appointmentTimeValue}
+                            universalCategories={universalCategories}
+                            universalProviders={universalProviders} 
+                            formData={formData} 
+                            setFormData={setFormData}
+                            manageFormData={manageFormData} 
+                            handleSubmit={handleSubmit}
+                        />
+                    </Box>
+            </Drawer>     
             <div className="appointments-div">
             <Container>
                 {filteredAppointments.map((oneAppointment) => {
                     return (
                         <Card key={oneAppointment.id}>
                             <AppointmentDetail oneAppointment={oneAppointment}/>
-                            <Button size="small" color="primary" value={oneAppointment.id} onClick={handleClickAppointment}><EditSharpIcon /></Button>
-                            <Button size="small" color="primary" value={oneAppointment.id} onClick={handleDeleteAppointment}><DeleteSharpIcon /></Button>
+                            <Button size="small" color="primary" value={oneAppointment.id} onClick={()=>handleClickAppointment(oneAppointment.id)}><EditSharpIcon /></Button>
+                            <Button size="small" color="primary" value={oneAppointment.id} onClick={()=>handleDeleteAppointment(oneAppointment.id)}><DeleteSharpIcon /></Button>
                         </Card>
                     )
                 })}
                 </Container>
-                <br /><AddAppointmentForm 
-                    setAppointmentTimeValue={setAppointmentTimeValue}
-                    appointmentTimeValue={appointmentTimeValue}
-                    universalCategories={universalCategories}
-                    universalProviders={universalProviders} 
-                    formData={formData} 
-                    setFormData={setFormData}
-                    manageFormData={manageFormData} 
-                    handleSubmit={handleSubmit}
-                />
             </div>
-    </div>
+    </Box>
     )
 }
 
