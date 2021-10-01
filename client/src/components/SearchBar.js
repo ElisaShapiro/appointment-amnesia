@@ -1,4 +1,5 @@
 import { Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Container, FormControl, Grid, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material';
+import SearchSharpIcon from '@mui/icons-material/SearchSharp';
 
 function SearchBar({ search, setSearch, categories, sortCategory, setSortCategory, sortOther, setSortOther, type }){
  
@@ -14,6 +15,7 @@ function SearchBar({ search, setSearch, categories, sortCategory, setSortCategor
 
     return(
         <Container>
+            <SearchSharpIcon />
             {type === "events" ? 
                 <TextField
                     id="search"

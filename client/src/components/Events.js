@@ -3,7 +3,8 @@ import { useHistory } from 'react-router-dom';
 import EventDetail from './EventDetail';
 import AddEventForm from './AddEventForm';
 import SearchBar from './SearchBar';
-
+import EditSharpIcon from '@mui/icons-material/EditSharp';
+import DeleteSharpIcon from '@mui/icons-material/DeleteSharp';
 import { Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Container, Grid, TextField, Typography } from '@mui/material';
 
 
@@ -152,8 +153,8 @@ function Events({ user, universalCategories }){
                     return (
                         <Card key={oneEvent.id}>
                             <EventDetail oneEvent={oneEvent}/>
-                            <Button size="small" color="primary" value={oneEvent.id} onClick={handleClickEdit}>EDIT</Button>
-                            <Button size="small" color="primary" value={oneEvent.id} onClick={handleDeleteEvent}>DELETE</Button>
+                            <Button size="small" color="primary" value={oneEvent.id} onClick={handleClickEdit}><EditSharpIcon/></Button>
+                            <Button size="small" color="primary" value={oneEvent.id} onClick={handleDeleteEvent}><DeleteSharpIcon/></Button>
                         </Card>
                     )
                 })}

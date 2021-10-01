@@ -4,6 +4,7 @@ import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DateTimePicker from '@mui/lab/DateTimePicker';
 
 import { Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Container, FormControl, Grid, InputLabel, MenuItem, Select, Typography } from '@mui/material';
+import AddSharpIcon from '@mui/icons-material/AddSharp';
 
 function AddAppointmentForm({ universalCategories, universalProviders, appointmentCategories, appointmentProviders, formData, setFormData, manageFormData, handleSubmit, setAppointmentTimeValue, appointmentTimeValue}){
 
@@ -62,7 +63,7 @@ function AddAppointmentForm({ universalCategories, universalProviders, appointme
                     </LocalizationProvider>
                 </div>
                 <div>
-                    <Button type="submit">Add New Appointment</Button>
+                    <Button type="submit"><AddSharpIcon />New Appointment</Button>
                 </div>
             </form>
         </div>

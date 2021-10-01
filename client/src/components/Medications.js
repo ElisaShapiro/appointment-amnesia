@@ -5,6 +5,10 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 
 import { Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Container, FormControl, FormLabel, Grid, InputLabel, MenuItem, Radio, RadioGroup, Select, TextField, Typography } from '@mui/material';
+import DeleteSharpIcon from '@mui/icons-material/DeleteSharp';
+import AddBoxSharpIcon from '@mui/icons-material/AddBoxSharp';
+import SearchSharpIcon from '@mui/icons-material/SearchSharp';
+import AddSharpIcon from '@mui/icons-material/AddSharp';
 
 function Medications({ user, universalProviders}) {
     const history = useHistory()
@@ -128,12 +132,12 @@ function Medications({ user, universalProviders}) {
                             Medicine: {medication.medication_name}<br />
                             Dosage: {medication.dosage}<br />
                             Prescribed by: {medication.provider.provider_name} <br />
-                            <Button value={medication.id} onClick={handleDeleteMedication}>DELETE</Button>
+                            <Button value={medication.id} onClick={handleDeleteMedication}><DeleteSharpIcon /></Button>
                             </CardContent>
                         </Card>
                     )
                 })}
-                <br /><Button onClick={() => setShowMedicationForm(!showMedicationForm)}>Show Add Medication Form</Button>
+                <br /><Button onClick={() => setShowMedicationForm(!showMedicationForm)}><AddBoxSharpIcon />Medication Form</Button>
                 {showMedicationForm ?
                 <form onSubmit={handleMedicationSubmit}>
                     <FormGroup>
@@ -152,7 +156,7 @@ function Medications({ user, universalProviders}) {
                     {/* <label htmlFor="medicationName">Search Database by Medication Name:</label>
                     <input name="medicationName" id="medication" type="text" 
                         value={medicationName} onChange={(e) => setMedicationName(e.target.value)} /> */}
-                    <Button onClick={searchMedicationsOnAPI}>Search Medications</Button>
+                    <Button onClick={searchMedicationsOnAPI}><SearchSharpIcon />Medications</Button>
                           
                 {medicationsFromAPI.length > 0 ?
                     <FormControl component="fieldset">
@@ -197,7 +201,7 @@ function Medications({ user, universalProviders}) {
                             })} 
                         </Select>
                     </FormControl>
-                <br /><Button type="submit">Add Medication Button</Button>
+                <br /><Button type="submit"><AddSharpIcon />Medication Button</Button>
                 </form>
                 : null}
             </div>

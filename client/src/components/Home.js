@@ -1,5 +1,6 @@
 import Login from './Login'
 import Profile from './Profile';
+import { Button, Container, Input, Typography } from '@mui/material'
 
 function Home({ user, setUser, setHasUpdate, hasUpdate }){
 
@@ -11,7 +12,7 @@ function Home({ user, setUser, setHasUpdate, hasUpdate }){
              />
             : 
             <>
-            "Login or Signup"
+            <Typography>"No account? Login or Signup"</Typography>
             <Login setUser={setUser}/>
             </>
             }

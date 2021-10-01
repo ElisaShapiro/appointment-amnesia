@@ -5,6 +5,8 @@ import AddAppointmentForm from './AddAppointmentForm';
 import SearchBar from './SearchBar';
 
 import { Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Container, Grid, TextField, Typography } from '@mui/material';
+import EditSharpIcon from '@mui/icons-material/EditSharp';
+import DeleteSharpIcon from '@mui/icons-material/DeleteSharp';
 
 function Appointments({ user, universalCategories, universalProviders }){
     const history = useHistory()
@@ -151,8 +153,8 @@ function Appointments({ user, universalCategories, universalProviders }){
                     return (
                         <Card key={oneAppointment.id}>
                             <AppointmentDetail oneAppointment={oneAppointment}/>
-                            <Button size="small" color="primary" value={oneAppointment.id} onClick={handleClickAppointment}>EDIT</Button>
-                            <Button size="small" color="primary" value={oneAppointment.id} onClick={handleDeleteAppointment}>DELETE</Button>
+                            <Button size="small" color="primary" value={oneAppointment.id} onClick={handleClickAppointment}><EditSharpIcon /></Button>
+                            <Button size="small" color="primary" value={oneAppointment.id} onClick={handleDeleteAppointment}><DeleteSharpIcon /></Button>
                         </Card>
                     )
                 })}

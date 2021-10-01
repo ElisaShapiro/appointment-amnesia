@@ -1,7 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Container, Grid, TextField, Typography } from '@mui/material';
-
+import { Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Chip, Container, Grid, TextField, Typography } from '@mui/material';
+import EditSharpIcon from '@mui/icons-material/EditSharp';
+import AddSharpIcon from '@mui/icons-material/AddSharp';
+import AddBoxSharpIcon from '@mui/icons-material/AddBoxSharp';
+import PersonAddAlt1SharpIcon from '@mui/icons-material/PersonAddAlt1Sharp';
 
 function Profile({ user, setHasUpdate, hasUpdate }){
     const history = useHistory()
@@ -186,7 +189,7 @@ function Profile({ user, setHasUpdate, hasUpdate }){
                         </CardContent>
                     <CardActions>
                         <Button size="small" color="primary" onClick={()=>setShowDemographicForm(!showDemographicForm)}>
-                        Edit Demographic Info
+                            <EditSharpIcon/> Demographic Info
                         </Button>
                     </CardActions>
                     </Card>
@@ -230,7 +233,7 @@ function Profile({ user, setHasUpdate, hasUpdate }){
                             value={demographicFormData.avatar}
                             onChange={manageDemographicFormData}
                         />
-                        <Button type="submit">Update Demographics</Button>
+                        <Button type="submit"><PersonAddAlt1SharpIcon />Demographics</Button>
                     </form>
                     : null}
                 </div>
@@ -255,14 +258,14 @@ function Profile({ user, setHasUpdate, hasUpdate }){
                             <br />{provider.address}
                         </Typography>
                         <CardActions>
-                            <Button id={provider.id} onClick={setEditProvider}>Edit Provider</Button>
+                            <Button id={provider.id} onClick={setEditProvider}><EditSharpIcon/> Provider</Button>
                         </CardActions>
                         </Card>
                      )
                     })}
                     </Grid>
                     </Typography>
-                <Button onClick={() => setShowProviderForm(!showProviderForm)}>Show Add Provider Form</Button>
+                <Button onClick={() => setShowProviderForm(!showProviderForm)}><AddBoxSharpIcon />Provider Form</Button>
                 </CardContent>
                 <div> 
                 {showProviderForm ?
@@ -290,7 +293,7 @@ function Profile({ user, setHasUpdate, hasUpdate }){
                         value={providerFormData.address}
                         onChange={manageProviderFormData}
                         />
-                     <Button type="submit">Add Provider</Button>
+                     <Button type="submit"><AddSharpIcon />Provider</Button>
                 </form>
                 :
                 null}
@@ -312,14 +315,14 @@ function Profile({ user, setHasUpdate, hasUpdate }){
                             {category.category_name}
                         </Typography>
                         <CardActions>
-                            <Button id={category.id} value={category.category_name} onClick={setEditCategory}>Edit Category</Button>
+                            <Button id={category.id} value={category.category_name} onClick={setEditCategory}><EditSharpIcon />Category</Button>
                         </CardActions>
                         </Card>
                     )
                 })}
                 </Grid>
                     </Typography>
-                <Button onClick={() => setShowCategoryForm(!showCategoryForm)}>Show Add Provider Form</Button>    
+                <Button onClick={() => setShowCategoryForm(!showCategoryForm)}><AddBoxSharpIcon />Category Form</Button>    
                 </CardContent>
                 <div>
                 {showCategoryForm ?
@@ -331,7 +334,7 @@ function Profile({ user, setHasUpdate, hasUpdate }){
                         value={categoryFormData.category_name}
                         onChange={manageCategoryFormData}
                         />
-                        <Button type="submit">Add Category</Button>
+                        <Button type="submit"><AddSharpIcon />Category</Button>
                 </form>
                 : null}
             </div>

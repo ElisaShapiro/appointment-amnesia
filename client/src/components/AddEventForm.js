@@ -11,7 +11,7 @@ import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt
 import SentimentVerySatisfiedIcon from '@mui/icons-material/SentimentVerySatisfied';
 
 import { Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Container, FormControl, Grid, InputLabel, MenuItem, Select, Typography } from '@mui/material';
-
+import AddSharpIcon from '@mui/icons-material/AddSharp';
 
 const customIcons = {
     1: {
@@ -106,7 +106,7 @@ function AddEventForm({ universalCategories, formData, setFormData, manageFormDa
                     </LocalizationProvider>
                 </div>
                 <div>
-                    <Button type="submit">Add New Event</Button>
+                    <Button type="submit"><AddSharpIcon />New Event</Button>
                 </div>
             </form>
         </div>

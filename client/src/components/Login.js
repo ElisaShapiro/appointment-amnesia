@@ -1,6 +1,8 @@
 import { useState } from "react"
 import { useHistory } from "react-router-dom"
 
+import { Button, Container, Input, Typography } from '@mui/material'
+
 function Login({ setUser } ){
     const history = useHistory()
 
@@ -37,16 +39,29 @@ function Login({ setUser } ){
 
 
     return(
-        <div>
-            <form className="login-signup-form" onSubmit={handleSubmit}>
-                <br/>
-                <label htmlFor="name">Name:</label><br/>
-                <input type="text" name="name" className="input-field" id="name" value={loginInfo.name} onChange={handleChange} /><br/><br/>
-                <label htmlFor="password">Password:</label><br/>
-                <input type="password" name="password" className="input-field" id="password" value={loginInfo.password} onChange={handleChange} /><br/><br/>
-                <button type="submit">Submit</button>
+        <Container>
+            <form onSubmit={handleSubmit}>
+                <Typography>Name:</Typography>
+                <Input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value={loginInfo.name} 
+                    onChange={handleChange}
+                >
+                </Input>
+                <br /><Typography>Password:</Typography>
+                <Input 
+                    type="password"
+                    id="password"
+                    name="password"
+                    value={loginInfo.password} 
+                    onChange={handleChange}
+                >
+                </Input>
+                <br /><Button type="submit">Login</Button>
             </form>
-        </div>
+        </Container>
     )
 }
 
