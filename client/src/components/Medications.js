@@ -112,8 +112,8 @@ function Medications({ user, universalProviders}) {
     }
 
     //DELETE medications
-    function handleDeleteMedication(e){
-        fetch(`/medications/${e.target.value}`, {
+    function handleDeleteMedication(medicationId){
+        fetch(`/medications/${medicationId}`, {
             method: "DELETE",
             headers: {
                 Accept: "application/json"
@@ -229,7 +229,7 @@ function Medications({ user, universalProviders}) {
                                     </CardContent>
                                     </Card>
                                     <div style={{display: "flex", alignItems: 'center', justifyContent: 'center'}}>
-                                        <Button value={medication.id} onClick={handleDeleteMedication}><DeleteSharpIcon /></Button>
+                                        <Button value={medication.id} onClick={()=>handleDeleteMedication(medication.id)}><DeleteSharpIcon /></Button>
                                     </div>
                                 </Card>
                             </Grid>
