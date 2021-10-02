@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Box, Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Chip, Container, Divider, Drawer, Grid, TextField, Toolbar, Typography } from '@mui/material';
+import { Box, Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Chip, Container, Divider, Drawer, FormControl, Grid, TextField, Toolbar, Typography } from '@mui/material';
 import EditSharpIcon from '@mui/icons-material/EditSharp';
 import AddSharpIcon from '@mui/icons-material/AddSharp';
 import AddBoxSharpIcon from '@mui/icons-material/AddBoxSharp';
@@ -21,7 +21,6 @@ function Profile({ user, setHasUpdate, hasUpdate }){
     })
 
     const [providers, setProviders] = useState(user.user_providers)
-    const [showProviderForm, setShowProviderForm] = useState(false)
     const [providerFormData, setProviderFormData] = useState({ 
         provider_name: "",
         phone_number: "",
@@ -29,7 +28,6 @@ function Profile({ user, setHasUpdate, hasUpdate }){
     })
 
     const [categories, setCategories] = useState(user.user_categories)
-    const [showCategoryForm, setShowCategoryForm] = useState(false)
     const [categoryFormData, setCategoryFormData] = useState({ category_name: "" })
     
     //DEMOGRAPHICS RU
@@ -50,7 +48,7 @@ function Profile({ user, setHasUpdate, hasUpdate }){
             body: JSON.stringify(demographicFormData)
         }).then(response=>response.json())
         .then(data=>{
-            setShowCategoryForm(!showCategoryForm)
+            setShowDemographicForm(!showDemographicForm)
             history.go('/profile')
         })
     }
@@ -85,7 +83,11 @@ function Profile({ user, setHasUpdate, hasUpdate }){
             .then(response=>response.json())
             .then(data => {
                 setIsEdit(false)
-                setShowProviderForm(!showProviderForm)
+                setProviderFormData({ 
+                    provider_name: "",
+                    phone_number: "",
+                    address: "" 
+                })
                 history.go('/profile')
             })
         } else {
@@ -98,14 +100,16 @@ function Profile({ user, setHasUpdate, hasUpdate }){
             })
             .then(response => response.json())
             .then(data => {
-                // setProviders([...providers, data])
-                setShowProviderForm(!showProviderForm)
+                setProviderFormData({ 
+                    provider_name: "",
+                    phone_number: "",
+                    address: "" 
+                })
                 setHasUpdate(!hasUpdate)
             })
         }
     }
     function setEditProvider(e){
-        setShowProviderForm(!showProviderForm)
         let currentProvider = providers.filter(provider => provider.id == e.target.id)[0]
         setProviderFormData({
             id: e.target.id, 
@@ -143,7 +147,7 @@ function Profile({ user, setHasUpdate, hasUpdate }){
             }).then(response=>response.json())
             .then(data=>{
                 setIsEdit(false)
-                setShowCategoryForm(!showCategoryForm)
+                setCategoryFormData({ category_name: "" })
                 history.go('/')
             })
         } else {
@@ -157,13 +161,12 @@ function Profile({ user, setHasUpdate, hasUpdate }){
             .then(response => response.json())
             .then(data => {
                 // setCategories([...categories, data])
-                setShowCategoryForm(!showCategoryForm)
+                setCategoryFormData({ category_name: "" })
                 setHasUpdate(!hasUpdate)
             })
         }
     }
     function setEditCategory(e){
-        setShowCategoryForm(!showCategoryForm)
         setCategoryFormData({id: e.target.id, category_name: e.target.value})
         setIsEdit(true)
     }
@@ -180,170 +183,210 @@ function Profile({ user, setHasUpdate, hasUpdate }){
             >
                 <Toolbar /> 
                 <Box sx={{ overflow: 'auto' }}> <br />
-                <Typography><AddBoxSharpIcon />Provider Form</Typography>
-                <form onSubmit={handleProviderSubmit}>
-                    <TextField
-                        id="provider_name"
-                        label="Provider Name"
-                        name="provider_name"
-                        value={providerFormData.provider_name}
-                        onChange={manageProviderFormData}
-                        />
-                    <TextField
-                        id="phone_number"
-                        label="Phone Number"
-                        name="phone_number"
-                        value={providerFormData.phone_number}
-                        onChange={manageProviderFormData}
-                        />
-                    <TextField
-                        multiline
-                        rows={3}
-                        id="address"
-                        label="Address"
-                        name="address"
-                        value={providerFormData.address}
-                        onChange={manageProviderFormData}
-                        />
-                     <Button type="submit"><AddSharpIcon />Provider</Button>
-                </form>
+                    <Typography><AddBoxSharpIcon />Provider Form</Typography>
+                    <form onSubmit={handleProviderSubmit}>
+                        <FormControl>
+                            <TextField
+                                id="provider_name"
+                                label="Provider Name"
+                                name="provider_name"
+                                style={{minWidth: 183}}
+                                value={providerFormData.provider_name}
+                                onChange={manageProviderFormData}
+                            />
+                        </FormControl>
+                        <FormControl>
+                            <TextField
+                                id="phone_number"
+                                label="Phone Number"
+                                name="phone_number"
+                                style={{minWidth: 183}}
+                                value={providerFormData.phone_number}
+                                onChange={manageProviderFormData}
+                            />
+                        </FormControl>
+                        <FormControl>
+                            <TextField
+                                multiline
+                                rows={3}
+                                id="address"
+                                label="Address"
+                                name="address"
+                                value={providerFormData.address}
+                                onChange={manageProviderFormData}
+                            />
+                            <Button type="submit"><AddSharpIcon />Provider</Button>
+                        </FormControl>
+                    </form>
                     <Divider />
                     <Typography><AddBoxSharpIcon />Category Form</Typography>
                     <form onSubmit={handleCategorySubmit}>
-                    <TextField
-                        id="category"
-                        label="category"
-                        name="category_name"
-                        value={categoryFormData.category_name}
-                        onChange={manageCategoryFormData}
-                        />
-                        <Button type="submit"><AddSharpIcon />Category</Button>
-                </form>
+                        <FormControl style={{minWidth: 183}}>
+                            <TextField
+                                id="category"
+                                label="Category"
+                                name="category_name"
+                                value={categoryFormData.category_name}
+                                onChange={manageCategoryFormData}
+                            />
+                            <Button type="submit"><AddSharpIcon />Category</Button>
+                        </FormControl>
+                    </form>
                 </Box>
             </Drawer>
             <Container>
-            <Container>
-                <Card sx={{ maxWidth: 345 }}>
-                        <CardMedia
-                            component="img"
-                            height="150"
-                            image={user.avatar}
-                            alt="user profile picture"
-                        />
-                        <CardContent>
-                        <Typography gutterBottom variant="h5" component="div">
-                            {user.name} 
-                        </Typography>
-                        <Typography variant="body2" color="text.secondary">
-                            Age: {user.age}<br />
-                            Bio: {user.summary}
-                        </Typography>
-                        </CardContent>
-                    <CardActions>
-                        <Button size="small" color="primary" onClick={()=>setShowDemographicForm(!showDemographicForm)}>
-                            <EditSharpIcon/> Demographic Info
-                        </Button>
-                    </CardActions>
-                    </Card>
-                <div>
-                    {showDemographicForm ?
-                    <form onSubmit={handleDemographicSubmit}>
-                        <TextField
-                            id="email"
-                            label="Email"
-                            name="email"
-                            value={demographicFormData.email}
-                            onChange={manageDemographicFormData}
-                        />
-                        <TextField
-                            id="name"
-                            label="Name"
-                            name="name"
-                            value={demographicFormData.name}
-                            onChange={manageDemographicFormData}
-                        />
-                        <TextField
-                            id="age"
-                            label="Age"
-                            name="age"
-                            value={demographicFormData.age}
-                            onChange={manageDemographicFormData}
-                        />
-                        <TextField
-                            multiline
-                            rows={5}
-                            id="summary"
-                            label="Bio/Summary"
-                            name="summary"
-                            value={demographicFormData.summary}
-                            onChange={manageDemographicFormData}
-                        />
-                        <TextField
-                            id="avatar"
-                            label="Avatar URL"
-                            name="avatar"
-                            value={demographicFormData.avatar}
-                            onChange={manageDemographicFormData}
-                        />
-                        <Button type="submit"><PersonAddAlt1SharpIcon />Demographics</Button>
-                    </form>
-                    : null}
-                </div>
-            </Container>
-            <Container>
-                <CardContent>
-                    <Typography variant="h2" color="text.secondary">
-                        My Providers: 
+                <Container>
+                    <Typography variant="h2" sx={{marginLeft: "16px"}} color="text.secondary">
+                        My Info: 
                     </Typography>
-                    <Grid container 
+                    {showDemographicForm ?
+                    <Grid container
                         direction="row"
                         justifyContent="flex-start"
                         alignItems="flex-start"
-                        spacing={4}
+                        sx={{marginLeft: "16px"}}
                     >
-                        {providers.map((provider) => {
+                        <Grid item>
+                            <Card sx={{ maxWidth: 740 }}>
+                                <form onSubmit={handleDemographicSubmit}>
+                                    <CardContent>
+                                        <TextField
+                                            id="email"
+                                            label="Email"
+                                            name="email"
+                                            value={demographicFormData.email}
+                                            onChange={manageDemographicFormData}
+                                        />
+                                        <TextField
+                                            id="name"
+                                            label="Name"
+                                            name="name"
+                                            value={demographicFormData.name}
+                                            onChange={manageDemographicFormData}
+                                        />
+                                        <TextField
+                                            id="age"
+                                            label="Age"
+                                            name="age"
+                                            value={demographicFormData.age}
+                                            onChange={manageDemographicFormData}
+                                        />
+                                        <TextField
+                                            id="avatar"
+                                            label="Avatar URL"
+                                            name="avatar"
+                                            value={demographicFormData.avatar}
+                                            onChange={manageDemographicFormData}
+                                        />
+                                        <TextField
+                                            multiline
+                                            rows={5}
+                                            style={{width: 522}}
+                                            id="summary"
+                                            label="Bio/Summary"
+                                            name="summary"
+                                            value={demographicFormData.summary}
+                                            onChange={manageDemographicFormData}
+                                        />
+                                        <Button type="submit"><PersonAddAlt1SharpIcon />Demographics</Button>
+                                    </CardContent>
+                                </form>
+                            </Card>
+                        </Grid>
+                    </Grid>
+                    :
+                    <Grid container
+                        direction="row"
+                        justifyContent="flex-start"
+                        alignItems="flex-start"
+                        sx={{marginLeft: "16px"}}
+                    >
+                        <Grid item>
+                            <Card sx={{ maxWidth: 740 }}>
+                                <CardContent>
+                                    <Box sx={{display: 'flex', justifyContent: "space-between"}}>
+                                        <Box>
+                                            <Typography gutterBottom variant="h5" component="div">
+                                                {user.name} 
+                                            </Typography>
+                                            <Typography variant="body2" color="text.secondary">
+                                                Age: {user.age}
+                                            </Typography>
+                                        </Box>
+                                        <CardMedia
+                                            component="img"
+                                            image={user.avatar}
+                                            sx={{height: '80px', width: 'auto'}}
+                                            alt="user profile picture"
+                                        />
+                                    </Box>
+                                    <Typography variant="body2" color="text.secondary">
+                                        Bio: {user.summary}
+                                    </Typography>
+                                </CardContent>                   
+                                <CardActions>
+                                    <Button size="small" color="primary" onClick={()=>setShowDemographicForm(!showDemographicForm)}>
+                                        <EditSharpIcon/> Demographic Info
+                                    </Button>
+                                </CardActions>               
+                            </Card>
+                        </Grid>
+                    </Grid>}
+                </Container>
+                <Container>
+                    <CardContent>
+                        <Typography variant="h2" color="text.secondary">
+                            My Providers: 
+                        </Typography>
+                        <Grid container 
+                            direction="row"
+                            justifyContent="flex-start"
+                            alignItems="flex-start"
+                            spacing={4}
+                        >
+                            {providers.map((provider) => {
+                                return (
+                                    <Grid item xs={3}>
+                                        <Card key={provider.id} sx={{minHeight: 318, display: 'flex', flexDirection: 'column', padding: '14px'}}>
+                                            <Typography variant="h5" component="div">{provider.provider_name}</Typography>
+                                            <Typography variant="body2" color="text.secondary">{provider.phone_number}</Typography>
+                                            <Typography sx={{flexGrow: 1}} variant="body2" color="text.secondary">{provider.address}</Typography>
+                                            <CardActions sx={{display: 'flex', justifyContent: 'center'}}>
+                                                <Button id={provider.id} onClick={setEditProvider}><EditSharpIcon/> Provider</Button>
+                                            </CardActions>
+                                        </Card>
+                                    </Grid>
+                                )
+                            })}
+                        </Grid>
+                    </CardContent>
+                </Container>
+                <Container>
+                    <CardContent>
+                        <Typography variant="h2" color="text.secondary">
+                            My Categories: 
+                        </Typography>
+                        <Grid container 
+                            direction="row"
+                            justifyContent="flex-start"
+                            alignItems="flex-start"
+                            spacing={4}
+                        >
+                        {categories.map((category) => {
                             return (
                                 <Grid item xs={3}>
-                                    <Card key={provider.id}
-                                    sx={{minHeight: 240, display: 'flex', flexDirection: 'column'}}>
-                                        <Typography variant="h5" component="div">{provider.provider_name}</Typography>
-                                        <Typography variant="body2" color="text.secondary">{provider.phone_number}</Typography>
-                                        <Typography sx={{flexGrow: 1}} variant="body2" color="text.secondary">{provider.address}</Typography>
-                                        <CardActions sx={{display: 'flex', justifyContent: 'center'}}>
-                                            <Button id={provider.id} onClick={setEditProvider}><EditSharpIcon/> Provider</Button>
+                                    <Card key={category.id} sx={{minHeight: 130, display: 'flex', flexDirection: 'column', padding: '14px'}}>
+                                        <Typography sx={{flexGrow: 1}} variant="body2" color="text.secondary">{category.category_name}</Typography>
+                                        <CardActions  sx={{display: 'flex', justifyContent: 'center'}}>
+                                            <Button id={category.id} value={category.category_name} onClick={setEditCategory}><EditSharpIcon />Category</Button>
                                         </CardActions>
                                     </Card>
                                 </Grid>
                             )
                         })}
-                    </Grid>
-                </CardContent>
-            </Container>
-            <Container>
-                <CardContent>
-                    <Typography variant="h2" color="text.secondary">
-                        My Categories: 
-                    </Typography>
-                    <Grid container 
-                        direction="row"
-                        justifyContent="flex-start"
-                        alignItems="center"
-                    >
-                    {categories.map((category) => {
-                        return (
-                            <Card key={category.id}>
-                                <Typography variant="body2" color="text.secondary">
-                                    {category.category_name}
-                                </Typography>
-                                <CardActions>
-                                    <Button id={category.id} value={category.category_name} onClick={setEditCategory}><EditSharpIcon />Category</Button>
-                                </CardActions>
-                            </Card>
-                        )
-                    })}
-                    </Grid>
-                </CardContent>            
-            </Container>
+                        </Grid>
+                    </CardContent>            
+                </Container>
             </Container>
         </Box>
     )

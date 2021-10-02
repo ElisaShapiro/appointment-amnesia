@@ -51,7 +51,7 @@ function AddAppointmentForm({ universalCategories, universalProviders, appointme
                         })}
                     </Select>
                 </FormControl><br />
-                    <LocalizationProvider dateAdapter={AdapterDateFns}>
+                    <LocalizationProvider dateAdapter={AdapterDateFns} style={{minWidth: 174}}>
                         <DateTimePicker
                             renderInput={(props) => <TextField {...props} />}
                             label="Date and Time"
@@ -59,7 +59,7 @@ function AddAppointmentForm({ universalCategories, universalProviders, appointme
                             onChange={(newAppointmentTimeValue) => {
                                 setFormData({...formData, appointment_time: newAppointmentTimeValue})
                                 setAppointmentTimeValue(newAppointmentTimeValue);
-                            }}
+                            }}   
                         />
                     </LocalizationProvider>
                 <Button type="submit"><AddSharpIcon />New Appointment</Button>              

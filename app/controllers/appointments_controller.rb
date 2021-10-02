@@ -1,6 +1,6 @@
 class AppointmentsController < ApplicationController
     def index
-        appointments = Appointment.where(user_id: @current_user.id)
+        appointments = Appointment.where(user_id: @current_user.id).sort_by{|appointment| appointment.appointment_time}
         render json: appointments, status: :ok
     end
     def create
