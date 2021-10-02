@@ -53,7 +53,8 @@ const theme = createTheme({
         },
         body2: {
             fontSize: '18px',
-            fontWeight: '700'
+            fontWeight: '700',
+            color: '#222',
         }
     },
 })

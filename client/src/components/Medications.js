@@ -205,27 +205,38 @@ function Medications({ user, universalProviders}) {
                 </Box>
             </Drawer>
             <Container> 
-                <Typography variant="h2" color="text.secondary">                      
+                <Typography variant="h2" color="text.secondary">               
                     My Medications: 
+                </Typography>
                     <Grid container 
                         direction="row"
                         justifyContent="flex-start"
                         alignItems="center"
+                        spacing={4}
                     >
                         {medications.map((medication) => {
                         return (
+                            <Grid item xs={5} spacing={2}>
                             <Card key={medication.id}>
-                                <CardContent variant="body2" color="text.secondary">
-                                Medicine: {medication.medication_name}<br />
-                                Dosage: {medication.dosage}<br />
-                                Prescribed by: {medication.provider.provider_name} <br />
-                                <Button value={medication.id} onClick={handleDeleteMedication}><DeleteSharpIcon /></Button>
-                                </CardContent>
-                            </Card>
+                                <Card>
+                                    <CardContent>
+                                        <Typography variant="body1" color="text.secondary">Medicine:</Typography> 
+                                        <Typography variant="body2" color="text.secondary">{medication.medication_name}</Typography>
+                                        <Typography variant="body1" color="text.secondary">Dosage:</Typography>
+                                        <Typography variant="body2" color="text.secondary">{medication.dosage}</Typography>
+                                        <Typography variant="body1" color="text.secondary">Prescribed by:</Typography> 
+                                        <Typography variant="body2" color="text.secondary">{medication.provider.provider_name}</Typography> 
+                                    </CardContent>
+                                    </Card>
+                                    <div style={{display: "flex", alignItems: 'center', justifyContent: 'center'}}>
+                                        <Button value={medication.id} onClick={handleDeleteMedication}><DeleteSharpIcon /></Button>
+                                    </div>
+                                </Card>
+                            </Grid>
                         )
                         })}
                     </Grid>
-                </Typography>
+
             </Container>
         </Box>
     )

@@ -7,12 +7,14 @@ function EventDetail({ oneEvent }){
     return(
         <Card>
             <CardContent>
-                    <Typography variant="body2" color="text.secondary">
-                        Category: {oneEvent.category.category_name} <br />
-                        What happened? {oneEvent.content} <br />
-                        Severity: {oneEvent.severity} <br />
-                        Occurred: {format(new Date(oneEvent.event_time), "eee MMM'-'d'-'y h':'mm bbb") }       
-                    </Typography>
+                <Typography variant="body1" color="text.secondary">Category: </Typography>
+                <Typography variant="body2" color="text.secondary">{oneEvent.category.category_name} </Typography> <br />
+                <Typography variant="body1" color="text.secondary">What happened?</Typography> 
+                <Typography variant="body2" color="text.secondary">{oneEvent.content} </Typography>
+                <Typography variant="body1" color="text.secondary">Severity: </Typography>
+                <Typography variant="body2" color="text.secondary">{oneEvent.severity} </Typography>
+                <Typography variant="body1" color="text.secondary">Occurred: </Typography>
+                <Typography variant="body2" color="text.secondary">{format(new Date(oneEvent.event_time), "eee MMM'-'d'-'y h':'mm bbb") }</Typography>    
             </CardContent>
         </Card>
     )

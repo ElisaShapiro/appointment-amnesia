@@ -294,102 +294,55 @@ function Profile({ user, setHasUpdate, hasUpdate }){
                 <CardContent>
                     <Typography variant="h2" color="text.secondary">
                         My Providers: 
+                    </Typography>
+                    <Grid container 
+                        direction="row"
+                        justifyContent="flex-start"
+                        alignItems="flex-start"
+                        spacing={4}
+                    >
+                        {providers.map((provider) => {
+                            return (
+                                <Grid item xs={3}>
+                                    <Card key={provider.id}
+                                    sx={{minHeight: 240, display: 'flex', flexDirection: 'column'}}>
+                                        <Typography variant="h5" component="div">{provider.provider_name}</Typography>
+                                        <Typography variant="body2" color="text.secondary">{provider.phone_number}</Typography>
+                                        <Typography sx={{flexGrow: 1}} variant="body2" color="text.secondary">{provider.address}</Typography>
+                                        <CardActions sx={{display: 'flex', justifyContent: 'center'}}>
+                                            <Button id={provider.id} onClick={setEditProvider}><EditSharpIcon/> Provider</Button>
+                                        </CardActions>
+                                    </Card>
+                                </Grid>
+                            )
+                        })}
+                    </Grid>
+                </CardContent>
+            </Container>
+            <Container>
+                <CardContent>
+                    <Typography variant="h2" color="text.secondary">
+                        My Categories: 
+                    </Typography>
                     <Grid container 
                         direction="row"
                         justifyContent="flex-start"
                         alignItems="center"
                     >
-                    {providers.map((provider) => {
-                    return (
-                        <Card key={provider.id}>
-                        <Typography variant="h5" component="div">
-                            {provider.provider_name}
-                        </Typography>
-                        <Typography>
-                            {provider.phone_number}
-                            <br />{provider.address}
-                        </Typography>
-                        <CardActions>
-                            <Button id={provider.id} onClick={setEditProvider}><EditSharpIcon/> Provider</Button>
-                        </CardActions>
-                        </Card>
-                     )
+                    {categories.map((category) => {
+                        return (
+                            <Card key={category.id}>
+                                <Typography variant="body2" color="text.secondary">
+                                    {category.category_name}
+                                </Typography>
+                                <CardActions>
+                                    <Button id={category.id} value={category.category_name} onClick={setEditCategory}><EditSharpIcon />Category</Button>
+                                </CardActions>
+                            </Card>
+                        )
                     })}
                     </Grid>
-                    </Typography>
-                {/* <Button onClick={() => setShowProviderForm(!showProviderForm)}><AddBoxSharpIcon />Provider Form</Button> */}
-                </CardContent>
-                {/* <div> 
-                {showProviderForm ?
-                <form onSubmit={handleProviderSubmit}>
-                    <TextField
-                        id="provider_name"
-                        label="Provider Name"
-                        name="provider_name"
-                        value={providerFormData.provider_name}
-                        onChange={manageProviderFormData}
-                        />
-                    <TextField
-                        id="phone_number"
-                        label="Phone Number"
-                        name="phone_number"
-                        value={providerFormData.phone_number}
-                        onChange={manageProviderFormData}
-                        />
-                    <TextField
-                        multiline
-                        rows={3}
-                        id="address"
-                        label="Address"
-                        name="address"
-                        value={providerFormData.address}
-                        onChange={manageProviderFormData}
-                        />
-                     <Button type="submit"><AddSharpIcon />Provider</Button>
-                </form>
-                :
-                null}
-            </div> */}
-            </Container>
-            <Container>
-                <CardContent>
-                <Typography variant="h2" color="text.secondary">
-                My Categories: 
-                <Grid container 
-                    direction="row"
-                    justifyContent="flex-start"
-                    alignItems="center"
-                >
-                {categories.map((category) => {
-                    return (
-                        <Card key={category.id}>
-                        <Typography variant="h5" component="div">
-                            {category.category_name}
-                        </Typography>
-                        <CardActions>
-                            <Button id={category.id} value={category.category_name} onClick={setEditCategory}><EditSharpIcon />Category</Button>
-                        </CardActions>
-                        </Card>
-                    )
-                })}
-                </Grid>
-                    </Typography>
-                {/* <Button onClick={() => setShowCategoryForm(!showCategoryForm)}><AddBoxSharpIcon />Category Form</Button>     */}
-                </CardContent>
-                {/* <div>
-                {showCategoryForm ?
-                <form onSubmit={handleCategorySubmit}>
-                    <TextField
-                        id="category"
-                        label="category"
-                        name="category_name"
-                        value={categoryFormData.category_name}
-                        onChange={manageCategoryFormData}
-                        />
-                        <Button type="submit"><AddSharpIcon />Category</Button>
-                </form>
-                : null}
-            </div> */}
+                </CardContent>            
             </Container>
             </Container>
         </Box>

@@ -186,17 +186,21 @@ function Appointments({ user, universalCategories, universalProviders }){
                     </Grid>
                 </Box>
             </Drawer>     
-            <Container>
+            <Grid container spacing={4} padding={3}>
                 {filteredAppointments.map((oneAppointment) => {
                     return (
-                        <Card key={oneAppointment.id}>
-                            <AppointmentDetail oneAppointment={oneAppointment}/>
-                            <Button size="small" color="primary" value={oneAppointment.id} onClick={()=>handleClickAppointment(oneAppointment.id)}><EditSharpIcon /></Button>
-                            <Button size="small" color="primary" value={oneAppointment.id} onClick={()=>handleDeleteAppointment(oneAppointment.id)}><DeleteSharpIcon /></Button>
-                        </Card>
+                        <Grid item xs={4} spacing={2}>
+                            <Card key={oneAppointment.id}>
+                                <AppointmentDetail oneAppointment={oneAppointment}/>
+                                <div style={{display: "flex", alignItems: 'center', justifyContent: 'center'}}>
+                                    <Button size="small" color="primary" value={oneAppointment.id} onClick={()=>handleClickAppointment(oneAppointment.id)}><EditSharpIcon /></Button>
+                                    <Button size="small" color="primary" value={oneAppointment.id} onClick={()=>handleDeleteAppointment(oneAppointment.id)}><DeleteSharpIcon /></Button>
+                                </div>
+                            </Card>
+                        </Grid>
                     )
                 })}
-                </Container>
+            </Grid>
     </Box>
     )
 }

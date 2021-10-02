@@ -185,17 +185,21 @@ function Events({ user, universalCategories }){
                     </Grid>
                 </Box>
             </Drawer> 
-            <Container>
-                {filteredEvents.map((oneEvent) => {
+            <Grid container spacing={4} padding={3}> 
+                {filteredEvents.reverse().map((oneEvent) => {
                     return (
-                        <Card key={oneEvent.id}>
-                            <EventDetail oneEvent={oneEvent}/>
-                            <Button size="small" color="primary" value={oneEvent.id} onClick={()=>handleClickEdit(oneEvent.id)}><EditSharpIcon /></Button>
-                            <Button size="small" color="primary" value={oneEvent.id} onClick={()=>handleDeleteEvent(oneEvent.id)}><DeleteSharpIcon/></Button>
-                        </Card>
+                        <Grid item xs={8} spacing={2}>
+                            <Card key={oneEvent.id}>
+                                <EventDetail oneEvent={oneEvent}/>
+                                <div style={{display: "flex", alignItems: 'center', justifyContent: 'center'}}>
+                                    <Button size="small" color="primary" value={oneEvent.id} onClick={()=>handleClickEdit(oneEvent.id)}><EditSharpIcon /></Button>
+                                    <Button size="small" color="primary" value={oneEvent.id} onClick={()=>handleDeleteEvent(oneEvent.id)}><DeleteSharpIcon/></Button>
+                                </div>
+                            </Card>
+                        </Grid>
                     )
                 })}
-            </Container>
+            </Grid>
         </Box>
     )
 }
