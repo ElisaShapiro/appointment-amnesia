@@ -9,6 +9,7 @@ import DeleteSharpIcon from '@mui/icons-material/DeleteSharp';
 import AddBoxSharpIcon from '@mui/icons-material/AddBoxSharp';
 import SearchSharpIcon from '@mui/icons-material/SearchSharp';
 import AddSharpIcon from '@mui/icons-material/AddSharp';
+import ArrowBackSharpIcon from '@mui/icons-material/ArrowBackSharp';
 
 function Medications({ user, universalProviders}) {
     const history = useHistory()
@@ -208,6 +209,7 @@ function Medications({ user, universalProviders}) {
                 <Typography variant="h2" color="text.secondary">               
                     My Medications: 
                 </Typography>
+                { medications.length > 0 ?
                     <Grid container 
                         direction="row"
                         justifyContent="flex-start"
@@ -236,7 +238,9 @@ function Medications({ user, universalProviders}) {
                         )
                         })}
                     </Grid>
-
+                :
+                <Typography variant="h5" color="text.secondary"><ArrowBackSharpIcon /> Add Medications</Typography>
+                }
             </Container>
         </Box>
     )

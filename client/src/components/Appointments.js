@@ -7,6 +7,7 @@ import SearchBar from './SearchBar';
 import { Box, Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Container, Divider, Drawer, Grid, TextField, Toolbar, Typography } from '@mui/material';
 import EditSharpIcon from '@mui/icons-material/EditSharp';
 import DeleteSharpIcon from '@mui/icons-material/DeleteSharp';
+import SouthWestSharpIcon from '@mui/icons-material/SouthWestSharp';
 
 function Appointments({ user, universalCategories, universalProviders }){
     const history = useHistory()
@@ -185,23 +186,32 @@ function Appointments({ user, universalCategories, universalProviders }){
                         />
                     </Grid>
                 </Box>
-            </Drawer>     
-            <Grid container spacing={4} padding={3}>
-                {filteredAppointments.map((oneAppointment) => {
-                    return (
-                        <Grid item xs={4} spacing={2}>
-                            <Card key={oneAppointment.id}>
-                                <AppointmentDetail oneAppointment={oneAppointment}/>
-                                <div style={{display: "flex", alignItems: 'center', justifyContent: 'center'}}>
-                                    <Button size="small" color="primary" value={oneAppointment.id} onClick={()=>handleClickAppointment(oneAppointment.id)}><EditSharpIcon /></Button>
-                                    <Button size="small" color="primary" value={oneAppointment.id} onClick={()=>handleDeleteAppointment(oneAppointment.id)}><DeleteSharpIcon /></Button>
-                                </div>
-                            </Card>
-                        </Grid>
-                    )
-                })}
-            </Grid>
-    </Box>
+            </Drawer>
+            <Container>
+                <Typography variant="h2" color="text.secondary">               
+                    Upcoming Appointments:
+                </Typography>   
+                { filteredAppointments.length > 0 ?  
+                <Grid container spacing={4} padding={3}>
+                    {filteredAppointments.map((oneAppointment) => {
+                        return (
+                            <Grid item xs={4} spacing={2}>
+                                <Card key={oneAppointment.id}>
+                                    <AppointmentDetail oneAppointment={oneAppointment}/>
+                                    <div style={{display: "flex", alignItems: 'center', justifyContent: 'center'}}>
+                                        <Button size="small" color="primary" value={oneAppointment.id} onClick={()=>handleClickAppointment(oneAppointment.id)}><EditSharpIcon /></Button>
+                                        <Button size="small" color="primary" value={oneAppointment.id} onClick={()=>handleDeleteAppointment(oneAppointment.id)}><DeleteSharpIcon /></Button>
+                                    </div>
+                                </Card>
+                            </Grid>
+                        )
+                    })}
+                </Grid>
+                :
+                <Typography variant="h5" color="text.secondary"><SouthWestSharpIcon /> Log Your First Appointment</Typography>
+                }
+            </Container>
+        </Box>
     )
 }
 

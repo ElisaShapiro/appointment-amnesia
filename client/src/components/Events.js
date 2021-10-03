@@ -6,8 +6,7 @@ import SearchBar from './SearchBar';
 import EditSharpIcon from '@mui/icons-material/EditSharp';
 import DeleteSharpIcon from '@mui/icons-material/DeleteSharp';
 import { Box, Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Container, Divider, Drawer, Grid, TextField, Toolbar, Typography } from '@mui/material';
-
-
+import SouthWestSharpIcon from '@mui/icons-material/SouthWestSharp';
 
 function Events({ user, universalCategories }){
     const history = useHistory()
@@ -184,22 +183,31 @@ function Events({ user, universalCategories }){
                         />
                     </Grid>
                 </Box>
-            </Drawer> 
-            <Grid container spacing={4} padding={3}> 
-                {filteredEvents.reverse().map((oneEvent) => {
-                    return (
-                        <Grid item xs={8} spacing={2}>
-                            <Card key={oneEvent.id}>
-                                <EventDetail oneEvent={oneEvent}/>
-                                <div style={{display: "flex", alignItems: 'center', justifyContent: 'center'}}>
-                                    <Button size="small" color="primary" value={oneEvent.id} onClick={()=>handleClickEdit(oneEvent.id)}><EditSharpIcon /></Button>
-                                    <Button size="small" color="primary" value={oneEvent.id} onClick={()=>handleDeleteEvent(oneEvent.id)}><DeleteSharpIcon/></Button>
-                                </div>
-                            </Card>
-                        </Grid>
-                    )
-                })}
-            </Grid>
+            </Drawer>
+            <Container>
+                <Typography variant="h2" color="text.secondary">               
+                    Event Log: 
+                </Typography>
+                {filteredEvents.length > 0 ? 
+                <Grid container spacing={4} padding={3}> 
+                    {filteredEvents.reverse().map((oneEvent) => {
+                        return (
+                            <Grid item xs={8} spacing={2}>
+                                <Card key={oneEvent.id}>
+                                    <EventDetail oneEvent={oneEvent}/>
+                                    <div style={{display: "flex", alignItems: 'center', justifyContent: 'center'}}>
+                                        <Button size="small" color="primary" value={oneEvent.id} onClick={()=>handleClickEdit(oneEvent.id)}><EditSharpIcon /></Button>
+                                        <Button size="small" color="primary" value={oneEvent.id} onClick={()=>handleDeleteEvent(oneEvent.id)}><DeleteSharpIcon/></Button>
+                                    </div>
+                                </Card>
+                            </Grid>
+                        )
+                    })}
+                </Grid>
+                :
+                <Typography variant="h5" color="text.secondary"><SouthWestSharpIcon /> Log Your First Event</Typography>
+                }
+            </Container>
         </Box>
     )
 }

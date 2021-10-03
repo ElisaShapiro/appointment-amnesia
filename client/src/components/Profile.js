@@ -5,6 +5,7 @@ import EditSharpIcon from '@mui/icons-material/EditSharp';
 import AddSharpIcon from '@mui/icons-material/AddSharp';
 import AddBoxSharpIcon from '@mui/icons-material/AddBoxSharp';
 import PersonAddAlt1SharpIcon from '@mui/icons-material/PersonAddAlt1Sharp';
+import ArrowBackSharpIcon from '@mui/icons-material/ArrowBackSharp';
 
 
 function Profile({ user, setHasUpdate, hasUpdate }){
@@ -338,6 +339,7 @@ function Profile({ user, setHasUpdate, hasUpdate }){
                         <Typography variant="h2" color="text.secondary">
                             My Providers: 
                         </Typography>
+                        {providers.length > 0 ?
                         <Grid container 
                             direction="row"
                             justifyContent="flex-start"
@@ -359,6 +361,9 @@ function Profile({ user, setHasUpdate, hasUpdate }){
                                 )
                             })}
                         </Grid>
+                        : 
+                        <Typography variant="h5" color="text.secondary"><ArrowBackSharpIcon /> Add Providers (will not appear here until associated with Event/Appointment/Medication)</Typography>
+                        }
                     </CardContent>
                 </Container>
                 <Container>
@@ -366,6 +371,7 @@ function Profile({ user, setHasUpdate, hasUpdate }){
                         <Typography variant="h2" color="text.secondary">
                             My Categories: 
                         </Typography>
+                        {categories.length >0 ? 
                         <Grid container 
                             direction="row"
                             justifyContent="flex-start"
@@ -385,6 +391,9 @@ function Profile({ user, setHasUpdate, hasUpdate }){
                             )
                         })}
                         </Grid>
+                        :
+                        <Typography variant="h5" color="text.secondary"><ArrowBackSharpIcon /> Add Categories (will not appear here until associated with Event/Appointment/Medication)</Typography>
+                        }
                     </CardContent>            
                 </Container>
             </Container>
