@@ -1,6 +1,6 @@
 import { NavLink, useHistory } from 'react-router-dom';
 import { format } from 'date-fns';
-import { AppBar, Avatar, Button, styled, Toolbar, Typography } from '@mui/material';
+import { AppBar, Avatar, Button, Toolbar, Typography } from '@mui/material';
 
 function NavBar({ user, setUser }){
     const history = useHistory()
@@ -20,7 +20,7 @@ function NavBar({ user, setUser }){
     
     return(
         <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
-            <Toolbar>
+            <Toolbar sx={{display: "flex", justifyContent: "space-between"}}>
                 <Typography>
                     Today is {format(new Date(), "eeee MMMM d',' y")}
                 </Typography>
@@ -54,7 +54,7 @@ function NavBar({ user, setUser }){
                 :
                 <>
                     <NavLink to="/login" style={{ textDecoration: 'none' }} activeStyle={{ textDecoration:"underline overline", color: "#188FA7"}}>
-                        <Button color="buttonColor" className="navbar-button">
+                        <Button color="buttonColor" className="navbar-button" >
                             Login
                         </Button>
                     </NavLink>
@@ -64,6 +64,7 @@ function NavBar({ user, setUser }){
                         </Button>
                     </NavLink>
                 </>}
+                <img src="https://i.imgur.com/WuYCpKQ.png" alt="header logo" style={{width: 600, height: 50}}/>
             </Toolbar>
         </AppBar>
     )

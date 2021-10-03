@@ -1,6 +1,8 @@
+import { NavLink } from 'react-router-dom'
 import Login from './Login'
 import Profile from './Profile';
-import { Button, Container, Input, Typography } from '@mui/material'
+
+import { Box, Button, Grid, Typography } from '@mui/material'
 
 function Home({ user, setUser, setHasUpdate, hasUpdate }){
 
@@ -8,13 +10,35 @@ function Home({ user, setUser, setHasUpdate, hasUpdate }){
         <div>
             {user ?
             <Profile user={user}
-                setHasUpdate={setHasUpdate} hasUpdate={hasUpdate}
+                hasUpdate={hasUpdate} setHasUpdate={setHasUpdate} 
              />
             : 
-            <>
-            <Typography>"No account? Login or Signup"</Typography>
-            <Login setUser={setUser}/>
-            </>
+            <Box container
+                component={Grid}
+                justifyContent='center'
+                boxShadow={3}
+                sx={{
+                    width: 510,
+                    height: 264,
+                    backgroundImage: `url(${"https://i.imgur.com/WrhF2yU.png"}`,
+                    backgroundRepeat: 'no-repeat',
+                    backgroundPosition: 'center',
+                    backgroundSize: 'auto'
+                }}
+            >  
+                <Grid item
+                >
+                    <Button variant="outlined" sx={{width: 218, color: "#666666", border: '1px solid #666666', textAlign: "center"}} component={NavLink} to="/login">
+                        {"Have an account?"}<br/>{"Log In"}
+                    </Button>
+                </Grid>
+                <Grid item
+                >
+                    <Button variant="outlined" sx={{color: "#666666", border: '1px solid #666666', textAlign: "center"}} component={NavLink} to="/signup">
+                        {"Don't have an account?"}<br/>{"Sign Up"}
+                    </Button>
+                </Grid>
+            </Box>
             }
         </div>
     )

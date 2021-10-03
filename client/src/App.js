@@ -5,7 +5,6 @@ import Signup from './components/Signup';
 import Login from './components/Login';
 import NavBar from './components/NavBar';
 import Home from './components/Home';
-import Profile from './components/Profile';
 import Events from './components/Events';
 import Appointments from './components/Appointments';
 import Medications from './components/Medications';
@@ -53,7 +52,7 @@ function App() {
       <Switch>
         <Route exact path="/">
           <Home user={user} setUser={setUser}
-            setHasUpdate={setHasUpdate} hasUpdate={hasUpdate}
+            hasUpdate={hasUpdate} setHasUpdate={setHasUpdate} 
           />
         </Route>
         <Route path="/login">

@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { NavLink, useHistory } from "react-router-dom"
 
-import { Button, Container, Grid, TextField, Typography } from '@mui/material'
+import { Box, Button, Container, Grid, TextField, Typography } from '@mui/material'
 
 
 function Login({ setUser } ){
@@ -41,11 +41,22 @@ function Login({ setUser } ){
 
     return(
         <Container>
-            <Grid container
+            <Box container
+                component={Grid}
                 justifyContent='center'
+                boxShadow={3}
+                sx={{
+                    width: 510,
+                    height: 404,
+                    backgroundImage: `url(${"https://i.imgur.com/WrhF2yU.png"}`,
+                    backgroundRepeat: 'no-repeat',
+                    backgroundPosition: 'center',
+                    backgroundSize: 'auto'
+                }}
             >   
             <Grid item 
                 justifyContent='center'
+                paddingBottom='202px'
             >
                 <Typography>Sign In</Typography>
             </Grid>
@@ -76,16 +87,16 @@ function Login({ setUser } ){
                     </Grid>
                     <Grid item
                     >
-                        <Button type="submit" variant="outlined" sx={{width: 218, textAlign: "center"}}>Login</Button>
+                        <Button type="submit" variant="outlined" sx={{width: 218, color: "#666666", border: '1px solid #666666', textAlign: "center"}}>Login</Button>
                     </Grid>
                     <Grid item
                     >
-                        <Button variant="outlined" sx={{textAlign: "center"}} component={NavLink} to="/signup">
+                        <Button variant="outlined" sx={{color: "#666666", border: '1px solid #666666', textAlign: "center"}} component={NavLink} to="/signup">
                             {"Don't have an account?"}<br/>{"Sign Up"}
                         </Button>
                     </Grid>
                 </form>
-            </Grid>
+            </Box>
         </Container>
     )
 }

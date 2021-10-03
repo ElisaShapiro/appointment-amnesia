@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { NavLink } from "react-router-dom"
 
-import { Button, Container, Grid, TextField, Typography } from '@mui/material'
+import { Box, Button, Container, Grid, TextField, Typography } from '@mui/material'
 
 function Signup({ setUser }){
     const [formData, setFormData] = useState({
@@ -40,7 +40,6 @@ function Signup({ setUser }){
             }
             else {
                 setUser(json)
-                // history.push("/")
             }
         })
     }
@@ -48,8 +47,18 @@ function Signup({ setUser }){
 
     return(
         <Container>
-            <Grid container
+            <Box container
+                component={Grid}
                 justifyContent='center'
+                boxShadow={3}
+                sx={{
+                    width: 510,
+                    height: 510,
+                    backgroundImage: `url(${"https://i.imgur.com/WrhF2yU.png"}`,
+                    backgroundRepeat: 'no-repeat',
+                    backgroundPosition: 'center',
+                    backgroundSize: 'auto'
+                }}
             >   
                 <Grid item
                     justifyContent='center'
@@ -107,16 +116,16 @@ function Signup({ setUser }){
                     </Grid>
                     <Grid item
                     >
-                        <Button type="submit" variant="outlined" sx={{width: 218, textAlign: "center"}}>Register</Button>
+                        <Button type="submit" variant="outlined" sx={{width: 218, color: "#666666", border: '1px solid #666666', textAlign: "center"}}>Register</Button>
                     </Grid>
                     <Grid item
                     >
-                        <Button variant="outlined" sx={{width: 218, textAlign: "center"}} component={NavLink} to="/login">
+                        <Button variant="outlined" sx={{width: 218, color: "#666666", border: '1px solid #666666', textAlign: "center"}} component={NavLink} to="/login">
                             {"Have an account?"}<br/>{"Log In"}
                         </Button>
                     </Grid>
                 </form>
-            </Grid>
+            </Box>
         </Container>
     )
 }

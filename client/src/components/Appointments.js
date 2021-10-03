@@ -4,7 +4,7 @@ import AppointmentDetail from './AppointmentDetail';
 import AddAppointmentForm from './AddAppointmentForm';
 import SearchBar from './SearchBar';
 
-import { Box, Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Container, Divider, Drawer, Grid, TextField, Toolbar, Typography } from '@mui/material';
+import { Box, Button, Card, Container, Divider, Drawer, Grid, Toolbar, Typography } from '@mui/material';
 import EditSharpIcon from '@mui/icons-material/EditSharp';
 import DeleteSharpIcon from '@mui/icons-material/DeleteSharp';
 import SouthWestSharpIcon from '@mui/icons-material/SouthWestSharp';
@@ -120,6 +120,7 @@ function Appointments({ user, universalCategories, universalProviders }){
         history.go("/appointments")
     }
 
+    //SEARCH and SORT appointments
     const [sortAppointmentCategory, setSortAppointmentCategory] = useState("All")
     const [sortAppointmentProvider, setSortAppointmentProvider] = useState("All")
     const filteredAppointments = appointments.filter(appointment => {

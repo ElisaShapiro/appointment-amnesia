@@ -1,6 +1,6 @@
 import { format } from 'date-fns';
 
-import { Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Container, Grid, TextField, Typography } from '@mui/material';
+import { Card, CardContent, Typography } from '@mui/material';
 
 function AppointmentDetail({ oneAppointment }){
     return(
