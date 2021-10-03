@@ -1,7 +1,8 @@
 import { useState } from "react"
-import { useHistory } from "react-router-dom"
+import { NavLink, useHistory } from "react-router-dom"
 
-import { Button, Container, Input, Typography } from '@mui/material'
+import { Button, Container, Grid, TextField, Typography } from '@mui/material'
+
 
 function Login({ setUser } ){
     const history = useHistory()
@@ -40,27 +41,51 @@ function Login({ setUser } ){
 
     return(
         <Container>
-            <form onSubmit={handleSubmit}>
-                <Typography>Name:</Typography>
-                <Input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={loginInfo.name} 
-                    onChange={handleChange}
-                >
-                </Input>
-                <br /><Typography>Password:</Typography>
-                <Input 
-                    type="password"
-                    id="password"
-                    name="password"
-                    value={loginInfo.password} 
-                    onChange={handleChange}
-                >
-                </Input>
-                <br /><Button type="submit">Login</Button>
-            </form>
+            <Grid container
+                justifyContent='center'
+            >   
+            <Grid item 
+                justifyContent='center'
+            >
+                <Typography>Sign In</Typography>
+            </Grid>
+                <form onSubmit={handleSubmit}>
+                    <Grid item
+                    >
+                        <TextField
+                            type="text"
+                            id="name"
+                            name="name"
+                            label="Name"
+                            value={loginInfo.name} 
+                            onChange={handleChange}
+                            sx={{width: 218}}
+                        />
+                    </Grid>
+                    <Grid item
+                    >
+                        <TextField 
+                            type="password"
+                            id="password"
+                            name="password"
+                            label="Password"
+                            value={loginInfo.password} 
+                            onChange={handleChange}
+                            sx={{width: 218}}
+                        />
+                    </Grid>
+                    <Grid item
+                    >
+                        <Button type="submit" variant="outlined" sx={{width: 218, textAlign: "center"}}>Login</Button>
+                    </Grid>
+                    <Grid item
+                    >
+                        <Button variant="outlined" sx={{textAlign: "center"}} component={NavLink} to="/signup">
+                            {"Don't have an account?"}<br/>{"Sign Up"}
+                        </Button>
+                    </Grid>
+                </form>
+            </Grid>
         </Container>
     )
 }

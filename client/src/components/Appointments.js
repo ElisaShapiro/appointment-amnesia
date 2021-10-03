@@ -151,7 +151,7 @@ function Appointments({ user, universalCategories, universalProviders }){
                 }}
             >
                 <Toolbar /> 
-                <Box sx={{ overflow: 'auto' }}> <br />
+                <Box sx={{ overflow: 'auto'}} > <br />
                     <Grid
                         container
                         spacing={0}

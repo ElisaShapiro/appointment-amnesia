@@ -1,10 +1,9 @@
 import { useState } from "react"
-// import { useHistory } from "react-router-dom"
+import { NavLink } from "react-router-dom"
 
-import { Button, Container, Input, Typography } from '@mui/material'
+import { Button, Container, Grid, TextField, Typography } from '@mui/material'
 
 function Signup({ setUser }){
-    // const history = useHistory()
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -49,45 +48,75 @@ function Signup({ setUser }){
 
     return(
         <Container>
-            <form onSubmit={handleSubmit}>
-                <Typography>Name:</Typography>
-                <Input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name} 
-                    onChange={handleChange}
+            <Grid container
+                justifyContent='center'
+            >   
+                <Grid item
+                    justifyContent='center'
                 >
-                </Input>
-                <br /><Typography>Email:</Typography>
-                <Input
-                    type="text"
-                    id="email"
-                    name="email"
-                    value={formData.email} 
-                    onChange={handleChange}
-                >
-                </Input>
-                <br /><Typography>Password:</Typography>
-                <Input
-                    type="password"
-                    id="password"
-                    name="password"
-                    value={formData.password} 
-                    onChange={handleChange}
-                >
-                </Input>
-                <br /><Typography>Confirm Password:</Typography>
-                <Input
-                    type="password"
-                    id="password_confirmation"
-                    name="password_confirmation"
-                    value={formData.password_confirmation} 
-                    onChange={handleChange}
-                >
-                </Input>
-                <br /><Button type="submit">Register</Button>
-            </form>
+                    <Typography>Sign Up</Typography>
+                </Grid>
+                <form onSubmit={handleSubmit}>
+                    <Grid item
+                    >
+                        <TextField
+                            type="text"
+                            id="name"
+                            name="name"
+                            label="Name"
+                            value={formData.name} 
+                            onChange={handleChange}
+                            sx={{width: 218}}
+                        />
+                    </Grid>
+                    <Grid item
+                    >
+                        <TextField
+                            type="text"
+                            id="email"
+                            name="email"
+                            label="Email"
+                            value={formData.email} 
+                            onChange={handleChange}
+                            sx={{width: 218}}
+                        />
+                    </Grid>
+                    <Grid item
+                    >                
+                        <TextField
+                            type="password"
+                            id="password"
+                            name="password"
+                            label="Password"
+                            value={formData.password} 
+                            onChange={handleChange}
+                            sx={{width: 218}}
+                        />
+                    </Grid>
+                    <Grid item
+                    >
+                        <TextField
+                            type="password"
+                            id="password_confirmation"
+                            name="password_confirmation"
+                            label="Confirm Password"
+                            value={formData.password_confirmation} 
+                            onChange={handleChange}
+                            sx={{width: 218}}
+                        />
+                    </Grid>
+                    <Grid item
+                    >
+                        <Button type="submit" variant="outlined" sx={{width: 218, textAlign: "center"}}>Register</Button>
+                    </Grid>
+                    <Grid item
+                    >
+                        <Button variant="outlined" sx={{width: 218, textAlign: "center"}} component={NavLink} to="/login">
+                            {"Have an account?"}<br/>{"Log In"}
+                        </Button>
+                    </Grid>
+                </form>
+            </Grid>
         </Container>
     )
 }

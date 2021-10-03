@@ -62,6 +62,7 @@ function AddEventForm({ universalCategories, formData, setFormData, manageFormDa
                         name="category"
                         value={formData.category}
                         onChange={manageFormData}
+                        sx={{background: '#9dbbae'}}
                     >
                         {universalCategories.map((eventCategory) => {
                             return(
@@ -83,12 +84,13 @@ function AddEventForm({ universalCategories, formData, setFormData, manageFormDa
                     />
                 <TextField
                     multiline
-                    rows={5}
+                    rows={10}
                     id="content"
                     label="What Happened?"
                     name="content"
                     value={formData.content}
-                    onChange={manageFormData}    
+                    onChange={manageFormData} 
+                    sx={{background: '#9dbbae'}}   
                 /><br />
                     <LocalizationProvider dateAdapter={AdapterDateFns}>
                         <DateTimePicker

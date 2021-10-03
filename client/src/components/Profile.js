@@ -194,6 +194,7 @@ function Profile({ user, setHasUpdate, hasUpdate }){
                                 style={{minWidth: 183}}
                                 value={providerFormData.provider_name}
                                 onChange={manageProviderFormData}
+                                sx={{background: '#9dbbae'}}
                             />
                         </FormControl>
                         <FormControl>
@@ -204,6 +205,7 @@ function Profile({ user, setHasUpdate, hasUpdate }){
                                 style={{minWidth: 183}}
                                 value={providerFormData.phone_number}
                                 onChange={manageProviderFormData}
+                                sx={{background: '#9dbbae'}}
                             />
                         </FormControl>
                         <FormControl>
@@ -215,6 +217,7 @@ function Profile({ user, setHasUpdate, hasUpdate }){
                                 name="address"
                                 value={providerFormData.address}
                                 onChange={manageProviderFormData}
+                                sx={{background: '#9dbbae'}}
                             />
                             <Button type="submit"><AddSharpIcon />Provider</Button>
                         </FormControl>
@@ -229,6 +232,7 @@ function Profile({ user, setHasUpdate, hasUpdate }){
                                 name="category_name"
                                 value={categoryFormData.category_name}
                                 onChange={manageCategoryFormData}
+                                sx={{background: '#9dbbae'}}
                             />
                             <Button type="submit"><AddSharpIcon />Category</Button>
                         </FormControl>
@@ -257,6 +261,7 @@ function Profile({ user, setHasUpdate, hasUpdate }){
                                             name="email"
                                             value={demographicFormData.email}
                                             onChange={manageDemographicFormData}
+                                            sx={{background: '#9dbbae'}}
                                         />
                                         <TextField
                                             id="name"
@@ -264,6 +269,7 @@ function Profile({ user, setHasUpdate, hasUpdate }){
                                             name="name"
                                             value={demographicFormData.name}
                                             onChange={manageDemographicFormData}
+                                            sx={{background: '#9dbbae'}}
                                         />
                                         <TextField
                                             id="age"
@@ -271,6 +277,7 @@ function Profile({ user, setHasUpdate, hasUpdate }){
                                             name="age"
                                             value={demographicFormData.age}
                                             onChange={manageDemographicFormData}
+                                            sx={{background: '#9dbbae'}}
                                         />
                                         <TextField
                                             id="avatar"
@@ -278,6 +285,7 @@ function Profile({ user, setHasUpdate, hasUpdate }){
                                             name="avatar"
                                             value={demographicFormData.avatar}
                                             onChange={manageDemographicFormData}
+                                            sx={{background: '#9dbbae'}}
                                         />
                                         <TextField
                                             multiline
@@ -288,6 +296,7 @@ function Profile({ user, setHasUpdate, hasUpdate }){
                                             name="summary"
                                             value={demographicFormData.summary}
                                             onChange={manageDemographicFormData}
+                                            sx={{background: '#9dbbae'}}
                                         />
                                         <Button type="submit"><PersonAddAlt1SharpIcon />Demographics</Button>
                                     </CardContent>

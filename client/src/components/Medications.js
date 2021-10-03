@@ -147,9 +147,10 @@ function Medications({ user, universalProviders}) {
                     <form onSubmit={handleMedicationSubmit}>
                         <FormGroup>
                             <FormControlLabel control={<Switch />} 
-                            label="Generic?" id="medication" 
-                            checked={genericMedication}
-                            onChange={handleChangeGenericMedication}/>
+                                label="Generic?" id="medication" 
+                                checked={genericMedication}
+                                onChange={handleChangeGenericMedication}
+                            />
                         </FormGroup>
                         <TextField
                             id="medication-name"
@@ -157,6 +158,7 @@ function Medications({ user, universalProviders}) {
                             name="medication-name"
                             value={medicationName}
                             onChange={(e) => setMedicationName(e.target.value)}
+                            sx={{background: '#9dbbae'}}
                         />   
                         <Button onClick={searchMedicationsOnAPI}><SearchSharpIcon />Medications</Button>         
                         {medicationsFromAPI.length > 0 ?
@@ -180,6 +182,7 @@ function Medications({ user, universalProviders}) {
                             name="dosage"
                             value={medicationFormData.medication_name}
                             onChange={manageMedicationFormData}
+                            sx={{background: '#9dbbae'}}
                         />
                         <FormControl style={{minWidth: 174}}>
                             <InputLabel id="provider-label">Prescribing Provider</InputLabel>
@@ -190,6 +193,7 @@ function Medications({ user, universalProviders}) {
                                 name="provider_name"
                                 value={medicationFormData.provider_name}
                                 onChange={manageMedicationFormData}
+                                sx={{background: '#9dbbae'}}
                             >
                                 {medicationProviders.length > 0 && medicationProviders.map((provider) => {
                                     return (

@@ -23,6 +23,7 @@ function SearchBar({ search, setSearch, categories, sortCategory, setSortCategor
                     name="search"
                     value={search}
                     onChange={handleSearch}
+                    sx={{background: '#9dbbae'}}
                 >
                 </TextField>
             : null}
@@ -35,6 +36,7 @@ function SearchBar({ search, setSearch, categories, sortCategory, setSortCategor
                         name="category"
                         value={sortCategory.category_name}
                         onChange={handleSetCategory}
+                        sx={{background: '#9dbbae'}}
                     >
                         <MenuItem value="All">All</MenuItem>
                         {categories.length > 0 && categories.map((category) => {
@@ -56,6 +58,7 @@ function SearchBar({ search, setSearch, categories, sortCategory, setSortCategor
                         name="severity"
                         value={sortOther}
                         onChange={handleSetOther}
+                        sx={{background: '#9dbbae'}}
                     >
                         <MenuItem value="All">All</MenuItem>
                         <MenuItem value="1">1 :D</MenuItem>
@@ -75,6 +78,7 @@ function SearchBar({ search, setSearch, categories, sortCategory, setSortCategor
                         name="provider"
                         value={sortCategory.category_name}
                         onChange={handleSetOther}
+                        sx={{background: '#9dbbae'}}
                     >
                         <MenuItem value="All">All</MenuItem>
                         {sortOther.length > 0 && sortOther.map((provider) => {

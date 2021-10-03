@@ -8,7 +8,7 @@ function Home({ user, setUser, setHasUpdate, hasUpdate }){
         <div>
             {user ?
             <Profile user={user}
-            setHasUpdate={setHasUpdate} hasUpdate={hasUpdate}
+                setHasUpdate={setHasUpdate} hasUpdate={hasUpdate}
              />
             : 
             <>

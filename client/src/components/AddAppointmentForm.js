@@ -22,6 +22,7 @@ function AddAppointmentForm({ universalCategories, universalProviders, appointme
                         name="category"
                         value={formData.category}
                         onChange={manageFormData}
+                        sx={{background: '#9dbbae'}}
                     >
                         {universalCategories.map((appointmentCategory) => {
                             return(
@@ -41,6 +42,7 @@ function AddAppointmentForm({ universalCategories, universalProviders, appointme
                         name="provider"
                         value={formData.provider}
                         onChange={manageFormData}
+                        sx={{background: '#9dbbae'}}
                     >
                         {universalProviders.map((appointmentProvider) => {
                             return(
