@@ -73,32 +73,37 @@ function Appointments({ user, universalCategories, universalProviders }){
                 return provider.provider_name == formData.provider.provider_name
             }
         })[0]
-        const newFormData = {...formData, category_id: selectedCategory.id, provider_id: selectedProvider.id}
-        if (isEdit) {
-            fetch(`/appointments/${formData.id}`, {
-                method: "PATCH",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(newFormData)
-            })
-            .then(response=>response.json())
-            .then(data => {
-                setIsEdit(false)
-                history.go('/appointments')
-            })
-        } else {
-            await fetch(`/appointments`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(newFormData)
-            })
-            .then(response => response.json())
-            .then(data => {
-                history.go("/appointments")
-            })
+        if (!selectedCategory || !selectedProvider) {
+            alert('Please complete the form before submitting!')
+        }
+        else {
+            const newFormData = {...formData, category_id: selectedCategory.id, provider_id: selectedProvider.id}
+            if (isEdit) {
+                fetch(`/appointments/${formData.id}`, {
+                    method: "PATCH",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(newFormData)
+                })
+                .then(response=>response.json())
+                .then(data => {
+                    setIsEdit(false)
+                    history.go('/appointments')
+                })
+            } else {
+                await fetch(`/appointments`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(newFormData)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    history.go("/appointments")
+                })
+            }      
         }
     }
 
@@ -186,6 +191,7 @@ function Appointments({ user, universalCategories, universalProviders }){
                             handleSubmit={handleSubmit}
                         />
                     </Grid>
+                    <Divider />
                 </Box>
             </Drawer>
             <Container>

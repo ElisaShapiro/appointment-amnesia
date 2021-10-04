@@ -51,6 +51,7 @@ function Signup({ setUser }){
                 component={Grid}
                 justifyContent='center'
                 boxShadow={3}
+                alignItems='end'
                 sx={{
                     width: 510,
                     height: 510,
@@ -59,12 +60,7 @@ function Signup({ setUser }){
                     backgroundPosition: 'center',
                     backgroundSize: 'auto'
                 }}
-            >   
-                <Grid item
-                    justifyContent='center'
-                >
-                    <Typography>Sign Up</Typography>
-                </Grid>
+            >                   
                 <form onSubmit={handleSubmit}>
                     <Grid item
                     >

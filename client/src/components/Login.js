@@ -45,6 +45,7 @@ function Login({ setUser } ){
                 component={Grid}
                 justifyContent='center'
                 boxShadow={3}
+                alignItems='end'
                 sx={{
                     width: 510,
                     height: 404,
@@ -54,12 +55,6 @@ function Login({ setUser } ){
                     backgroundSize: 'auto'
                 }}
             >   
-            <Grid item 
-                justifyContent='center'
-                paddingBottom='202px'
-            >
-                <Typography>Sign In</Typography>
-            </Grid>
                 <form onSubmit={handleSubmit}>
                     <Grid item
                     >

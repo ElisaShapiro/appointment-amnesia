@@ -184,6 +184,14 @@ function Profile({ user, setHasUpdate, hasUpdate }){
             >
                 <Toolbar /> 
                 <Box sx={{ overflow: 'auto' }}> <br />
+                <Grid
+                        container
+                        spacing={0}
+                        direction="column"
+                        alignItems="center"
+                        justify="center"
+                    >
+                <Container>  
                     <Typography><AddBoxSharpIcon />Provider Form</Typography>
                     <form onSubmit={handleProviderSubmit}>
                         <FormControl>
@@ -222,7 +230,17 @@ function Profile({ user, setHasUpdate, hasUpdate }){
                             <Button type="submit"><AddSharpIcon />Provider</Button>
                         </FormControl>
                     </form>
+                    </Container>
+                    </Grid>
                     <Divider />
+                    <Grid
+                        container
+                        spacing={0}
+                        direction="column"
+                        alignItems="center"
+                        justify="center"
+                    >
+                    <Container>
                     <Typography><AddBoxSharpIcon />Category Form</Typography>
                     <form onSubmit={handleCategorySubmit}>
                         <FormControl style={{minWidth: 183}}>
@@ -237,6 +255,9 @@ function Profile({ user, setHasUpdate, hasUpdate }){
                             <Button type="submit"><AddSharpIcon />Category</Button>
                         </FormControl>
                     </form>
+                    </Container>
+                    </Grid>
+                    <Divider />
                 </Box>
             </Drawer>
             <Container>

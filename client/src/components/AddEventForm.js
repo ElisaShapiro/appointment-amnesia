@@ -102,7 +102,7 @@ function AddEventForm({ universalCategories, formData, setFormData, manageFormDa
                             }}
                         />
                     </LocalizationProvider>
-                <Button type="submit"><AddSharpIcon />New Event</Button>
+                <Button style={{minWidth: 174}} type="submit"><AddSharpIcon />New Event</Button>
             </form>
         </Container>
     )

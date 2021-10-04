@@ -184,6 +184,7 @@ function Events({ user, universalCategories }){
                             handleSubmit={handleSubmit}
                         />
                     </Grid>
+                    <Divider />
                 </Box>
             </Drawer>
             <Container>

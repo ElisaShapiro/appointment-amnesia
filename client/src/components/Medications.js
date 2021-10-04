@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import { Box, Button, Card, CardContent, Container, Drawer, FormControl, FormControlLabel, FormGroup, FormLabel, Grid, InputLabel, MenuItem, Radio, RadioGroup, Select, Switch, TextField, Toolbar, Typography } from '@mui/material';
+import { Box, Button, Card, CardContent, Container, Divider, Drawer, FormControl, FormControlLabel, FormGroup, FormLabel, Grid, InputLabel, MenuItem, Radio, RadioGroup, Select, Switch, TextField, Toolbar, Typography } from '@mui/material';
 import DeleteSharpIcon from '@mui/icons-material/DeleteSharp';
 import AddBoxSharpIcon from '@mui/icons-material/AddBoxSharp';
 import SearchSharpIcon from '@mui/icons-material/SearchSharp';
@@ -204,6 +204,7 @@ function Medications({ user, universalProviders}) {
                         <br /><Button type="submit"><AddSharpIcon />Medication to List</Button>
                     </form>
                     </Grid>
+                    <Divider />
                 </Box>
             </Drawer>
             <Container> 
