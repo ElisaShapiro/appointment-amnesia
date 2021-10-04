@@ -10,8 +10,7 @@ import ArrowBackSharpIcon from '@mui/icons-material/ArrowBackSharp';
 
 function Profile({ user, setHasUpdate, hasUpdate }){
     const history = useHistory()
-    const [isEdit, setIsEdit] = useState(false)
-
+    
     const [showDemographicForm, setShowDemographicForm] = useState(false)
     const [demographicFormData, setDemographicFormData] = useState({
         email: user.email,
@@ -20,8 +19,9 @@ function Profile({ user, setHasUpdate, hasUpdate }){
         summary: user.summary,
         avatar: user.avatar 
     })
-
+    
     const [providers, setProviders] = useState(user.user_providers)
+    const [isEditProviders, setIsEditProviders] = useState(false)
     const [providerFormData, setProviderFormData] = useState({ 
         provider_name: "",
         phone_number: "",
@@ -29,6 +29,7 @@ function Profile({ user, setHasUpdate, hasUpdate }){
     })
 
     const [categories, setCategories] = useState(user.user_categories)
+    const [isEditCategories, setisEditCategories] = useState(false)
     const [categoryFormData, setCategoryFormData] = useState({ category_name: "" })
     
     //DEMOGRAPHICS RU
@@ -58,7 +59,7 @@ function Profile({ user, setHasUpdate, hasUpdate }){
     function manageProviderFormData(e){
         let key = e.target.name
         let value = e.target.value
-        if (isEdit) {
+        if (isEditProviders) {
             setProviderFormData({
                 ...providerFormData,
                 [key]: value,
@@ -73,41 +74,46 @@ function Profile({ user, setHasUpdate, hasUpdate }){
     }
     async function handleProviderSubmit(e){
         e.preventDefault()
-        if (isEdit) {
-            fetch(`/providers/${providerFormData.id}`, {
-                method: "PATCH",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(providerFormData)
-            })
-            .then(response=>response.json())
-            .then(data => {
-                setIsEdit(false)
-                setProviderFormData({ 
-                    provider_name: "",
-                    phone_number: "",
-                    address: "" 
+        if (!providerFormData.provider_name || !providerFormData.address || !providerFormData.phone_number){
+            alert('Please complete the form before submitting!')
+        } 
+        else {
+            if (isEditProviders) {
+                fetch(`/providers/${providerFormData.id}`, {
+                    method: "PATCH",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(providerFormData)
                 })
-                history.go('/profile')
-            })
-        } else {
-              await fetch(`/providers`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(providerFormData)
-            })
-            .then(response => response.json())
-            .then(data => {
-                setProviderFormData({ 
-                    provider_name: "",
-                    phone_number: "",
-                    address: "" 
+                .then(response=>response.json())
+                .then(data => {
+                    setIsEditProviders(false)
+                    setProviderFormData({ 
+                        provider_name: "",
+                        phone_number: "",
+                        address: "" 
+                    })
+                    history.go('/profile')
                 })
-                setHasUpdate(!hasUpdate)
-            })
+            } else {
+                await fetch(`/providers`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(providerFormData)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    setProviderFormData({ 
+                        provider_name: "",
+                        phone_number: "",
+                        address: "" 
+                    })
+                    setHasUpdate(!hasUpdate)
+                })
+            }
         }
     }
     function setEditProvider(e){
@@ -118,14 +124,14 @@ function Profile({ user, setHasUpdate, hasUpdate }){
             phone_number: currentProvider.phone_number,
             address: currentProvider.address
         })
-        setIsEdit(true)
+        setIsEditProviders(true)
     }
 
     //CATEGORIES CRU
     function manageCategoryFormData(e){
         let key = e.target.name
         let value = e.target.value
-        if (isEdit) {
+        if (isEditCategories) {
             setCategoryFormData({
                 [key]: value,
                 id: categoryFormData.id
@@ -138,38 +144,42 @@ function Profile({ user, setHasUpdate, hasUpdate }){
     }
     async function handleCategorySubmit(e){
         e.preventDefault()
-        if (isEdit) {
-            fetch(`/categories/${categoryFormData.id}`, {
-                method: "PATCH",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(categoryFormData)
-            }).then(response=>response.json())
-            .then(data=>{
-                setIsEdit(false)
-                setCategoryFormData({ category_name: "" })
-                history.go('/')
-            })
+        if (!categoryFormData.category_name) {
+            alert('Please complete the form before submitting!')
         } else {
-            await fetch(`/categories`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(categoryFormData)
-            })
-            .then(response => response.json())
-            .then(data => {
-                // setCategories([...categories, data])
-                setCategoryFormData({ category_name: "" })
-                setHasUpdate(!hasUpdate)
-            })
-        }
+            if (isEditCategories) {
+                fetch(`/categories/${categoryFormData.id}`, {
+                    method: "PATCH",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(categoryFormData)
+                }).then(response=>response.json())
+                .then(data=>{
+                    setisEditCategories(false)
+                    setCategoryFormData({ category_name: "" })
+                    history.go('/')
+                })
+            } else {
+                await fetch(`/categories`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(categoryFormData)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // setCategories([...categories, data])
+                    setCategoryFormData({ category_name: "" })
+                    setHasUpdate(!hasUpdate)
+                })
+            }
+        }   
     }
     function setEditCategory(e){
         setCategoryFormData({id: e.target.id, category_name: e.target.value})
-        setIsEdit(true)
+        setisEditCategories(true)
     }
 
     return(
@@ -199,10 +209,11 @@ function Profile({ user, setHasUpdate, hasUpdate }){
                                 id="provider_name"
                                 label="Provider Name"
                                 name="provider_name"
-                                style={{minWidth: 183}}
+                                style={{minWidth: 200}}
                                 value={providerFormData.provider_name}
                                 onChange={manageProviderFormData}
                                 sx={{background: '#9dbbae'}}
+                                margin="dense"
                             />
                         </FormControl>
                         <FormControl>
@@ -210,10 +221,11 @@ function Profile({ user, setHasUpdate, hasUpdate }){
                                 id="phone_number"
                                 label="Phone Number"
                                 name="phone_number"
-                                style={{minWidth: 183}}
+                                style={{minWidth: 200}}
                                 value={providerFormData.phone_number}
                                 onChange={manageProviderFormData}
                                 sx={{background: '#9dbbae'}}
+                                margin="dense"
                             />
                         </FormControl>
                         <FormControl>
@@ -225,9 +237,10 @@ function Profile({ user, setHasUpdate, hasUpdate }){
                                 name="address"
                                 value={providerFormData.address}
                                 onChange={manageProviderFormData}
-                                sx={{background: '#9dbbae'}}
+                                sx={{background: '#9dbbae', minWidth: 200}}
+                                margin="dense"
                             />
-                            <Button type="submit"><AddSharpIcon />Provider</Button>
+                            <Button type="submit">{isEditProviders ? <EditSharpIcon/> : <AddSharpIcon />} Provider</Button>
                         </FormControl>
                     </form>
                     </Container>
@@ -243,7 +256,7 @@ function Profile({ user, setHasUpdate, hasUpdate }){
                     <Container>
                     <Typography><AddBoxSharpIcon />Category Form</Typography>
                     <form onSubmit={handleCategorySubmit}>
-                        <FormControl style={{minWidth: 183}}>
+                        <FormControl style={{minWidth: 200}}>
                             <TextField
                                 id="category"
                                 label="Category"
@@ -251,8 +264,9 @@ function Profile({ user, setHasUpdate, hasUpdate }){
                                 value={categoryFormData.category_name}
                                 onChange={manageCategoryFormData}
                                 sx={{background: '#9dbbae'}}
+                                margin="dense"
                             />
-                            <Button type="submit"><AddSharpIcon />Category</Button>
+                            <Button type="submit">{isEditCategories ? <EditSharpIcon/> : <AddSharpIcon />}Category</Button>
                         </FormControl>
                     </form>
                     </Container>
@@ -262,7 +276,7 @@ function Profile({ user, setHasUpdate, hasUpdate }){
             </Drawer>
             <Container>
                 <Container>
-                    <Typography variant="h2" sx={{marginLeft: "16px"}} color="text.secondary">
+                    <Typography variant="h2" color="text.secondary" paddingTop="20px">
                         My Info: 
                     </Typography>
                     {showDemographicForm ?
@@ -270,7 +284,7 @@ function Profile({ user, setHasUpdate, hasUpdate }){
                         direction="row"
                         justifyContent="flex-start"
                         alignItems="flex-start"
-                        sx={{marginLeft: "16px"}}
+                       
                     >
                         <Grid item>
                             <Card sx={{ maxWidth: 740 }}>
@@ -330,14 +344,14 @@ function Profile({ user, setHasUpdate, hasUpdate }){
                         direction="row"
                         justifyContent="flex-start"
                         alignItems="flex-start"
-                        sx={{marginLeft: "16px"}}
+                 
                     >
                         <Grid item>
                             <Card sx={{ maxWidth: 740 }}>
                                 <CardContent>
                                     <Box sx={{display: 'flex', justifyContent: "space-between"}}>
                                         <Box>
-                                            <Typography gutterBottom variant="h5" component="div">
+                                            <Typography gutterBottom variant="h5" component="div" >
                                                 {user.name} 
                                             </Typography>
                                             <Typography variant="body2" color="text.secondary">
@@ -364,67 +378,63 @@ function Profile({ user, setHasUpdate, hasUpdate }){
                         </Grid>
                     </Grid>}
                 </Container>
-                <Container>
-                    <CardContent>
-                        <Typography variant="h2" color="text.secondary">
-                            My Providers: 
-                        </Typography>
-                        {providers.length > 0 ?
-                        <Grid container 
-                            direction="row"
-                            justifyContent="flex-start"
-                            alignItems="flex-start"
-                            spacing={4}
-                        >
-                            {providers.map((provider) => {
-                                return (
-                                    <Grid item xs={3}>
-                                        <Card key={provider.id} sx={{minHeight: 318, display: 'flex', flexDirection: 'column', padding: '14px'}}>
-                                            <Typography variant="h5" component="div">{provider.provider_name}</Typography>
-                                            <Typography variant="body2" color="text.secondary">{provider.phone_number}</Typography>
-                                            <Typography sx={{flexGrow: 1}} variant="body2" color="text.secondary">{provider.address}</Typography>
-                                            <CardActions sx={{display: 'flex', justifyContent: 'center'}}>
-                                                <Button id={provider.id} onClick={setEditProvider}><EditSharpIcon/> Provider</Button>
-                                            </CardActions>
-                                        </Card>
-                                    </Grid>
-                                )
-                            })}
-                        </Grid>
-                        : 
-                        <Typography variant="h5" color="text.secondary"><ArrowBackSharpIcon /> Add Providers (will not appear here until associated with Event/Appointment/Medication)</Typography>
-                        }
-                    </CardContent>
-                </Container>
-                <Container>
-                    <CardContent>
-                        <Typography variant="h2" color="text.secondary">
-                            My Categories: 
-                        </Typography>
-                        {categories.length >0 ? 
-                        <Grid container 
-                            direction="row"
-                            justifyContent="flex-start"
-                            alignItems="flex-start"
-                            spacing={4}
-                        >
-                        {categories.map((category) => {
+                <Container >
+                    <Typography variant="h2" color="text.secondary" paddingTop="32px">
+                        My Providers: 
+                    </Typography>
+                    {providers.length > 0 ?
+                    <Grid container 
+                        direction="row"
+                        justifyContent="flex-start"
+                        alignItems="flex-start"
+                        spacing={4}
+                    >
+                        {providers.map((provider) => {
                             return (
                                 <Grid item xs={3}>
-                                    <Card key={category.id} sx={{minHeight: 130, display: 'flex', flexDirection: 'column', padding: '14px'}}>
-                                        <Typography sx={{flexGrow: 1}} variant="body2" color="text.secondary">{category.category_name}</Typography>
-                                        <CardActions  sx={{display: 'flex', justifyContent: 'center'}}>
-                                            <Button id={category.id} value={category.category_name} onClick={setEditCategory}><EditSharpIcon />Category</Button>
+                                    <Card key={provider.id} sx={{minHeight: 318, display: 'flex', flexDirection: 'column', padding: '14px'}}>
+                                        <Typography variant="h5" component="div">{provider.provider_name}</Typography>
+                                        <Typography variant="body2" color="text.secondary">{provider.phone_number}</Typography>
+                                        <Typography sx={{flexGrow: 1}} variant="body2" color="text.secondary">{provider.address}</Typography>
+                                        <CardActions sx={{display: 'flex', justifyContent: 'center'}}>
+                                            <Button id={provider.id} onClick={setEditProvider}><EditSharpIcon/> Provider</Button>
                                         </CardActions>
                                     </Card>
                                 </Grid>
                             )
                         })}
-                        </Grid>
-                        :
-                        <Typography variant="h5" color="text.secondary"><ArrowBackSharpIcon /> Add Categories (will not appear here until associated with Event/Appointment/Medication)</Typography>
-                        }
-                    </CardContent>            
+                    </Grid>
+                    : 
+                    <Typography variant="h5" color="text.secondary"><ArrowBackSharpIcon /> Add Providers (will not appear here until associated with Event/Appointment/Medication)</Typography>
+                    }
+                </Container>
+                    <Container>
+                    <Typography variant="h2" color="text.secondary" paddingTop="32px">
+                        My Categories: 
+                    </Typography>
+                    {categories.length >0 ? 
+                    <Grid container 
+                        direction="row"
+                        justifyContent="flex-start"
+                        alignItems="flex-start"
+                        spacing={4}
+                    >
+                    {categories.map((category) => {
+                        return (
+                            <Grid item xs={3}>
+                                <Card key={category.id} sx={{minHeight: 130, display: 'flex', flexDirection: 'column', padding: '14px'}}>
+                                    <Typography sx={{flexGrow: 1}} variant="body2" color="text.secondary">{category.category_name}</Typography>
+                                    <CardActions  sx={{display: 'flex', justifyContent: 'center'}}>
+                                        <Button id={category.id} value={category.category_name} onClick={setEditCategory}><EditSharpIcon />Category</Button>
+                                    </CardActions>
+                                </Card>
+                            </Grid>
+                        )
+                    })}
+                    </Grid>
+                    :
+                    <Typography variant="h5" color="text.secondary"><ArrowBackSharpIcon /> Add Categories (will not appear here until associated with Event/Appointment/Medication)</Typography>
+                    }
                 </Container>
             </Container>
         </Box>

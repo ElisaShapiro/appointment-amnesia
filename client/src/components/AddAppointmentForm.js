@@ -6,13 +6,24 @@ import { Button, Container, FormControl, InputLabel, MenuItem, Select, TextField
 import AddSharpIcon from '@mui/icons-material/AddSharp';
 import AddBoxSharpIcon from '@mui/icons-material/AddBoxSharp';
 
-function AddAppointmentForm({ universalCategories, universalProviders, formData, setFormData, manageFormData, handleSubmit, appointmentTimeValue, setAppointmentTimeValue, }){
+function AddAppointmentForm({ universalCategories, universalProviders, formData, setFormData, manageFormData, handleSubmit, appointmentTimeValue, setAppointmentTimeValue, isEdit }){
 
     return(
         <Container> 
             <form onSubmit={handleSubmit}>
-                <Typography><AddBoxSharpIcon />Add Appointment</Typography>
-                <FormControl style={{minWidth: 174}}>
+                <Typography sx={{paddingBottom: "10px"}}><AddBoxSharpIcon />Add Appointment</Typography>
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                        <DateTimePicker
+                            renderInput={(props) => <TextField {...props} sx={{minWidth: 200}}/>}
+                            label="Date and Time"
+                            value={appointmentTimeValue}
+                            onChange={(newAppointmentTimeValue) => {
+                                setFormData({...formData, appointment_time: newAppointmentTimeValue})
+                                setAppointmentTimeValue(newAppointmentTimeValue);
+                            }}   
+                        />
+                    </LocalizationProvider>
+                <FormControl style={{minWidth: 200}} margin="dense">
                     <InputLabel id="category-label">Category</InputLabel>
                     <Select
                         labelId="category-label"
@@ -32,7 +43,7 @@ function AddAppointmentForm({ universalCategories, universalProviders, formData,
                         })}
                     </Select>
                 </FormControl>
-                <FormControl style={{minWidth: 174}}>
+                <FormControl style={{minWidth: 200}} margin="dense">
                     <InputLabel id="provider-label">Provider</InputLabel>
                     <Select
                         labelId="provider-label"
@@ -52,18 +63,7 @@ function AddAppointmentForm({ universalCategories, universalProviders, formData,
                         })}
                     </Select>
                 </FormControl><br />
-                    <LocalizationProvider dateAdapter={AdapterDateFns} style={{minWidth: 174}}>
-                        <DateTimePicker
-                            renderInput={(props) => <TextField {...props} />}
-                            label="Date and Time"
-                            value={appointmentTimeValue}
-                            onChange={(newAppointmentTimeValue) => {
-                                setFormData({...formData, appointment_time: newAppointmentTimeValue})
-                                setAppointmentTimeValue(newAppointmentTimeValue);
-                            }}   
-                        />
-                    </LocalizationProvider>
-                <Button type="submit"><AddSharpIcon />New Appointment</Button>              
+                <Button type="submit"><AddSharpIcon /> {isEdit ? 'Edit Appointment' : 'New Appointment'} </Button>              
             </form>
         </Container>
     )

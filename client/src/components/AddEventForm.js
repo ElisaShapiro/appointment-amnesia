@@ -45,14 +45,25 @@ const customIcons = {
     value: PropTypes.number.isRequired,
   };
   
-function AddEventForm({ universalCategories, formData, setFormData, manageFormData, handleSubmit, eventTimeValue, setEventTimeValue}){
+function AddEventForm({ universalCategories, formData, setFormData, manageFormData, handleSubmit, eventTimeValue, setEventTimeValue, isEdit}){
 
     
     return(
         <Container>  
             <form onSubmit={handleSubmit}>
-                <Typography><AddBoxSharpIcon />Log Event</Typography>
-                <FormControl style={{minWidth: 174}}>
+                <Typography sx={{paddingBottom: "10px"}}><AddBoxSharpIcon />Log Event</Typography>
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                    <DateTimePicker
+                        renderInput={(props) => <TextField {...props} sx={{minWidth: 200}}/>}
+                        label="Date and Time of Event"
+                        value={eventTimeValue}
+                        onChange={(newEventTimeValue) => {
+                            setFormData({...formData, event_time: newEventTimeValue})
+                            setEventTimeValue(newEventTimeValue);
+                        }}
+                    />
+                </LocalizationProvider>
+                <FormControl style={{minWidth: 200}} margin="dense">
                     <InputLabel id="category-label">Category</InputLabel>
                     <Select
                         labelId="category-label"
@@ -89,20 +100,10 @@ function AddEventForm({ universalCategories, formData, setFormData, manageFormDa
                     name="content"
                     value={formData.content}
                     onChange={manageFormData} 
-                    sx={{background: '#9dbbae'}}   
+                    sx={{background: '#9dbbae', minWidth: 200}} 
+                    margin="dense"  
                 /><br />
-                    <LocalizationProvider dateAdapter={AdapterDateFns}>
-                        <DateTimePicker
-                            renderInput={(props) => <TextField {...props} />}
-                            label="Date and Time of Event"
-                            value={eventTimeValue}
-                            onChange={(newEventTimeValue) => {
-                                setFormData({...formData, event_time: newEventTimeValue})
-                                setEventTimeValue(newEventTimeValue);
-                            }}
-                        />
-                    </LocalizationProvider>
-                <Button style={{minWidth: 174}} type="submit"><AddSharpIcon />New Event</Button>
+                <Button style={{minWidth: 200}} type="submit"><AddSharpIcon />{isEdit ? 'Edit Event' : 'New Event'}</Button>
             </form>
         </Container>
     )

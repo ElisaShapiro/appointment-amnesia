@@ -32,7 +32,6 @@ function Medications({ user, universalProviders}) {
     useEffect(() => {
         if (user && user.user_providers.length > 0) {
             setMedicationProviders(user.user_providers)
-            setMedicationFormData({...medicationFormData, provider_name: user.user_providers[0].provider_name})
         }
     }, [user])
     
@@ -92,21 +91,29 @@ function Medications({ user, universalProviders}) {
 
     function handleMedicationSubmit(e){
         e.preventDefault()
-        const selectedMedication = medicationsFromAPI.filter((medication) => medication.strength == radioSelectedOption)[0]
-        const selectedProvider = medicationProviders.filter((provider) => provider.provider_name == medicationFormData.provider_name)[0]
-        let newMedicationFormData = {...medicationFormData, provider_id: selectedProvider.id, medication_name: selectedMedication.name}
-        fetch(`/medications`, {
-            method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(newMedicationFormData)
-        })
-        .then(response => response.json())
-        .then(data => {
-            setShowMedicationForm(!showMedicationForm)
-            history.go('/medications')
-        })
+        if (!radioSelectedOption) {
+            alert('Please search for and select a medication before submitting!')
+        } else {
+            const selectedMedication = medicationsFromAPI.filter((medication) => medication.strength == radioSelectedOption)[0]
+            const selectedProvider = medicationProviders.filter((provider) => provider.provider_name == medicationFormData.provider_name)[0]
+            if (!selectedMedication || !selectedProvider || !medicationFormData.dosage) {
+                alert('Please complete the form before submitting!')
+            } else {
+                let newMedicationFormData = {...medicationFormData, provider_id: selectedProvider.id, medication_name: selectedMedication.name}
+                fetch(`/medications`, {
+                    method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(newMedicationFormData)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    setShowMedicationForm(!showMedicationForm)
+                    history.go('/medications')
+                })
+            }
+        }
     }
 
     //DELETE medications
@@ -155,7 +162,8 @@ function Medications({ user, universalProviders}) {
                             name="medication-name"
                             value={medicationName}
                             onChange={(e) => setMedicationName(e.target.value)}
-                            sx={{background: '#9dbbae'}}
+                            sx={{background: '#9dbbae', minWidth: 200}}
+                            margin="dense"
                         />   
                         <Button onClick={searchMedicationsOnAPI}><SearchSharpIcon />Medications</Button>         
                         {medicationsFromAPI.length > 0 ?
@@ -179,16 +187,17 @@ function Medications({ user, universalProviders}) {
                             name="dosage"
                             value={medicationFormData.medication_name}
                             onChange={manageMedicationFormData}
-                            sx={{background: '#9dbbae'}}
+                            sx={{background: '#9dbbae', minWidth: 200}}
+                            margin="dense"
                         />
-                        <FormControl style={{minWidth: 174}}>
+                        <FormControl style={{minWidth: 200}} margin="dense">
                             <InputLabel id="provider-label">Prescribing Provider</InputLabel>
                             <Select
                                 labelId="provider-label"
                                 id="provider_name"
                                 label="Provider"
                                 name="provider_name"
-                                value={medicationFormData.provider_name}
+                                value={medicationFormData.provider}
                                 onChange={manageMedicationFormData}
                                 sx={{background: '#9dbbae'}}
                             >
@@ -208,7 +217,7 @@ function Medications({ user, universalProviders}) {
                 </Box>
             </Drawer>
             <Container> 
-                <Typography variant="h2" color="text.secondary">               
+                <Typography variant="h2" color="text.secondary" paddingTop="20px">               
                     My Medications: 
                 </Typography>
                 { medications.length > 0 ?

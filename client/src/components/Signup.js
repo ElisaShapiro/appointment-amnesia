@@ -46,7 +46,7 @@ function Signup({ setUser }){
 
 
     return(
-        <Container>
+        <Container sx={{paddingTop: '124px'}}>
             <Box container
                 component={Grid}
                 justifyContent='center'
@@ -55,7 +55,7 @@ function Signup({ setUser }){
                 sx={{
                     width: 510,
                     height: 510,
-                    backgroundImage: `url(${"https://i.imgur.com/WrhF2yU.png"}`,
+                    backgroundImage: `url(${"https://i.imgur.com/p2GWN6M.png"}`,
                     backgroundRepeat: 'no-repeat',
                     backgroundPosition: 'center',
                     backgroundSize: 'auto'

@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import AppointmentDetail from './AppointmentDetail';
 import AddAppointmentForm from './AddAppointmentForm';
 import SearchBar from './SearchBar';
-
+import { isPast } from 'date-fns';
 import { Box, Button, Card, Container, Divider, Drawer, Grid, Toolbar, Typography } from '@mui/material';
 import EditSharpIcon from '@mui/icons-material/EditSharp';
 import DeleteSharpIcon from '@mui/icons-material/DeleteSharp';
@@ -18,7 +18,7 @@ function Appointments({ user, universalCategories, universalProviders }){
     const [formData, setFormData] = useState({
         category: "",
         provider: "", 
-        appointment_time: ""
+        appointment_time: new Date()
     })
     const [appointmentTimeValue, setAppointmentTimeValue] = useState(new Date())
 
@@ -36,7 +36,6 @@ function Appointments({ user, universalCategories, universalProviders }){
     function handleClickAppointment(appointmentId){
         const editedAppointment = appointments.filter((appointment) => appointment.id == appointmentId)[0]
         let formDataAppointment = {...editedAppointment, category: editedAppointment.category.category_name, provider: editedAppointment.provider.provider_name}
-        debugger
         setIsEdit(!isEdit)
         setFormData(formDataAppointment)
         setAppointmentTimeValue(editedAppointment.appointment_time)
@@ -146,6 +145,16 @@ function Appointments({ user, universalCategories, universalProviders }){
         }
     })
 
+    const pastAppointments = filteredAppointments.filter(oneAppointment=> {
+        let date = new Date(oneAppointment.appointment_time)
+        return isPast(date)
+    })
+
+    const futureAppointments = filteredAppointments.filter(oneAppointment=> {
+        let date = new Date(oneAppointment.appointment_time)
+        return !isPast(date)
+    })
+
     return(
         <Box sx={{display: 'flex'}}>
             <Drawer
@@ -164,7 +173,7 @@ function Appointments({ user, universalCategories, universalProviders }){
                         direction="column"
                         alignItems="center"
                         justify="center"
-                        style={{ minHeight: 200 }}
+                        style={{ minHeight: 225 }}
                     >
                         <SearchBar
                             sortOther={appointmentProviders} setSortOther={setSortAppointmentProvider} 
@@ -189,18 +198,19 @@ function Appointments({ user, universalCategories, universalProviders }){
                             setFormData={setFormData}
                             manageFormData={manageFormData} 
                             handleSubmit={handleSubmit}
+                            isEdit={isEdit}
                         />
                     </Grid>
                     <Divider />
                 </Box>
             </Drawer>
             <Container>
-                <Typography variant="h2" color="text.secondary">               
+                <Typography variant="h2" color="text.secondary" paddingTop="20px">               
                     Upcoming Appointments:
                 </Typography>   
-                { filteredAppointments.length > 0 ?  
-                <Grid container spacing={4} padding={3}>
-                    {filteredAppointments.map((oneAppointment) => {
+                { futureAppointments.length > 0 ?  
+                <Grid container spacing={4} >
+                    {futureAppointments.map((oneAppointment) => {
                         return (
                             <Grid item xs={4} spacing={2}>
                                 <Card key={oneAppointment.id}>
@@ -211,11 +221,34 @@ function Appointments({ user, universalCategories, universalProviders }){
                                     </div>
                                 </Card>
                             </Grid>
-                        )
-                    })}
+                        )}
+                    )}
                 </Grid>
                 :
-                <Typography variant="h5" color="text.secondary"><SouthWestSharpIcon /> Log Your First Appointment</Typography>
+                <Typography variant="h5" color="text.secondary"><SouthWestSharpIcon /> Log an Upcoming Appointment</Typography>
+                }
+            {/* </Container>
+            <Container> */}
+                <Typography variant="h2" color="text.secondary" paddingTop="20px">               
+                    Past Appointments:
+                </Typography>   
+                { pastAppointments.length > 0 ?  
+                <Grid container spacing={4} >
+                    {pastAppointments.map((oneAppointment) => {
+                        return (
+                            <Grid item xs={4} spacing={2}>
+                                <Card key={oneAppointment.id}>
+                                    <AppointmentDetail oneAppointment={oneAppointment}/>
+                                    <div style={{display: "flex", alignItems: 'center', justifyContent: 'center'}}>
+                                        <Button size="small" color="primary" value={oneAppointment.id} onClick={()=>handleDeleteAppointment(oneAppointment.id)}><DeleteSharpIcon /></Button>
+                                    </div>
+                                </Card>
+                            </Grid>
+                        )}
+                    )}
+                </Grid>
+                :
+                <Typography variant="h5" color="text.secondary"><SouthWestSharpIcon /> You Have No Past Appointments</Typography>
                 }
             </Container>
         </Box>

@@ -21,7 +21,7 @@ function NavBar({ user, setUser }){
     return(
         <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
             <Toolbar sx={{display: "flex", justifyContent: "start"}}>
-                <Typography sx={{flex: '1'}}>
+                <Typography>
                     Today is {format(new Date(), "eeee MMMM d',' y")}
                 </Typography>
                 {user ?
@@ -49,10 +49,12 @@ function NavBar({ user, setUser }){
                             Medications
                         </Button>
                     </NavLink>
-                    <Button sx={{ flex: 1}} color="buttonColor" className="navbar-button" onClick={handleLogoutClick}>Logout</Button>
+                    <span style={{flex: 1}}></span>
+                    <Button color="buttonColor" className="navbar-button" onClick={handleLogoutClick}>Logout</Button>
                 </>
                 :
                 <>
+                    <span style={{flex: 1}}></span>
                     <NavLink to="/login" style={{ textDecoration: 'none' }} activeStyle={{ backgroundColor: '#188fa7'}}>
                         <Button color="buttonColor" className="navbar-button" >
                             Login

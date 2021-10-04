@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { NavLink, useHistory } from "react-router-dom"
 
-import { Box, Button, Container, Grid, TextField, Typography } from '@mui/material'
+import { Box, Button, Container, Grid, TextField } from '@mui/material'
 
 
 function Login({ setUser } ){
@@ -40,7 +40,7 @@ function Login({ setUser } ){
 
 
     return(
-        <Container>
+        <Container sx={{paddingTop: '124px'}}>
             <Box container
                 component={Grid}
                 justifyContent='center'
@@ -49,7 +49,7 @@ function Login({ setUser } ){
                 sx={{
                     width: 510,
                     height: 404,
-                    backgroundImage: `url(${"https://i.imgur.com/WrhF2yU.png"}`,
+                    backgroundImage: `url(${"https://i.imgur.com/p2GWN6M.png"}`,
                     backgroundRepeat: 'no-repeat',
                     backgroundPosition: 'center',
                     backgroundSize: 'auto'

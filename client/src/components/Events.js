@@ -18,7 +18,7 @@ function Events({ user, universalCategories }){
         category: "",
         content: "",
         severity: "",
-        event_time: ""
+        event_time: new Date()
     })
     useEffect(()=>{
         if (user && user.user_categories.length > 0) {
@@ -60,36 +60,41 @@ function Events({ user, universalCategories }){
                 return category.category_name == formData.category.category_name
             }
         })[0]
-        const newFormData = {...formData, category_id: selectedCategory.id}
-        if (isEdit) {
-            fetch(`/events/${formData.id}`, {
-                method: "PATCH",
-                headers: {
-                    "Content-Type": "application/json"
-                },
+        if (!selectedCategory || !formData.severity || !formData.content) {
+            alert('Please complete the form before submitting!')
+        }
+        else {
+            const newFormData = {...formData, category_id: selectedCategory.id}
+            if (isEdit) {
+                fetch(`/events/${formData.id}`, {
+                    method: "PATCH",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(newFormData)
+                })
+                .then(response=>response.json())
+                .then(data => {
+                    setIsEdit(false)
+                    history.go('/events')
+                })
+            } else {
+                await fetch(`/events`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
                 body: JSON.stringify(newFormData)
-            })
-            .then(response=>response.json())
-            .then(data => {
-                setIsEdit(false)
-                history.go('/events')
-            })
-        } else {
-            await fetch(`/events`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-            body: JSON.stringify(newFormData)
-            })
-            .then(response => response.json())
-            .then(data => {
-                history.go("/events")
-            })
-            setFormData({
-                content: "",
-                severity: "",
-            })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    history.go("/events")
+                })
+                setFormData({
+                    content: "",
+                    severity: "",
+                })
+            }
         }
     } 
 
@@ -137,6 +142,12 @@ function Events({ user, universalCategories }){
         } else {
             return false
         }
+    }).sort((eventA, eventB) =>{
+        if (eventA.event_time < eventB.event_time) {
+            return 1 
+        } else {
+            return -1
+        }
     })
 
    
@@ -159,7 +170,7 @@ function Events({ user, universalCategories }){
                         direction="column"
                         alignItems="center"
                         justify="center"
-                        style={{ minHeight: 200 }}
+                        style={{ minHeight: 225 }}
                     >
                         <SearchBar search={searchEvents} setSearch={setSearchEvents}
                             type={"events"} setSortOther={setSortEventSeverity} 
@@ -182,18 +193,19 @@ function Events({ user, universalCategories }){
                             setFormData={setFormData}
                             manageFormData={manageFormData} 
                             handleSubmit={handleSubmit}
+                            isEdit={isEdit}
                         />
                     </Grid>
                     <Divider />
                 </Box>
             </Drawer>
             <Container>
-                <Typography variant="h2" color="text.secondary">               
+                <Typography variant="h2" color="text.secondary" paddingTop="20px">               
                     Event Log: 
                 </Typography>
                 {filteredEvents.length > 0 ? 
-                <Grid container spacing={4} padding={3}> 
-                    {filteredEvents.reverse().map((oneEvent) => {
+                <Grid container spacing={4}> 
+                    {filteredEvents.map((oneEvent) => {
                         return (
                             <Grid item xs={8} spacing={2}>
                                 <Card key={oneEvent.id}>
