@@ -1,3 +1,12 @@
+Welcome to Appointment Amnesia: A medical tracking app to keep your thoughts in order.
+
+Log events (visit summaries, description of an instance you are tracking, measurement), appointments, medications organizable by their specific category or relevant provider. Create custom categories to monitor progress. Write up your own medical summary so you can easily provide a consistent and complete medical history. 
+
+Developed by Elisa Shapiro
+
+© 2021 Elisa Shapiro
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

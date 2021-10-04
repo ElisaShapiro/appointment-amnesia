@@ -115,6 +115,7 @@ function Signup({ setUser }){
                         <Button type="submit" variant="outlined" sx={{width: 218, color: "#666666", border: '1px solid #666666', textAlign: "center"}}>Register</Button>
                     </Grid>
                     <Grid item
+                        sx={{paddingTop:"14px", paddingBottom:"16px"}}
                     >
                         <Button variant="outlined" sx={{width: 218, color: "#666666", border: '1px solid #666666', textAlign: "center"}} component={NavLink} to="/login">
                             {"Have an account?"}<br/>{"Log In"}

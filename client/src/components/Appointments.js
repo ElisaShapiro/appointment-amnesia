@@ -205,7 +205,7 @@ function Appointments({ user, universalCategories, universalProviders }){
                 </Box>
             </Drawer>
             <Container>
-                <Typography variant="h2" color="text.secondary" paddingTop="20px">               
+                <Typography variant="h3" color="text.secondary" paddingTop="20px">               
                     Upcoming Appointments:
                 </Typography>   
                 { futureAppointments.length > 0 ?  
@@ -229,7 +229,7 @@ function Appointments({ user, universalCategories, universalProviders }){
                 }
             {/* </Container>
             <Container> */}
-                <Typography variant="h2" color="text.secondary" paddingTop="20px">               
+                <Typography variant="h3" color="text.secondary" paddingTop="20px">               
                     Past Appointments:
                 </Typography>   
                 { pastAppointments.length > 0 ?  

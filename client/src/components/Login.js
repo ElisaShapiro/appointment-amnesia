@@ -48,7 +48,7 @@ function Login({ setUser } ){
                 alignItems='end'
                 sx={{
                     width: 510,
-                    height: 404,
+                    height: 510,
                     backgroundImage: `url(${"https://i.imgur.com/p2GWN6M.png"}`,
                     backgroundRepeat: 'no-repeat',
                     backgroundPosition: 'center',
@@ -85,6 +85,7 @@ function Login({ setUser } ){
                         <Button type="submit" variant="outlined" sx={{width: 218, color: "#666666", border: '1px solid #666666', textAlign: "center"}}>Login</Button>
                     </Grid>
                     <Grid item
+                        sx={{paddingTop:"120px", paddingBottom: "16px"}}
                     >
                         <Button variant="outlined" sx={{color: "#666666", border: '1px solid #666666', textAlign: "center"}} component={NavLink} to="/signup">
                             {"Don't have an account?"}<br/>{"Sign Up"}

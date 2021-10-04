@@ -21,13 +21,18 @@ function Home({ user, setUser, setHasUpdate, hasUpdate }){
                     alignItems='center'
                     sx={{
                         width: 510,
-                        height: 404,
+                        height: 510,
                         backgroundImage: `url(${"https://i.imgur.com/p2GWN6M.png"}`,
                         backgroundRepeat: 'no-repeat',
                         backgroundPosition: 'center',
                         backgroundSize: 'auto'
                     }}
-                >    
+                >
+                <Grid item
+                    sx={{padding: "192px 0px 0px 0px"}}
+                >
+                <Typography gutterBottom color="#769fb6" variant='h2'>A Medical Tracking App to Keep Your Thoughts in Order</Typography>    
+                </Grid>
                 <Grid item
                 >
                     <Button variant="outlined" sx={{width: 218, color: "#666666", border: '1px solid #666666', textAlign: "center"}} component={NavLink} to="/login">

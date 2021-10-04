@@ -217,7 +217,7 @@ function Medications({ user, universalProviders}) {
                 </Box>
             </Drawer>
             <Container> 
-                <Typography variant="h2" color="text.secondary" paddingTop="20px">               
+                <Typography variant="h3" color="text.secondary" paddingTop="20px">               
                     My Medications: 
                 </Typography>
                 { medications.length > 0 ?

@@ -200,7 +200,7 @@ function Events({ user, universalCategories }){
                 </Box>
             </Drawer>
             <Container>
-                <Typography variant="h2" color="text.secondary" paddingTop="20px">               
+                <Typography variant="h3" color="text.secondary" paddingTop="20px">               
                     Event Log: 
                 </Typography>
                 {filteredEvents.length > 0 ? 

@@ -28,12 +28,19 @@ const theme = createTheme({
             fontWeight: '700'
         },
         h2: {
-            fontSize: '24px',
-            fontWeight: '500'
+            fontSize: '30px',
+            fontWeight: '500',
+            fontStyle: 'oblique',
+            textDecoration: 'none',
+            textTransform: 'uppercase',
+            textAlign: 'center'
         },
         h3: {
-            fontSize: '18px',
-            fontWeight: '500'
+            fontSize: '24px',
+            fontWeight: '500',
+            textDecoration: 'none',
+            textTransform: 'uppercase',
+            
         },
         h4: {
             fontSize: '12px',
@@ -41,7 +48,6 @@ const theme = createTheme({
             textDecoration: 'none',
             textTransform: 'uppercase',
             fontWeight: '500',
-            letterSpacing: '1.5px'
         },
         h5: {
             fontSize: '20px',
@@ -55,6 +61,10 @@ const theme = createTheme({
             fontSize: '18px',
             fontWeight: '700',
             color: '#222',
+        },
+        body3: {
+            fontSize: '10px',
+            color: '#222'
         }
     },
 })

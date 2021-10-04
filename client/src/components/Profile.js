@@ -276,7 +276,7 @@ function Profile({ user, setHasUpdate, hasUpdate }){
             </Drawer>
             <Container>
                 <Container>
-                    <Typography variant="h2" color="text.secondary" paddingTop="20px">
+                    <Typography variant="h3" color="text.secondary" paddingTop="20px">
                         My Info: 
                     </Typography>
                     {showDemographicForm ?
@@ -379,7 +379,7 @@ function Profile({ user, setHasUpdate, hasUpdate }){
                     </Grid>}
                 </Container>
                 <Container >
-                    <Typography variant="h2" color="text.secondary" paddingTop="32px">
+                    <Typography variant="h3" color="text.secondary" paddingTop="32px">
                         My Providers: 
                     </Typography>
                     {providers.length > 0 ?
@@ -409,7 +409,7 @@ function Profile({ user, setHasUpdate, hasUpdate }){
                     }
                 </Container>
                     <Container>
-                    <Typography variant="h2" color="text.secondary" paddingTop="32px">
+                    <Typography variant="h3" color="text.secondary" paddingTop="32px">
                         My Categories: 
                     </Typography>
                     {categories.length >0 ? 

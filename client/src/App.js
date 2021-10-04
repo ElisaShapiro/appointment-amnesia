@@ -8,6 +8,7 @@ import Home from './components/Home';
 import Events from './components/Events';
 import Appointments from './components/Appointments';
 import Medications from './components/Medications';
+import Footer from './components/Footer';
 
 import theme from './components/Theme';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -79,6 +80,7 @@ function App() {
           />
         </Route>
       </Switch>
+      <Footer />
     </ThemeProvider>
   );
 }
