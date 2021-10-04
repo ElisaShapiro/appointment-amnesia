@@ -1,9 +1,10 @@
 import { useState } from "react"
-import { NavLink } from "react-router-dom"
+import { NavLink, useHistory } from "react-router-dom"
 
 import { Box, Button, Container, Grid, TextField, Typography } from '@mui/material'
 
 function Signup({ setUser }){
+    const history = useHistory()
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -40,6 +41,7 @@ function Signup({ setUser }){
             }
             else {
                 setUser(json)
+                history.push("/")
             }
         })
     }

@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import EventDetail from './EventDetail';
 import AddEventForm from './AddEventForm';
 import SearchBar from './SearchBar';
+import ChartAllData from './ChartAllData';
 
 import { Box, Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Container, Divider, Drawer, Grid, TextField, Toolbar, Typography } from '@mui/material';
 import EditSharpIcon from '@mui/icons-material/EditSharp';
@@ -222,6 +223,11 @@ function Events({ user, universalCategories }){
                 :
                 <Typography variant="h5" color="text.secondary"><SouthWestSharpIcon /> Log Your First Event</Typography>
                 }
+                <Grid container
+                    sx={{backgroundColor: "#FFFFFF", height: "400px", width: "700px"}}
+                >
+                    <ChartAllData eventData={events} />
+                </Grid>
             </Container>
         </Box>
     )

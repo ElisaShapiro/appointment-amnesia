@@ -94,7 +94,7 @@ function Profile({ user, setHasUpdate, hasUpdate }){
                         phone_number: "",
                         address: "" 
                     })
-                    history.go('/profile')
+                    history.go('/')
                 })
             } else {
                 await fetch(`/providers`, {
@@ -287,7 +287,7 @@ function Profile({ user, setHasUpdate, hasUpdate }){
                        
                     >
                         <Grid item>
-                            <Card sx={{ maxWidth: 740 }}>
+                            <Card sx={{ width: 740 }}>
                                 <form onSubmit={handleDemographicSubmit}>
                                     <CardContent>
                                         <TextField
@@ -332,6 +332,7 @@ function Profile({ user, setHasUpdate, hasUpdate }){
                                             value={demographicFormData.summary}
                                             onChange={manageDemographicFormData}
                                             sx={{background: '#9dbbae'}}
+                                            margin="dense"  
                                         />
                                         <Button type="submit"><PersonAddAlt1SharpIcon />Demographics</Button>
                                     </CardContent>
@@ -347,7 +348,7 @@ function Profile({ user, setHasUpdate, hasUpdate }){
                  
                     >
                         <Grid item>
-                            <Card sx={{ maxWidth: 740 }}>
+                            <Card sx={{ width: 740 }}>
                                 <CardContent>
                                     <Box sx={{display: 'flex', justifyContent: "space-between"}}>
                                         <Box>
