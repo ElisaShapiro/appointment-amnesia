@@ -132,7 +132,8 @@ const ChartAllData = ({eventData}) => {
             x: {
                 title: {
                     display: true,
-                    text: "Last 6 Months"
+                    text: "Last 6 Months",
+                    fontFamily: "Quicksand"
                 }
             },
             y: {
