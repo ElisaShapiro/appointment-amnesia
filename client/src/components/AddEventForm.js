@@ -94,7 +94,7 @@ function AddEventForm({ universalCategories, formData, setFormData, manageFormDa
                     />
                 <TextField
                     multiline
-                    rows={10}
+                    rows={6}
                     id="content"
                     label="What Happened?"
                     name="content"

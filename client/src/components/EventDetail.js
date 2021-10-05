@@ -8,7 +8,7 @@ function EventDetail({ oneEvent }){
         <Card>
             <CardContent>
                 <Typography variant="body1" color="text.secondary">Category: </Typography>
-                <Typography variant="body2" color="text.secondary">{oneEvent.category.category_name} </Typography> <br />
+                <Typography variant="body2" color="text.secondary">{oneEvent.category.category_name} </Typography> 
                 <Typography variant="body1" color="text.secondary">What happened?</Typography> 
                 <Typography variant="body2" color="text.secondary">{oneEvent.content} </Typography>
                 <Typography variant="body1" color="text.secondary">Severity: </Typography>

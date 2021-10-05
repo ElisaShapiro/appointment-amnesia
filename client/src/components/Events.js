@@ -205,10 +205,10 @@ function Events({ user, universalCategories }){
                     Event Log: 
                 </Typography>
                 {filteredEvents.length > 0 ? 
-                <Grid container spacing={4}> 
+                <Grid container spacing={3}> 
                     {filteredEvents.map((oneEvent) => {
                         return (
-                            <Grid item xs={8} spacing={2}>
+                            <Grid item xs={11} spacing={2}>
                                 <Card key={oneEvent.id}>
                                     <EventDetail oneEvent={oneEvent}/>
                                     <div style={{display: "flex", alignItems: 'center', justifyContent: 'center'}}>
@@ -223,12 +223,15 @@ function Events({ user, universalCategories }){
                 :
                 <Typography variant="h5" color="text.secondary"><SouthWestSharpIcon /> Log Your First Event</Typography>
                 }
-                <Grid container
-                    sx={{backgroundColor: "#FFFFFF", height: "400px", width: "700px"}}
-                >
-                    <ChartAllData eventData={events} />
-                </Grid>
             </Container>
+            {events.length > 0 ?
+            <Box component={Container}
+                xs={4}
+                sx={{backgroundColor: "#bce2d7", height: "375px", marginTop: "16px", marginRight: "10px"}}
+            >
+                <ChartAllData eventData={events} />
+            </Box>
+            : null }
         </Box>
     )
 }

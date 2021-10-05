@@ -66,7 +66,7 @@ function NavBar({ user, setUser }){
                         </Button>
                     </NavLink>
                 </>}
-                <img src="https://i.imgur.com/WuYCpKQ.png" alt="header logo" style={{width: 600, height: 50}}/>
+                <img src="https://i.imgur.com/WuYCpKQ.png" alt="header logo" style={{width: 550, height: 50}}/>
             </Toolbar>
         </AppBar>
     )

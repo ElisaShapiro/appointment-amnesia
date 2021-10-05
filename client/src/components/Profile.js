@@ -361,7 +361,7 @@ function Profile({ user, setHasUpdate, hasUpdate }){
                                         </Box>
                                         <CardMedia
                                             component="img"
-                                            image={user.avatar}
+                                            image={user.avatar ? user.avatar : 'https://i.imgur.com/9UfDphN.jpg'}
                                             sx={{height: '80px', width: 'auto'}}
                                             alt="user profile picture"
                                         />
