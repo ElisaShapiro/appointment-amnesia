@@ -51,7 +51,7 @@ function AddEventForm({ universalCategories, formData, setFormData, manageFormDa
     return(
         <Container>  
             <form onSubmit={handleSubmit}>
-                <Typography sx={{paddingBottom: "10px"}}><AddBoxSharpIcon />Log Event</Typography>
+                <Typography sx={{paddingBottom: '10px'}}><AddBoxSharpIcon />Log Event</Typography>
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
                     <DateTimePicker
                         renderInput={(props) => <TextField {...props} sx={{minWidth: 200}}/>}
@@ -63,13 +63,13 @@ function AddEventForm({ universalCategories, formData, setFormData, manageFormDa
                         }}
                     />
                 </LocalizationProvider>
-                <FormControl style={{minWidth: 200}} margin="dense">
-                    <InputLabel id="category-label">Category</InputLabel>
+                <FormControl style={{minWidth: 200}} margin='dense'>
+                    <InputLabel id='category-label'>Category</InputLabel>
                     <Select
-                        labelId="category-label"
-                        id="category"
+                        labelId='category-label'
+                        id='category'
                         label="Category"
-                        name="category"
+                        name='category'
                         value={formData.category}
                         onChange={manageFormData}
                         sx={{background: '#9dbbae'}}
@@ -83,10 +83,10 @@ function AddEventForm({ universalCategories, formData, setFormData, manageFormDa
                         })}
                     </Select>
                 </FormControl>
-                <Typography component="legend">Severity</Typography>
+                <Typography component='legend'>Severity</Typography>
                     <Rating
                         onChange={manageFormData}
-                        name="severity"
+                        name='severity'
                         defaultValue={3}
                         value={parseInt(formData.severity)}
                         IconContainerComponent={IconContainer}
@@ -95,15 +95,15 @@ function AddEventForm({ universalCategories, formData, setFormData, manageFormDa
                 <TextField
                     multiline
                     rows={6}
-                    id="content"
+                    id='content'
                     label="What Happened?"
-                    name="content"
+                    name='content'
                     value={formData.content}
                     onChange={manageFormData} 
                     sx={{background: '#9dbbae', minWidth: 200}} 
-                    margin="dense"  
+                    margin='dense' 
                 /><br />
-                <Button style={{minWidth: 200}} type="submit"><AddSharpIcon />{isEdit ? 'Edit Event' : 'New Event'}</Button>
+                <Button style={{minWidth: 200}} type='submit'><AddSharpIcon />{isEdit ? "Edit Event" : "New Event"}</Button>
             </form>
         </Container>
     )

@@ -4,15 +4,16 @@ import EventDetail from './EventDetail';
 import AddEventForm from './AddEventForm';
 import SearchBar from './SearchBar';
 import ChartAllData from './ChartAllData';
+import ChartDistribution from './ChartDistribution';
 
-import { Box, Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Container, Divider, Drawer, Grid, TextField, Toolbar, Typography } from '@mui/material';
+import { Box, Button, Card, Container, Divider, Drawer, Grid, TextField, Toolbar, Typography } from '@mui/material';
 import EditSharpIcon from '@mui/icons-material/EditSharp';
 import DeleteSharpIcon from '@mui/icons-material/DeleteSharp';
 import SouthWestSharpIcon from '@mui/icons-material/SouthWestSharp';
 
-function Events({ user, universalCategories }){
+function Events({ user, universalCategories, events, setEvents }){
     const history = useHistory()
-    const [events, setEvents] = useState([])
+    // const [events, setEvents] = useState([])
     const [isEdit, setIsEdit] = useState(false)
     const [eventCategories, setEventCategories] = useState([])
     const [formData, setFormData] = useState({
@@ -55,14 +56,14 @@ function Events({ user, universalCategories }){
     async function handleSubmit(e) {
         e.preventDefault()
         const selectedCategory = universalCategories.filter((category) => {
-            if (typeof formData.category == 'string') {
+            if (typeof formData.category == "string") {
                 return category.category_name == formData.category
             } else {
                 return category.category_name == formData.category.category_name
             }
         })[0]
         if (!selectedCategory || !formData.severity || !formData.content) {
-            alert('Please complete the form before submitting!')
+            alert("Please complete the form before submitting!")
         }
         else {
             const newFormData = {...formData, category_id: selectedCategory.id}
@@ -76,8 +77,9 @@ function Events({ user, universalCategories }){
                 })
                 .then(response=>response.json())
                 .then(data => {
+                    setEvents([...events, data]) //makes duplicate then replaces on refresh
                     setIsEdit(false)
-                    history.go('/events')
+                    // history.go('/events') 
                 })
             } else {
                 await fetch(`/events`, {
@@ -89,7 +91,8 @@ function Events({ user, universalCategories }){
                 })
                 .then(response => response.json())
                 .then(data => {
-                    history.go("/events")
+                    setEvents([...events, data])
+                    // history.go("/events")
                 })
                 setFormData({
                     content: "",
@@ -100,11 +103,11 @@ function Events({ user, universalCategories }){
     } 
 
     //GET events
-    useEffect(() => {
-        fetch('/events')
-        .then(response => response.json())
-        .then(data => setEvents(data))
-    }, [])
+    // useEffect(() => {
+    //     fetch('/events')
+    //     .then(response => response.json())
+    //     .then(data => setEvents(data))
+    // }, [])
 
     //DELETE events
     function handleDeleteEvent(eventId){
@@ -114,7 +117,8 @@ function Events({ user, universalCategories }){
                 Accept: "application/json"
             }
         })
-        history.go("/events")
+        setEvents(events)  //needs manual refresh
+        // history.go("/events")
     }
 
     //SEARCH and SORT events
@@ -156,7 +160,7 @@ function Events({ user, universalCategories }){
     return(
         <Box sx={{display: 'flex'}}>
             <Drawer
-                variant="permanent"
+                variant='permanent'
                 sx={{
                 width: 240,
                 flexShrink: 0,
@@ -168,23 +172,23 @@ function Events({ user, universalCategories }){
                     <Grid
                         container
                         spacing={0}
-                        direction="column"
-                        alignItems="center"
-                        justify="center"
+                        direction='column'
+                        alignItems='center'
+                        justify='center'
                         style={{ minHeight: 225 }}
                     >
-                        <SearchBar search={searchEvents} setSearch={setSearchEvents}
-                            type={"events"} setSortOther={setSortEventSeverity} 
-                            categories={eventCategories} sortCategory={sortEventCategory} setSortCategory={setSortEventCategory}
+                        <SearchBar search={searchEvents} setSearch={setSearchEvents} type={'events'} 
+                            categories={eventCategories} setSortOther={setSortEventSeverity} 
+                            sortCategory={sortEventCategory} setSortCategory={setSortEventCategory}
                         />
                     </Grid>
                     <Divider />
                     <Grid
                         container
                         spacing={0}
-                        direction="column"
-                        alignItems="center"
-                        justify="center"
+                        direction='column'
+                        alignItems='center'
+                        justify='center'
                     >
                         <AddEventForm 
                             setEventTimeValue={setEventTimeValue}
@@ -201,7 +205,7 @@ function Events({ user, universalCategories }){
                 </Box>
             </Drawer>
             <Container>
-                <Typography variant="h3" color="text.secondary" paddingTop="20px">               
+                <Typography variant='h3' color='text.secondary' paddingTop='20px'>               
                     Event Log: 
                 </Typography>
                 {filteredEvents.length > 0 ? 
@@ -211,9 +215,9 @@ function Events({ user, universalCategories }){
                             <Grid item xs={11} spacing={2}>
                                 <Card key={oneEvent.id}>
                                     <EventDetail oneEvent={oneEvent}/>
-                                    <div style={{display: "flex", alignItems: 'center', justifyContent: 'center'}}>
-                                        <Button size="small" color="primary" value={oneEvent.id} onClick={()=>handleClickEdit(oneEvent.id)}><EditSharpIcon /></Button>
-                                        <Button size="small" color="primary" value={oneEvent.id} onClick={()=>handleDeleteEvent(oneEvent.id)}><DeleteSharpIcon/></Button>
+                                    <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                                        <Button size='small' color='primary' value={oneEvent.id} onClick={()=>handleClickEdit(oneEvent.id)}><EditSharpIcon /></Button>
+                                        <Button size='small' color='primary' value={oneEvent.id} onClick={()=>handleDeleteEvent(oneEvent.id)}><DeleteSharpIcon/></Button>
                                     </div>
                                 </Card>
                             </Grid>
@@ -221,16 +225,24 @@ function Events({ user, universalCategories }){
                     })}
                 </Grid>
                 :
-                <Typography variant="h5" color="text.secondary"><SouthWestSharpIcon /> Log Your First Event</Typography>
+                <Typography variant='h5' color='text.secondary'><SouthWestSharpIcon /> Log Your First Event</Typography>
                 }
             </Container>
             {events.length > 0 ?
+            <Container >
             <Box component={Container}
                 xs={4}
-                sx={{backgroundColor: "#bce2d7", height: "375px", marginTop: "16px", marginRight: "10px"}}
+                sx={{backgroundColor: '#bce2d7', height: '350px', marginTop: '16px', marginRight: '10px'}}
             >
                 <ChartAllData eventData={events} />
             </Box>
+            {/* <Box component={Container}
+                xs={4}
+                sx={{backgroundColor: '#bce2d7', height: '375px', marginTop: '16px', marginRight: '10px'}}
+            >
+                <ChartDistribution eventData={events} />
+            </Box> */}
+            </Container>
             : null }
         </Box>
     )

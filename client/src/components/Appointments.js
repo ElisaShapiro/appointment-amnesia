@@ -9,9 +9,9 @@ import EditSharpIcon from '@mui/icons-material/EditSharp';
 import DeleteSharpIcon from '@mui/icons-material/DeleteSharp';
 import SouthWestSharpIcon from '@mui/icons-material/SouthWestSharp';
 
-function Appointments({ user, universalCategories, universalProviders }){
+function Appointments({ user, universalCategories, universalProviders, appointments, setAppointments }){
     const history = useHistory()
-    const [appointments, setAppointments] = useState([])
+    // const [appointments, setAppointments] = useState([])
     const [isEdit, setIsEdit] = useState(false)
     const [appointmentCategories, setAppointmentCategories] = useState([])
     const [appointmentProviders, setAppointmentProviders] = useState([])
@@ -59,21 +59,21 @@ function Appointments({ user, universalCategories, universalProviders }){
     async function handleSubmit(e) {
         e.preventDefault()
         const selectedCategory = universalCategories.filter((category) => {
-            if (typeof formData.category == 'string') {
+            if (typeof formData.category == "string") {
                 return category.category_name == formData.category
             } else {
                 return category.category_name == formData.category.category_name
             }
         })[0]
         const selectedProvider = universalProviders.filter((provider) => {
-            if (typeof formData.provider == 'string') {
+            if (typeof formData.provider == "string") {
                 return provider.provider_name == formData.provider
             } else {
                 return provider.provider_name == formData.provider.provider_name
             }
         })[0]
         if (!selectedCategory || !selectedProvider) {
-            alert('Please complete the form before submitting!')
+            alert("Please complete the form before submitting!")
         }
         else {
             const newFormData = {...formData, category_id: selectedCategory.id, provider_id: selectedProvider.id}
@@ -87,8 +87,9 @@ function Appointments({ user, universalCategories, universalProviders }){
                 })
                 .then(response=>response.json())
                 .then(data => {
+                    setAppointments([...filteredAppointments, data]) //makes a duplicate added to end then upon refresh replaces
                     setIsEdit(false)
-                    history.go('/appointments')
+                    // history.go('/appointments')
                 })
             } else {
                 await fetch(`/appointments`, {
@@ -100,18 +101,19 @@ function Appointments({ user, universalCategories, universalProviders }){
                 })
                 .then(response => response.json())
                 .then(data => {
-                    history.go("/appointments")
+                    setAppointments([...filteredAppointments, data]) // adds to end then on refresh in correct spot
+                    // history.go("/appointments")
                 })
             }      
         }
     }
 
     //GET appointments
-    useEffect(() => {
-        fetch('/appointments')
-        .then(response => response.json())
-        .then(data => setAppointments(data))
-    }, [])
+    // useEffect(() => {
+    //     fetch('/appointments')
+    //     .then(response => response.json())
+    //     .then(data => setAppointments(data))
+    // }, [])
 
     //DELETE appointments
     function handleDeleteAppointment(appointmentId){
@@ -121,7 +123,8 @@ function Appointments({ user, universalCategories, universalProviders }){
                 Accept: "application/json"
             }
         })
-        history.go("/appointments")
+        setAppointments(filteredAppointments) //didnt work only on refresh
+        // history.go("/appointments")
     }
 
     //SEARCH and SORT appointments
@@ -170,9 +173,9 @@ function Appointments({ user, universalCategories, universalProviders }){
                     <Grid
                         container
                         spacing={0}
-                        direction="column"
-                        alignItems="center"
-                        justify="center"
+                        direction='column'
+                        alignItems='center'
+                        justify='center'
                         style={{ minHeight: 225 }}
                     >
                         <SearchBar
@@ -185,9 +188,9 @@ function Appointments({ user, universalCategories, universalProviders }){
                     <Grid
                         container
                         spacing={0}
-                        direction="column"
-                        alignItems="center"
-                        justify="center"
+                        direction='column'
+                        alignItems='center'
+                        justify='center'
                     >
                         <AddAppointmentForm 
                             setAppointmentTimeValue={setAppointmentTimeValue}
@@ -205,7 +208,7 @@ function Appointments({ user, universalCategories, universalProviders }){
                 </Box>
             </Drawer>
             <Container>
-                <Typography variant="h3" color="text.secondary" paddingTop="20px">               
+                <Typography variant='h3' color='text.secondary' paddingTop='20px'>               
                     Upcoming Appointments:
                 </Typography>   
                 { futureAppointments.length > 0 ?  
@@ -215,9 +218,9 @@ function Appointments({ user, universalCategories, universalProviders }){
                             <Grid item xs={4} spacing={2}>
                                 <Card key={oneAppointment.id}>
                                     <AppointmentDetail oneAppointment={oneAppointment}/>
-                                    <div style={{display: "flex", alignItems: 'center', justifyContent: 'center'}}>
-                                        <Button size="small" color="primary" value={oneAppointment.id} onClick={()=>handleClickAppointment(oneAppointment.id)}><EditSharpIcon /></Button>
-                                        <Button size="small" color="primary" value={oneAppointment.id} onClick={()=>handleDeleteAppointment(oneAppointment.id)}><DeleteSharpIcon /></Button>
+                                    <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                                        <Button size='small' color='primary' value={oneAppointment.id} onClick={()=>handleClickAppointment(oneAppointment.id)}><EditSharpIcon /></Button>
+                                        <Button size='small' color='primary' value={oneAppointment.id} onClick={()=>handleDeleteAppointment(oneAppointment.id)}><DeleteSharpIcon /></Button>
                                     </div>
                                 </Card>
                             </Grid>
@@ -225,11 +228,11 @@ function Appointments({ user, universalCategories, universalProviders }){
                     )}
                 </Grid>
                 :
-                <Typography variant="h5" color="text.secondary"><SouthWestSharpIcon /> Log an Upcoming Appointment</Typography>
+                <Typography variant='h5' color='text.secondary'><SouthWestSharpIcon /> Log an Upcoming Appointment</Typography>
                 }
             {/* </Container>
             <Container> */}
-                <Typography variant="h3" color="text.secondary" paddingTop="20px">               
+                <Typography variant='h3' color='text.secondary' paddingTop='20px'>               
                     Past Appointments:
                 </Typography>   
                 { pastAppointments.length > 0 ?  
@@ -239,8 +242,8 @@ function Appointments({ user, universalCategories, universalProviders }){
                             <Grid item xs={4} spacing={2}>
                                 <Card key={oneAppointment.id}>
                                     <AppointmentDetail oneAppointment={oneAppointment}/>
-                                    <div style={{display: "flex", alignItems: 'center', justifyContent: 'center'}}>
-                                        <Button size="small" color="primary" value={oneAppointment.id} onClick={()=>handleDeleteAppointment(oneAppointment.id)}><DeleteSharpIcon /></Button>
+                                    <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                                        <Button size='small' color='primary' value={oneAppointment.id} onClick={()=>handleDeleteAppointment(oneAppointment.id)}><DeleteSharpIcon /></Button>
                                     </div>
                                 </Card>
                             </Grid>
@@ -248,7 +251,7 @@ function Appointments({ user, universalCategories, universalProviders }){
                     )}
                 </Grid>
                 :
-                <Typography variant="h5" color="text.secondary"><SouthWestSharpIcon /> You Have No Past Appointments</Typography>
+                <Typography variant='h5' color='text.secondary'><SouthWestSharpIcon /> You Have No Past Appointments</Typography>
                 }
             </Container>
         </Box>

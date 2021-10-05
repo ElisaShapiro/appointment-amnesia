@@ -8,10 +8,9 @@ import SearchSharpIcon from '@mui/icons-material/SearchSharp';
 import AddSharpIcon from '@mui/icons-material/AddSharp';
 import ArrowBackSharpIcon from '@mui/icons-material/ArrowBackSharp';
 
-function Medications({ user, universalProviders}) {
+function Medications({ user, universalProviders, medications, setMedications}) {
     const history = useHistory()
-    const [medications, setMedications] = useState([])
-    const [showMedicationForm, setShowMedicationForm] = useState(false)
+    // const [medications, setMedications] = useState([])
     const [genericMedication, setGenericMedication] = useState(false)
     const [medicationName, setMedicationName] = useState("")
     const [medicationsFromAPI, setMedicationsFromAPI] = useState([])
@@ -22,11 +21,11 @@ function Medications({ user, universalProviders}) {
         provider_name: ""
     })
 
-    useEffect(() => {
-        fetch('/medications')
-        .then(response => response.json())
-        .then(data => setMedications(data))
-    }, [])
+    // useEffect(() => {
+    //     fetch('/medications')
+    //     .then(response => response.json())
+    //     .then(data => setMedications(data))
+    // }, [])
 
 
     useEffect(() => {
@@ -52,7 +51,7 @@ function Medications({ user, universalProviders}) {
                     })
                     setMedicationsFromAPI(savedGenericInfo)
                 } else {
-                    alert('Generic medication not found! Please search again.')
+                    alert("Generic medication not found! Please search again.")
                 }
             })
         } else {
@@ -70,7 +69,7 @@ function Medications({ user, universalProviders}) {
                     })
                     setMedicationsFromAPI(savedBrandInfo)
                 } else {
-                    alert('Brand name medication not found! Please search again.')
+                    alert("Brand name medication not found! Please search again.")
                 }
             })
         }
@@ -92,12 +91,12 @@ function Medications({ user, universalProviders}) {
     function handleMedicationSubmit(e){
         e.preventDefault()
         if (!radioSelectedOption) {
-            alert('Please search for and select a medication before submitting!')
+            alert("Please search for and select a medication before submitting!")
         } else {
             const selectedMedication = medicationsFromAPI.filter((medication) => medication.strength == radioSelectedOption)[0]
             const selectedProvider = medicationProviders.filter((provider) => provider.provider_name == medicationFormData.provider_name)[0]
             if (!selectedMedication || !selectedProvider || !medicationFormData.dosage) {
-                alert('Please complete the form before submitting!')
+                alert("Please complete the form before submitting!")
             } else {
                 let newMedicationFormData = {...medicationFormData, provider_id: selectedProvider.id, medication_name: selectedMedication.name}
                 fetch(`/medications`, {
@@ -109,8 +108,11 @@ function Medications({ user, universalProviders}) {
                 })
                 .then(response => response.json())
                 .then(data => {
-                    setShowMedicationForm(!showMedicationForm)
-                    history.go('/medications')
+                    setMedications([...medications, data]) //adds correctly but form doesnt reset
+                    setMedicationFormData({
+                        dosage: "",
+                        provider_name: ""
+                    })
                 })
             }
         }
@@ -124,17 +126,18 @@ function Medications({ user, universalProviders}) {
                 Accept: "application/json"
             }
         })
+        setMedications(medications) //needs refresh
         history.go("/medications")
     }
 
     return(
         <Box sx={{display: 'flex'}}>
             <Drawer
-                variant="permanent"
+                variant='permanent'
                 sx={{
-                width: 240,
-                flexShrink: 0,
-                [`& .MuiDrawer-paper`]: { width: 240, boxSizing: 'border-box' },
+                    width: 240,
+                    flexShrink: 0,
+                    [`& .MuiDrawer-paper`]: { width: 240, boxSizing: 'border-box' },
                 }}
             >
                 <Toolbar /> 
@@ -143,35 +146,35 @@ function Medications({ user, universalProviders}) {
                         <Grid
                             container
                             spacing={0}
-                            direction="column"
-                            alignItems="center"
-                            justify="center"
+                            direction='column'
+                            alignItems='center'
+                            justify='center'
                             paddingLeft={3}
                         >
                     <form onSubmit={handleMedicationSubmit}>
                         <FormGroup>
                             <FormControlLabel control={<Switch />} 
-                                label="Generic?" id="medication" 
+                                label='Generic?' id='medication' 
                                 checked={genericMedication}
                                 onChange={handleChangeGenericMedication}
                             />
                         </FormGroup>
                         <TextField
-                            id="medication-name"
-                            label="Search by Medication Name"
-                            name="medication-name"
+                            id='medication-name'
+                            label='Search by Medication Name'
+                            name='medication-name'
                             value={medicationName}
                             onChange={(e) => setMedicationName(e.target.value)}
                             sx={{background: '#9dbbae', minWidth: 200}}
-                            margin="dense"
+                            margin='dense'
                         />   
                         <Button onClick={searchMedicationsOnAPI}><SearchSharpIcon />Medications</Button>         
                         {medicationsFromAPI.length > 0 ?
-                        <FormControl component="fieldset">
-                            <FormLabel component="legend">Medications from Database</FormLabel>
+                        <FormControl component='fieldset'>
+                            <FormLabel component='legend'>Medications from Database</FormLabel>
                             <RadioGroup
-                                aria-label="medication"
-                                name="controlled-radio-buttons-group"
+                                aria-label='medication'
+                                name='controlled-radio-buttons-group'
                                 value={radioSelectedOption}
                                 onChange={(e)=>setRadioSelectedOption(e.target.value)}
                             >
@@ -182,21 +185,21 @@ function Medications({ user, universalProviders}) {
                             </FormControl>
                         : null } <br />
                         <TextField
-                            id="dosage"
-                            label="Directions"
-                            name="dosage"
+                            id='dosage'
+                            label='Directions'
+                            name='dosage'
                             value={medicationFormData.medication_name}
                             onChange={manageMedicationFormData}
                             sx={{background: '#9dbbae', minWidth: 200}}
-                            margin="dense"
+                            margin='dense'
                         />
-                        <FormControl style={{minWidth: 200}} margin="dense">
-                            <InputLabel id="provider-label">Prescribing Provider</InputLabel>
+                        <FormControl style={{minWidth: 200}} margin='dense'>
+                            <InputLabel id='provider-label'>Prescribing Provider</InputLabel>
                             <Select
-                                labelId="provider-label"
-                                id="provider_name"
-                                label="Provider"
-                                name="provider_name"
+                                labelId='provider-label'
+                                id='provider_name'
+                                label='Provider'
+                                name='provider_name'
                                 value={medicationFormData.provider}
                                 onChange={manageMedicationFormData}
                                 sx={{background: '#9dbbae'}}
@@ -210,21 +213,21 @@ function Medications({ user, universalProviders}) {
                                 })} 
                             </Select>
                         </FormControl>
-                        <br /><Button type="submit"><AddSharpIcon />Medication to List</Button>
+                        <br /><Button type='submit'><AddSharpIcon />Medication to List</Button>
                     </form>
                     </Grid>
                     <Divider />
                 </Box>
             </Drawer>
             <Container> 
-                <Typography variant="h3" color="text.secondary" paddingTop="20px">               
+                <Typography variant='h3' color='text.secondary' paddingTop='20px'>               
                     My Medications: 
                 </Typography>
                 { medications.length > 0 ?
                     <Grid container 
-                        direction="row"
-                        justifyContent="flex-start"
-                        alignItems="center"
+                        direction='row'
+                        justifyContent='flex-start'
+                        alignItems='center'
                         spacing={4}
                     >
                         {medications.map((medication) => {
@@ -233,15 +236,15 @@ function Medications({ user, universalProviders}) {
                             <Card key={medication.id}>
                                 <Card>
                                     <CardContent>
-                                        <Typography variant="body1" color="text.secondary">Medicine:</Typography> 
-                                        <Typography variant="body2" color="text.secondary">{medication.medication_name}</Typography>
-                                        <Typography variant="body1" color="text.secondary">Dosage:</Typography>
-                                        <Typography variant="body2" color="text.secondary">{medication.dosage}</Typography>
-                                        <Typography variant="body1" color="text.secondary">Prescribed by:</Typography> 
-                                        <Typography variant="body2" color="text.secondary">{medication.provider.provider_name}</Typography> 
+                                        <Typography variant='body1' color='text.secondary'>Medicine:</Typography> 
+                                        <Typography variant='body2' color='text.secondary'>{medication.medication_name}</Typography>
+                                        <Typography variant='body1' color='text.secondary'>Dosage:</Typography>
+                                        <Typography variant='body2' color='text.secondary'>{medication.dosage}</Typography>
+                                        <Typography variant='body1' color='text.secondary'>Prescribed by:</Typography> 
+                                        <Typography variant='body2' color='text.secondary'>{medication.provider.provider_name}</Typography> 
                                     </CardContent>
                                     </Card>
-                                    <div style={{display: "flex", alignItems: 'center', justifyContent: 'center'}}>
+                                    <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
                                         <Button value={medication.id} onClick={()=>handleDeleteMedication(medication.id)}><DeleteSharpIcon /></Button>
                                     </div>
                                 </Card>
@@ -250,7 +253,7 @@ function Medications({ user, universalProviders}) {
                         })}
                     </Grid>
                 :
-                <Typography variant="h5" color="text.secondary"><ArrowBackSharpIcon /> Add Medications</Typography>
+                <Typography variant='h5' color='text.secondary'><ArrowBackSharpIcon /> Add Medications</Typography>
                 }
             </Container>
         </Box>

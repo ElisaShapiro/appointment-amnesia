@@ -1,5 +1,5 @@
 import './App.css';
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Signup from './components/Signup';
 import Login from './components/Login';
@@ -18,9 +18,11 @@ const Offset = styled('div')(({ theme }) => theme.mixins.toolbar);
 
 function App() {
   const [user, setUser] = useState(null)
+
   const [universalCategories, setUniversalCategories] = useState([])
   const [universalProviders, setUniversalProviders] = useState([])
   const [hasUpdate, setHasUpdate] = useState(false)
+
   useEffect(() => {
     fetch('/categories')
     .then(response => response.json())
@@ -32,18 +34,38 @@ function App() {
     .then(data => setUniversalProviders(data))
   }, [hasUpdate])  
   
-  // async
-    useEffect(() => {
-    // auto-login
-    // await 
-      fetch("/me").then((r) => {
-        if (r.ok) {
-          r.json().then((user) => {
-            setUser(user)
-          });
-        }
-      });
-    }, []);
+  const [events, setEvents] = useState([])
+  useEffect(() => {
+    fetch('/events')
+    .then(response => response.json())
+    .then(data => setEvents(data))
+  }, [])
+
+  const [appointments, setAppointments] = useState([])
+  useEffect(() => {
+    fetch('/appointments')
+    .then(response => response.json())
+    .then(data => setAppointments(data))
+}, [])
+
+  const [medications, setMedications] = useState([])
+  useEffect(() => {
+    fetch('/medications')
+    .then(response => response.json())
+    .then(data => setMedications(data))
+  }, [])
+
+
+  // auto-login
+  useEffect(() => {
+    fetch('/me').then((r) => {
+      if (r.ok) {
+        r.json().then((user) => {
+          setUser(user)
+        });
+      }
+    });
+  }, []);
 
   return (
     <ThemeProvider theme={theme}>
@@ -54,6 +76,8 @@ function App() {
         <Route exact path="/">
           <Home user={user} setUser={setUser}
             hasUpdate={hasUpdate} setHasUpdate={setHasUpdate} 
+            universalCategories={universalCategories} 
+            universalProviders={universalProviders} 
           />
         </Route>
         <Route path="/login">
@@ -63,19 +87,23 @@ function App() {
           <Signup setUser={setUser}/>
         </Route>
         <Route path="/events">
-          <Events user={user}
+          <Events user={user} events={events} setEvents={setEvents}
             universalCategories={universalCategories} 
+            setUniversalCategories={setUniversalCategories}
             universalProviders={universalProviders} 
+            setUniversalProviders={setUniversalProviders}
           />
         </Route>
         <Route path="/appointments">
           <Appointments user={user} 
+            appointments={appointments} setAppointments={setAppointments}
             universalCategories={universalCategories} 
             universalProviders={universalProviders}
           />
         </Route>
         <Route path="/medications">
           <Medications user={user} 
+            medications={medications} setMedications={setMedications}
             universalProviders={universalProviders}
           />
         </Route>

@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { NavLink, useHistory } from "react-router-dom"
 
-import { Box, Button, Container, Grid, TextField, Typography } from '@mui/material'
+import { Box, Button, Container, Grid, TextField } from '@mui/material'
 
 function Signup({ setUser }){
     const history = useHistory()
@@ -67,10 +67,10 @@ function Signup({ setUser }){
                     <Grid item
                     >
                         <TextField
-                            type="text"
-                            id="name"
-                            name="name"
-                            label="Name"
+                            type='text'
+                            id='name'
+                            name='name'
+                            label='Name'
                             value={formData.name} 
                             onChange={handleChange}
                             sx={{width: 218}}
@@ -79,10 +79,10 @@ function Signup({ setUser }){
                     <Grid item
                     >
                         <TextField
-                            type="text"
-                            id="email"
-                            name="email"
-                            label="Email"
+                            type='text'
+                            id='email'
+                            name='email'
+                            label='Email'
                             value={formData.email} 
                             onChange={handleChange}
                             sx={{width: 218}}
@@ -91,10 +91,10 @@ function Signup({ setUser }){
                     <Grid item
                     >                
                         <TextField
-                            type="password"
-                            id="password"
-                            name="password"
-                            label="Password"
+                            type='password'
+                            id='password'
+                            name='password'
+                            label='Password'
                             value={formData.password} 
                             onChange={handleChange}
                             sx={{width: 218}}
@@ -103,10 +103,10 @@ function Signup({ setUser }){
                     <Grid item
                     >
                         <TextField
-                            type="password"
-                            id="password_confirmation"
-                            name="password_confirmation"
-                            label="Confirm Password"
+                            type='password'
+                            id='password_confirmation'
+                            name='password_confirmation'
+                            label='Confirm Password'
                             value={formData.password_confirmation} 
                             onChange={handleChange}
                             sx={{width: 218}}
@@ -114,12 +114,12 @@ function Signup({ setUser }){
                     </Grid>
                     <Grid item
                     >
-                        <Button type="submit" variant="outlined" sx={{width: 218, color: "#666666", border: '1px solid #666666', textAlign: "center"}}>Register</Button>
+                        <Button type='submit' variant='outlined' sx={{width: 218, color: '#666666', border: '1px solid #666666', textAlign: 'center'}}>Register</Button>
                     </Grid>
                     <Grid item
-                        sx={{paddingTop:"14px", paddingBottom:"16px"}}
+                        sx={{paddingTop:'14px', paddingBottom:'16px'}}
                     >
-                        <Button variant="outlined" sx={{width: 218, color: "#666666", border: '1px solid #666666', textAlign: "center"}} component={NavLink} to="/login">
+                        <Button variant='outlined' sx={{width: 218, color: '#666666', border: '1px solid #666666', textAlign: 'center'}} component={NavLink} to='/login'>
                             {"Have an account?"}<br/>{"Log In"}
                         </Button>
                     </Grid>

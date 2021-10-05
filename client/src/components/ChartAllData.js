@@ -1,11 +1,10 @@
 import { Bar } from 'react-chartjs-2'
-import { addDays, startOfDay, format, getMonth, differenceInCalendarMonths } from 'date-fns'
+import { format,  differenceInCalendarMonths } from 'date-fns'
 import { useEffect, useState } from 'react'
 
 
 const ChartAllData = ({eventData}) => {
     const [chartData, setChartData] = useState([])
-    const [chartLabels, setChartLabels] = useState([])
     const allMonths = [
         "Jan",
         "Feb",
@@ -49,7 +48,6 @@ const ChartAllData = ({eventData}) => {
             let eventDate = new Date(item.event_time)
             let today = new Date()
             let month = format(eventDate, 'MMM')
-            let foo = differenceInCalendarMonths(eventDate, today)
 
             if (differenceInCalendarMonths(eventDate, today) >= -6) {
                 if (item.severity === 1) {
@@ -124,7 +122,7 @@ const ChartAllData = ({eventData}) => {
         responsive: true,
         plugins: {
             title: {
-                text: 'Number of Events by Severity per Month', 
+                text: "Number of Events by Severity per Month", 
                 display: true
             }
         },
@@ -133,7 +131,7 @@ const ChartAllData = ({eventData}) => {
                 title: {
                     display: true,
                     text: "Last 6 Months",
-                    fontFamily: "Quicksand"
+                    fontFamily: 'Quicksand'
                 }
             },
             y: {
@@ -151,8 +149,8 @@ const ChartAllData = ({eventData}) => {
         }
     }
     return(
-        <div className="chart1">
-            <div style={{ height: "375px", width: "650px"}}>
+        <div className='chart1'>
+            <div style={{ height: '375px', width: '650px'}}>
                 <Bar data={chartData} 
                     options={options}
                 />

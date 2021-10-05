@@ -11,7 +11,7 @@ function AddAppointmentForm({ universalCategories, universalProviders, formData,
     return(
         <Container> 
             <form onSubmit={handleSubmit}>
-                <Typography sx={{paddingBottom: "10px"}}><AddBoxSharpIcon />Add Appointment</Typography>
+                <Typography sx={{paddingBottom: '10px'}}><AddBoxSharpIcon />Add Appointment</Typography>
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
                         <DateTimePicker
                             renderInput={(props) => <TextField {...props} sx={{minWidth: 200}}/>}
@@ -23,13 +23,13 @@ function AddAppointmentForm({ universalCategories, universalProviders, formData,
                             }}   
                         />
                     </LocalizationProvider>
-                <FormControl style={{minWidth: 200}} margin="dense">
-                    <InputLabel id="category-label">Category</InputLabel>
+                <FormControl style={{minWidth: 200}} margin='dense'>
+                    <InputLabel id='category-label'>Category</InputLabel>
                     <Select
-                        labelId="category-label"
-                        id="category"
-                        label="Category"
-                        name="category"
+                        labelId='category-label'
+                        id='category'
+                        label='Category'
+                        name='category'
                         value={formData.category}
                         onChange={manageFormData}
                         sx={{background: '#9dbbae'}}
@@ -43,13 +43,13 @@ function AddAppointmentForm({ universalCategories, universalProviders, formData,
                         })}
                     </Select>
                 </FormControl>
-                <FormControl style={{minWidth: 200}} margin="dense">
-                    <InputLabel id="provider-label">Provider</InputLabel>
+                <FormControl style={{minWidth: 200}} margin='dense'>
+                    <InputLabel id='provider-label'>Provider</InputLabel>
                     <Select
-                        labelId="provider-label"
-                        id="provider"
-                        label="Provder"
-                        name="provider"
+                        labelId='provider-label'
+                        id='provider'
+                        label='Provder'
+                        name='provider'
                         value={formData.provider}
                         onChange={manageFormData}
                         sx={{background: '#9dbbae'}}
@@ -63,7 +63,7 @@ function AddAppointmentForm({ universalCategories, universalProviders, formData,
                         })}
                     </Select>
                 </FormControl><br />
-                <Button type="submit"><AddSharpIcon /> {isEdit ? 'Edit Appointment' : 'New Appointment'} </Button>              
+                <Button type='submit'><AddSharpIcon /> {isEdit ? "Edit Appointment" : "New Appointment"} </Button>              
             </form>
         </Container>
     )

@@ -59,10 +59,10 @@ function Login({ setUser } ){
                     <Grid item
                     >
                         <TextField
-                            type="text"
-                            id="name"
-                            name="name"
-                            label="Name"
+                            type='text'
+                            id='name'
+                            name='name'
+                            label='Name'
                             value={loginInfo.name} 
                             onChange={handleChange}
                             sx={{width: 218}}
@@ -71,10 +71,10 @@ function Login({ setUser } ){
                     <Grid item
                     >
                         <TextField 
-                            type="password"
-                            id="password"
-                            name="password"
-                            label="Password"
+                            type='password'
+                            id='password'
+                            name='password'
+                            label='Password'
                             value={loginInfo.password} 
                             onChange={handleChange}
                             sx={{width: 218}}
@@ -82,12 +82,12 @@ function Login({ setUser } ){
                     </Grid>
                     <Grid item
                     >
-                        <Button type="submit" variant="outlined" sx={{width: 218, color: "#666666", border: '1px solid #666666', textAlign: "center"}}>Login</Button>
+                        <Button type='submit' variant='outlined' sx={{width: 218, color: '#666666', border: '1px solid #666666', textAlign: 'center'}}>Login</Button>
                     </Grid>
                     <Grid item
-                        sx={{paddingTop:"120px", paddingBottom: "16px"}}
+                        sx={{paddingTop:'120px', paddingBottom: '16px'}}
                     >
-                        <Button variant="outlined" sx={{color: "#666666", border: '1px solid #666666', textAlign: "center"}} component={NavLink} to="/signup">
+                        <Button variant='outlined' sx={{color: '#666666', border: '1px solid #666666', textAlign: 'center'}} component={NavLink} to='/signup'>
                             {"Don't have an account?"}<br/>{"Sign Up"}
                         </Button>
                     </Grid>

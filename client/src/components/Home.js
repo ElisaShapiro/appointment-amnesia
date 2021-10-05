@@ -1,17 +1,21 @@
-import { NavLink } from 'react-router-dom'
-import Login from './Login'
+import { NavLink } from 'react-router-dom';
 import Profile from './Profile';
 
 import { Box, Button, Container, Grid, Typography } from '@mui/material'
 
-function Home({ user, setUser, setHasUpdate, hasUpdate }){
+function Home({ user, setUser, setHasUpdate, hasUpdate,
+    universalCategories, setUniversalCategories, universalProviders, setUniversalProviders }){
 
     return(
         <div>
             {user ?
-            <Profile user={user}
-                hasUpdate={hasUpdate} setHasUpdate={setHasUpdate} 
-             />
+                <Profile user={user}
+                    hasUpdate={hasUpdate} setHasUpdate={setHasUpdate} 
+                    universalCategories={universalCategories} 
+                    setUniversalCategories={setUniversalCategories}
+                    universalProviders={universalProviders} 
+                    setUniversalProviders={setUniversalProviders}
+                />
             : 
             <Container sx={{paddingTop: '124px'}}>
                 <Box container
@@ -29,19 +33,19 @@ function Home({ user, setUser, setHasUpdate, hasUpdate }){
                     }}
                 >
                 <Grid item
-                    sx={{padding: "192px 0px 0px 0px"}}
+                    sx={{padding: '192px 0px 0px 0px'}}
                 >
-                <Typography gutterBottom color="#769fb6" variant='h2'>A Medical Tracking App to Keep Your Thoughts in Order</Typography>    
+                    <Typography gutterBottom color='#769fb6' variant='h2'>
+                        A Medical Tracking App to Keep Your Thoughts in Order
+                    </Typography>    
                 </Grid>
-                <Grid item
-                >
-                    <Button variant="outlined" sx={{width: 218, color: "#666666", border: '1px solid #666666', textAlign: "center"}} component={NavLink} to="/login">
+                <Grid item>
+                    <Button variant='outlined' sx={{width: 218, color: '#666666', border: '1px solid #666666', textAlign: 'center'}} component={NavLink} to='/login'>
                         {"Have an account?"}<br/>{"Log In"}
                     </Button>
                 </Grid>
-                <Grid item
-                >
-                    <Button variant="outlined" sx={{color: "#666666", border: '1px solid #666666', textAlign: "center"}} component={NavLink} to="/signup">
+                <Grid item>
+                    <Button variant='outlined' sx={{color: '#666666', border: '1px solid #666666', textAlign: 'left'}} component={NavLink} to='/signup'>
                         {"Don't have an account?"}<br/>{"Sign Up"}
                     </Button>
                 </Grid>

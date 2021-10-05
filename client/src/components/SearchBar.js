@@ -1,4 +1,4 @@
-import { Button, Card, Container, FormControl, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material';
+import { Container, FormControl, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material';
 import SearchSharpIcon from '@mui/icons-material/SearchSharp';
 
 function SearchBar({ search, setSearch, categories, sortCategory, setSortCategory, sortOther, setSortOther, type }){
@@ -18,23 +18,23 @@ function SearchBar({ search, setSearch, categories, sortCategory, setSortCategor
             <Typography><SearchSharpIcon />Search</Typography>
             {type === "events" ? 
                 <TextField
-                    id="search"
-                    label="search"
-                    name="search"
+                    id='search'
+                    label='Search'
+                    name='search'
                     value={search}
                     onChange={handleSearch}
                     sx={{background: '#9dbbae', minWidth: 200}}
-                    margin="dense"
+                    margin='dense'
                 >
                 </TextField>
             : null}
-                <FormControl style={{minWidth: 200}} margin="dense">
-                    <InputLabel id="category-label">Sort By Category</InputLabel>
+                <FormControl style={{minWidth: 200}} margin='dense'>
+                    <InputLabel id='category-label'>Sort By Category</InputLabel>
                     <Select
-                        labelId="category-label"
-                        id="category"
-                        label="Category"
-                        name="category"
+                        labelId='category-label'
+                        id='category'
+                        label='Category'
+                        name='category'
                         value={sortCategory.category_name}
                         onChange={handleSetCategory}
                         sx={{background: '#9dbbae'}}
@@ -50,13 +50,13 @@ function SearchBar({ search, setSearch, categories, sortCategory, setSortCategor
                     </Select>
                 </FormControl>
             {type === "events" ? 
-                <FormControl style={{minWidth: 200}} margin="dense">
-                    <InputLabel id="severity-label">Sort By Severity</InputLabel>
+                <FormControl style={{minWidth: 200}} margin='dense'>
+                    <InputLabel id='severity-label'>Sort By Severity</InputLabel>
                     <Select
-                        labelId="severity-label"
-                        id="severity"
-                        label="Severity"
-                        name="severity"
+                        labelId='severity-label'
+                        id='severity'
+                        label='Severity'
+                        name='severity'
                         value={sortOther}
                         onChange={handleSetOther}
                         sx={{background: '#9dbbae'}}
@@ -70,13 +70,13 @@ function SearchBar({ search, setSearch, categories, sortCategory, setSortCategor
                     </Select>
                 </FormControl>
             :
-            <FormControl style={{minWidth: 200}} margin="dense">
-                    <InputLabel id="provider-label">Sort By Provider</InputLabel>
+            <FormControl style={{minWidth: 200}} margin='dense'>
+                    <InputLabel id='provider-label'>Sort By Provider</InputLabel>
                     <Select
-                        labelId="provider-label"
-                        id="provider"
-                        label="Provider"
-                        name="provider"
+                        labelId='provider-label'
+                        id='provider'
+                        label='Provider'
+                        name='provider'
                         value={sortCategory.category_name}
                         onChange={handleSetOther}
                         sx={{background: '#9dbbae'}}
