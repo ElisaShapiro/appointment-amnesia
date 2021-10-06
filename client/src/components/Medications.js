@@ -8,7 +8,7 @@ import SearchSharpIcon from '@mui/icons-material/SearchSharp';
 import AddSharpIcon from '@mui/icons-material/AddSharp';
 import ArrowBackSharpIcon from '@mui/icons-material/ArrowBackSharp';
 
-function Medications({ user, universalProviders, medications, setMedications}) {
+function Medications({ user, universalProviders, medications, setMedications, hasUpdate, setHasUpdate}) {
     const history = useHistory()
     // const [medications, setMedications] = useState([])
     const [genericMedication, setGenericMedication] = useState(false)
@@ -20,13 +20,6 @@ function Medications({ user, universalProviders, medications, setMedications}) {
         dosage: "",
         provider_name: ""
     })
-
-    // useEffect(() => {
-    //     fetch('/medications')
-    //     .then(response => response.json())
-    //     .then(data => setMedications(data))
-    // }, [])
-
 
     useEffect(() => {
         if (user && user.user_providers.length > 0) {
@@ -108,7 +101,11 @@ function Medications({ user, universalProviders, medications, setMedications}) {
                 })
                 .then(response => response.json())
                 .then(data => {
-                    setMedications([...medications, data]) //adds correctly but form doesnt reset
+                    setHasUpdate(!hasUpdate)
+                    setGenericMedication()
+                    setMedicationName("")
+                    setRadioSelectedOption('')
+                    setMedicationsFromAPI([])
                     setMedicationFormData({
                         dosage: "",
                         provider_name: ""
@@ -126,8 +123,10 @@ function Medications({ user, universalProviders, medications, setMedications}) {
                 Accept: "application/json"
             }
         })
-        setMedications(medications) //needs refresh
-        history.go("/medications")
+        setHasUpdate(!hasUpdate)
+
+        // setMedications(medications) //needs refresh
+        // history.go("/medications")
     }
 
     return(
@@ -188,7 +187,7 @@ function Medications({ user, universalProviders, medications, setMedications}) {
                             id='dosage'
                             label='Directions'
                             name='dosage'
-                            value={medicationFormData.medication_name}
+                            value={medicationFormData.dosage}
                             onChange={manageMedicationFormData}
                             sx={{background: '#9dbbae', minWidth: 200}}
                             margin='dense'
@@ -200,7 +199,7 @@ function Medications({ user, universalProviders, medications, setMedications}) {
                                 id='provider_name'
                                 label='Provider'
                                 name='provider_name'
-                                value={medicationFormData.provider}
+                                value={medicationFormData.provider_name}
                                 onChange={manageMedicationFormData}
                                 sx={{background: '#9dbbae'}}
                             >

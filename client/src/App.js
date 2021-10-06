@@ -28,6 +28,7 @@ function App() {
     .then(response => response.json())
     .then(data => setUniversalCategories(data))
   }, [hasUpdate])  
+
   useEffect(() => {
     fetch('/providers')
     .then(response => response.json())
@@ -39,21 +40,21 @@ function App() {
     fetch('/events')
     .then(response => response.json())
     .then(data => setEvents(data))
-  }, [])
+  }, [hasUpdate])
 
   const [appointments, setAppointments] = useState([])
   useEffect(() => {
     fetch('/appointments')
     .then(response => response.json())
     .then(data => setAppointments(data))
-}, [])
+}, [hasUpdate])
 
   const [medications, setMedications] = useState([])
   useEffect(() => {
     fetch('/medications')
     .then(response => response.json())
     .then(data => setMedications(data))
-  }, [])
+  }, [hasUpdate])
 
 
   // auto-login
@@ -65,7 +66,7 @@ function App() {
         });
       }
     });
-  }, []);
+  }, [hasUpdate]);
 
   return (
     <ThemeProvider theme={theme}>
@@ -92,6 +93,7 @@ function App() {
             setUniversalCategories={setUniversalCategories}
             universalProviders={universalProviders} 
             setUniversalProviders={setUniversalProviders}
+            setHasUpdate={setHasUpdate} hasUpdate={hasUpdate}
           />
         </Route>
         <Route path="/appointments">
@@ -99,12 +101,16 @@ function App() {
             appointments={appointments} setAppointments={setAppointments}
             universalCategories={universalCategories} 
             universalProviders={universalProviders}
+            setHasUpdate={setHasUpdate} hasUpdate={hasUpdate}
+
           />
         </Route>
         <Route path="/medications">
           <Medications user={user} 
             medications={medications} setMedications={setMedications}
             universalProviders={universalProviders}
+            setHasUpdate={setHasUpdate} hasUpdate={hasUpdate}
+
           />
         </Route>
       </Switch>

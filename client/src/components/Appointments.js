@@ -9,7 +9,7 @@ import EditSharpIcon from '@mui/icons-material/EditSharp';
 import DeleteSharpIcon from '@mui/icons-material/DeleteSharp';
 import SouthWestSharpIcon from '@mui/icons-material/SouthWestSharp';
 
-function Appointments({ user, universalCategories, universalProviders, appointments, setAppointments }){
+function Appointments({ user, universalCategories, universalProviders, appointments, setAppointments, hasUpdate, setHasUpdate }){
     const history = useHistory()
     // const [appointments, setAppointments] = useState([])
     const [isEdit, setIsEdit] = useState(false)
@@ -87,9 +87,8 @@ function Appointments({ user, universalCategories, universalProviders, appointme
                 })
                 .then(response=>response.json())
                 .then(data => {
-                    setAppointments([...filteredAppointments, data]) //makes a duplicate added to end then upon refresh replaces
                     setIsEdit(false)
-                    // history.go('/appointments')
+                    setHasUpdate(!hasUpdate)
                 })
             } else {
                 await fetch(`/appointments`, {
@@ -101,19 +100,16 @@ function Appointments({ user, universalCategories, universalProviders, appointme
                 })
                 .then(response => response.json())
                 .then(data => {
-                    setAppointments([...filteredAppointments, data]) // adds to end then on refresh in correct spot
-                    // history.go("/appointments")
+                    setHasUpdate(!hasUpdate)
                 })
-            }      
+            }
+            setFormData({
+                category: "", 
+                provider: "", 
+                appointment_time: new Date()
+            })
         }
     }
-
-    //GET appointments
-    // useEffect(() => {
-    //     fetch('/appointments')
-    //     .then(response => response.json())
-    //     .then(data => setAppointments(data))
-    // }, [])
 
     //DELETE appointments
     function handleDeleteAppointment(appointmentId){
@@ -123,8 +119,7 @@ function Appointments({ user, universalCategories, universalProviders, appointme
                 Accept: "application/json"
             }
         })
-        setAppointments(filteredAppointments) //didnt work only on refresh
-        // history.go("/appointments")
+        setHasUpdate(!hasUpdate)
     }
 
     //SEARCH and SORT appointments

@@ -43,6 +43,7 @@ function Profile({ user, setHasUpdate, hasUpdate,
         })
     }
     function handleDemographicSubmit(e){
+        e.preventDefault()
         fetch(`/users/${user.id}`, {
             method: "PATCH",
             headers: {
@@ -53,7 +54,8 @@ function Profile({ user, setHasUpdate, hasUpdate,
         .then(data=>{
             //setUser needed?
             setShowDemographicForm(!showDemographicForm)
-            history.go('/profile')
+            setHasUpdate(!hasUpdate)
+            // history.go('/profile')
         })
     }
 
@@ -90,14 +92,17 @@ function Profile({ user, setHasUpdate, hasUpdate,
                 })
                 .then(response=>response.json())
                 .then(data => {
-                    // setProviders([...providers, data]) this made a duplicate then upon refresh didnt
+                    let index = providers.findIndex((provider=>provider.id == data.id))
+                    let newProviders = [...providers]
+                    newProviders[index] = data
+                    setProviders(newProviders)
                     setIsEditProviders(false)
                     setProviderFormData({ 
                         provider_name: "",
                         phone_number: "",
                         address: "" 
                     })
-                    // history.go('/')
+                    setHasUpdate(!hasUpdate)
                 })
             } else {
                 await fetch(`/providers`, {
@@ -159,11 +164,13 @@ function Profile({ user, setHasUpdate, hasUpdate,
                     body: JSON.stringify(categoryFormData)
                 }).then(response=>response.json())
                 .then(data=>{
-                    // setUniversalCategories([data, ...universalCategories]) //needs refresh
-                    // setCategories([data, ...categories]) //needs refresh
+                    let index = categories.findIndex((category=>category.id == data.id))
+                    let newCategories = [...categories]
+                    newCategories[index] = data
+                    setCategories(newCategories)
                     setisEditCategories(false)
                     setCategoryFormData({ category_name: "" })
-                    // history.go('/')
+                    setHasUpdate(!hasUpdate)
                 })
             } else {
                 await fetch(`/categories`, {
@@ -175,7 +182,6 @@ function Profile({ user, setHasUpdate, hasUpdate,
                 })
                 .then(response => response.json())
                 .then(data => {
-                    // setCategories([...categories, data]) this adds wrongly then removes upon refresh
                     setCategoryFormData({ category_name: "" })
                     setHasUpdate(!hasUpdate)
                 })

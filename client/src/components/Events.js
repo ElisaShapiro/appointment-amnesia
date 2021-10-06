@@ -11,7 +11,7 @@ import EditSharpIcon from '@mui/icons-material/EditSharp';
 import DeleteSharpIcon from '@mui/icons-material/DeleteSharp';
 import SouthWestSharpIcon from '@mui/icons-material/SouthWestSharp';
 
-function Events({ user, universalCategories, events, setEvents }){
+function Events({ user, universalCategories, events, setEvents, hasUpdate, setHasUpdate }){
     const history = useHistory()
     // const [events, setEvents] = useState([])
     const [isEdit, setIsEdit] = useState(false)
@@ -77,9 +77,8 @@ function Events({ user, universalCategories, events, setEvents }){
                 })
                 .then(response=>response.json())
                 .then(data => {
-                    setEvents([...events, data]) //makes duplicate then replaces on refresh
                     setIsEdit(false)
-                    // history.go('/events') 
+                    setHasUpdate(!hasUpdate)
                 })
             } else {
                 await fetch(`/events`, {
@@ -91,14 +90,13 @@ function Events({ user, universalCategories, events, setEvents }){
                 })
                 .then(response => response.json())
                 .then(data => {
-                    setEvents([...events, data])
-                    // history.go("/events")
-                })
-                setFormData({
-                    content: "",
-                    severity: "",
+                    setHasUpdate(!hasUpdate)
                 })
             }
+            setFormData({
+                content: "",
+                severity: "",
+            })
         }
     } 
 
@@ -117,8 +115,9 @@ function Events({ user, universalCategories, events, setEvents }){
                 Accept: "application/json"
             }
         })
-        setEvents(events)  //needs manual refresh
-        // history.go("/events")
+        setHasUpdate(!hasUpdate)
+        // setEvents(events)  //needs manual refresh
+        // history.push("/events")
     }
 
     //SEARCH and SORT events
