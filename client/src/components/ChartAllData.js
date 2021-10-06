@@ -149,8 +149,8 @@ const ChartAllData = ({eventData}) => {
         }
     }
     return(
-        <div className='chart1'>
-            <div style={{ height: '375px', width: '650px'}}>
+        <div className='chart-all-data'>
+            <div style={{ height: '450px', width: '900px'}}>
                 <Bar data={chartData} 
                     options={options}
                 />

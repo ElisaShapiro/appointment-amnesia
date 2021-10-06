@@ -203,15 +203,36 @@ function Events({ user, universalCategories, events, setEvents, hasUpdate, setHa
                     <Divider />
                 </Box>
             </Drawer>
+            
+            <Container>{events.length > 0 ?
             <Container>
+            <Box 
+                sx={{backgroundColor: '#bce2d7', height: '450px', marginTop: '16px',  maxWidth: "910px" }}
+            >
+                <ChartAllData eventData={events} />
+            </Box>
+            {filteredEvents.length > 0 ?
+            
+                <Box 
+                    sx={{backgroundColor: '#bce2d7', height: '450px', marginTop: '16px', maxWidth: "910px"}}
+                >
+                    <ChartDistribution eventData={events} sortEventCategory={sortEventCategory} />
+                </Box>
+                :
+                null
+            }
+            </Container>
+            : null }
+            <Container>
+            <Grid>
                 <Typography variant='h3' color='text.secondary' paddingTop='20px'>               
                     Event Log: 
                 </Typography>
                 {filteredEvents.length > 0 ? 
-                <Grid container spacing={3}> 
+                <Grid container spacing={3} sx={{flexWrap: 'wrap'}}> 
                     {filteredEvents.map((oneEvent) => {
                         return (
-                            <Grid item xs={11} spacing={2}>
+                            <Grid item xs={6} spacing={2}>
                                 <Card key={oneEvent.id}>
                                     <EventDetail oneEvent={oneEvent}/>
                                     <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
@@ -226,23 +247,11 @@ function Events({ user, universalCategories, events, setEvents, hasUpdate, setHa
                 :
                 <Typography variant='h5' color='text.secondary'><SouthWestSharpIcon /> Log Your First Event</Typography>
                 }
+            </Grid>
             </Container>
-            {events.length > 0 ?
-            <Container >
-            <Box component={Container}
-                xs={4}
-                sx={{backgroundColor: '#bce2d7', height: '350px', marginTop: '16px', marginRight: '10px'}}
-            >
-                <ChartAllData eventData={events} />
-            </Box>
-            {/* <Box component={Container}
-                xs={4}
-                sx={{backgroundColor: '#bce2d7', height: '375px', marginTop: '16px', marginRight: '10px'}}
-            >
-                <ChartDistribution eventData={events} />
-            </Box> */}
             </Container>
-            : null }
+
+            
         </Box>
     )
 }
