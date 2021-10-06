@@ -203,7 +203,7 @@ function Appointments({ user, universalCategories, universalProviders, appointme
                 </Box>
             </Drawer>
             <Container>
-                <Typography variant='h3' color='text.secondary' paddingTop='20px'>               
+                <Typography variant='h3' color='#FFF' paddingTop='20px'>               
                     Upcoming Appointments:
                 </Typography>   
                 { futureAppointments.length > 0 ?  
@@ -223,11 +223,11 @@ function Appointments({ user, universalCategories, universalProviders, appointme
                     )}
                 </Grid>
                 :
-                <Typography variant='h5' color='text.secondary'><SouthWestSharpIcon /> Log an Upcoming Appointment</Typography>
+                <Typography variant='h5' color='#FFF'><SouthWestSharpIcon /> Log an Upcoming Appointment</Typography>
                 }
             {/* </Container>
             <Container> */}
-                <Typography variant='h3' color='text.secondary' paddingTop='20px'>               
+                <Typography variant='h3' color='#FFF' paddingTop='20px'>               
                     Past Appointments:
                 </Typography>   
                 { pastAppointments.length > 0 ?  
@@ -246,7 +246,7 @@ function Appointments({ user, universalCategories, universalProviders, appointme
                     )}
                 </Grid>
                 :
-                <Typography variant='h5' color='text.secondary'><SouthWestSharpIcon /> You Have No Past Appointments</Typography>
+                <Typography variant='h5' color='#FFF'><SouthWestSharpIcon /> You Have No Past Appointments</Typography>
                 }
             </Container>
         </Box>

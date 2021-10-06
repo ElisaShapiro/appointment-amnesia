@@ -219,7 +219,7 @@ function Medications({ user, universalProviders, medications, setMedications, ha
                 </Box>
             </Drawer>
             <Container> 
-                <Typography variant='h3' color='text.secondary' paddingTop='20px'>               
+                <Typography variant='h3' color='#FFF' paddingTop='20px'>               
                     My Medications: 
                 </Typography>
                 { medications.length > 0 ?
@@ -235,11 +235,11 @@ function Medications({ user, universalProviders, medications, setMedications, ha
                             <Card key={medication.id}>
                                 <Card>
                                     <CardContent>
-                                        <Typography variant='body1' color='text.secondary'>Medicine:</Typography> 
+                                        <Typography variant='body1' color='text.primary'>Medicine:</Typography> 
                                         <Typography variant='body2' color='text.secondary'>{medication.medication_name}</Typography>
-                                        <Typography variant='body1' color='text.secondary'>Dosage:</Typography>
+                                        <Typography variant='body1' color='text.primary'>Dosage:</Typography>
                                         <Typography variant='body2' color='text.secondary'>{medication.dosage}</Typography>
-                                        <Typography variant='body1' color='text.secondary'>Prescribed by:</Typography> 
+                                        <Typography variant='body1' color='text.primary'>Prescribed by:</Typography> 
                                         <Typography variant='body2' color='text.secondary'>{medication.provider.provider_name}</Typography> 
                                     </CardContent>
                                     </Card>
@@ -252,7 +252,7 @@ function Medications({ user, universalProviders, medications, setMedications, ha
                         })}
                     </Grid>
                 :
-                <Typography variant='h5' color='text.secondary'><ArrowBackSharpIcon /> Add Medications</Typography>
+                <Typography variant='h5' color='#FFF'><ArrowBackSharpIcon /> Add Medications</Typography>
                 }
             </Container>
         </Box>

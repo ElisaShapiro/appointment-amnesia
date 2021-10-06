@@ -6,18 +6,18 @@ import { useEffect, useState } from 'react'
 const ChartAllData = ({eventData}) => {
     const [chartData, setChartData] = useState([])
     const allMonths = [
-        "Jan",
-        "Feb",
-        "Mar",
-        "Apr",
-        "May",
-        "Jun",
-        "Jul",
-        "Aug",
-        "Sep",
-        "Oct",
-        "Nov",
-        "Dec"
+        'Jan',
+        'Feb',
+        'Mar',
+        'Apr',
+        'May',
+        'Jun',
+        'Jul',
+        'Aug',
+        'Sep',
+        'Oct',
+        'Nov',
+        'Dec'
     ]
     let currentMonth=new Date().getMonth()
     let sixMonths = allMonths.slice(0, currentMonth + 1).slice(currentMonth - 5)

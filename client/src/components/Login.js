@@ -42,6 +42,7 @@ function Login({ setUser } ){
     return(
         <Container sx={{paddingTop: '124px'}}>
             <Box container
+                variant='home'
                 component={Grid}
                 justifyContent='center'
                 boxShadow={3}
@@ -49,10 +50,10 @@ function Login({ setUser } ){
                 sx={{
                     width: 510,
                     height: 510,
-                    backgroundImage: `url(${"https://i.imgur.com/p2GWN6M.png"}`,
+                    backgroundImage: `url(${"https://i.imgur.com/Gu5dd6u.png"}`,
                     backgroundRepeat: 'no-repeat',
                     backgroundPosition: 'center',
-                    backgroundSize: 'auto'
+                    backgroundSize: 'auto',
                 }}
             >   
                 <form onSubmit={handleSubmit}>
@@ -65,7 +66,7 @@ function Login({ setUser } ){
                             label='Name'
                             value={loginInfo.name} 
                             onChange={handleChange}
-                            sx={{width: 218}}
+                            sx={{width: 218, background: "#FFF"}}
                         />
                     </Grid>
                     <Grid item
@@ -77,17 +78,17 @@ function Login({ setUser } ){
                             label='Password'
                             value={loginInfo.password} 
                             onChange={handleChange}
-                            sx={{width: 218}}
+                            sx={{width: 218, background: "#FFF"}}
                         />
                     </Grid>
                     <Grid item
                     >
-                        <Button type='submit' variant='outlined' sx={{width: 218, color: '#666666', border: '1px solid #666666', textAlign: 'center'}}>Login</Button>
+                        <Button type='submit' variant='contained' sx={{width: 218, color: '#666666', border: '1px solid #666666', textAlign: 'center'}}>Login</Button>
                     </Grid>
                     <Grid item
                         sx={{paddingTop:'120px', paddingBottom: '16px'}}
                     >
-                        <Button variant='outlined' sx={{color: '#666666', border: '1px solid #666666', textAlign: 'center'}} component={NavLink} to='/signup'>
+                        <Button variant='contained' sx={{color: '#666666', border: '1px solid #666666', textAlign: 'center'}} component={NavLink} to='/signup'>
                             {"Don't have an account?"}<br/>{"Sign Up"}
                         </Button>
                     </Grid>

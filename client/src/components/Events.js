@@ -205,10 +205,10 @@ function Events({ user, universalCategories, events, setEvents, hasUpdate, setHa
             </Drawer>
             <Container>
                 <div style={{display: 'flex', alignItems: 'center', paddingTop: '20px', paddingLeft: '24px'}}>
-                    <Typography variant='h3' color='text.secondary'>               
+                    <Typography variant='h3' color='#FFF'>               
                         Charts: 
                     </Typography>
-                    <Button size='small' color='primary' variant='text' onClick={()=>setShowCharts(!showCharts)}>{showCharts ? "HIDE CHARTS" : "SHOW CHARTS"}</Button>
+                    <Button size='small' color='secondary' variant='contained' onClick={()=>setShowCharts(!showCharts)}>{showCharts ? "HIDE CHARTS" : "SHOW CHARTS"}</Button>
                 </div>
                 {showCharts ?
                     <Container>
@@ -233,7 +233,7 @@ function Events({ user, universalCategories, events, setEvents, hasUpdate, setHa
                 : null}
             <Container>
             <Grid>
-                <Typography variant='h3' color='text.secondary' paddingTop='20px'>               
+                <Typography variant='h3' color='#FFF' paddingTop='20px'>               
                     Event Log: 
                 </Typography>
                 {filteredEvents.length > 0 ? 
@@ -253,7 +253,7 @@ function Events({ user, universalCategories, events, setEvents, hasUpdate, setHa
                     })}
                 </Grid>
                 :
-                <Typography variant='h5' color='text.secondary'><SouthWestSharpIcon /> Log Your First Event</Typography>
+                <Typography variant='h5' color='#FFF'><SouthWestSharpIcon /> Log Your First Event</Typography>
                 }
             </Grid>
             </Container>

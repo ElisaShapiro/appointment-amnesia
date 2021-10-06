@@ -19,6 +19,7 @@ function Home({ user, setUser, setHasUpdate, hasUpdate,
             : 
             <Container sx={{paddingTop: '124px'}}>
                 <Box container
+                    variant='home'
                     component={Grid}
                     justifyContent='center'
                     boxShadow={3}
@@ -26,26 +27,26 @@ function Home({ user, setUser, setHasUpdate, hasUpdate,
                     sx={{
                         width: 510,
                         height: 510,
-                        backgroundImage: `url(${"https://i.imgur.com/p2GWN6M.png"}`,
+                        backgroundImage: `url(${"https://i.imgur.com/Gu5dd6u.png"}`,
                         backgroundRepeat: 'no-repeat',
                         backgroundPosition: 'center',
                         backgroundSize: 'auto'
                     }}
                 >
-                <Grid item
+                {/* <Grid item
                     sx={{padding: '192px 0px 0px 0px'}}
                 >
                     <Typography gutterBottom color='#769fb6' variant='h2'>
                         A Medical Tracking App to Keep Your Thoughts in Order
                     </Typography>    
-                </Grid>
+                </Grid> */}
                 <Grid item>
-                    <Button variant='outlined' sx={{width: 218, color: '#666666', border: '1px solid #666666', textAlign: 'center'}} component={NavLink} to='/login'>
+                    <Button variant='contained' sx={{width: 218, color: '#666666', border: '1px solid #666666', textAlign: 'center'}} component={NavLink} to='/login'>
                         {"Have an account?"}<br/>{"Log In"}
                     </Button>
                 </Grid>
                 <Grid item>
-                    <Button variant='outlined' sx={{color: '#666666', border: '1px solid #666666', textAlign: 'left'}} component={NavLink} to='/signup'>
+                    <Button variant='contained' sx={{color: '#666666', border: '1px solid #666666', textAlign: 'center'}} component={NavLink} to='/signup'>
                         {"Don't have an account?"}<br/>{"Sign Up"}
                     </Button>
                 </Grid>

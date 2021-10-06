@@ -1,6 +1,5 @@
-import { Bar } from 'react-chartjs-2'
-import { format,  differenceInCalendarMonths } from 'date-fns'
-import { useEffect, useState } from 'react'
+import { Bar } from 'react-chartjs-2';
+import { useEffect, useState } from 'react';
 
 const ChartDistribution = ({eventData, sortEventCategory}) => {
     const [chartData, setChartData] = useState([])
@@ -16,7 +15,7 @@ const ChartDistribution = ({eventData, sortEventCategory}) => {
             }
         })
         if (eventData.length >0){
-            let severityCounts = {"1": 0, "2": 0, "3": 0, "4": 0, "5":0}
+            let severityCounts = {'1': 0, '2': 0, '3': 0, '4': 0, '5':0}
             filteredEventData.forEach(event=>{
                 let stringSeverity = event.severity.toString()
                 severityCounts[stringSeverity] += 1
@@ -52,7 +51,7 @@ const ChartDistribution = ({eventData, sortEventCategory}) => {
                 title: {
                     display: true,
                     text: "Degree of Severity",
-                    fontFamily: "Quicksand"
+                    fontFamily: 'Quicksand'
                 }
             },
             y: {
@@ -71,10 +70,10 @@ const ChartDistribution = ({eventData, sortEventCategory}) => {
     }
 
     return(
-        <div className="chart-distribution">
-            <div style={{ height: "450px", width: "900px"}}>
+        <div className='chart-distribution'>
+            <div style={{ height: '450px', width: '900px'}}>
                 <Bar 
-                data={chartData} 
+                    data={chartData} 
                     options={options}
                 />
             </div>

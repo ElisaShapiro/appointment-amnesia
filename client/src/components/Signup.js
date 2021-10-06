@@ -50,6 +50,7 @@ function Signup({ setUser }){
     return(
         <Container sx={{paddingTop: '124px'}}>
             <Box container
+                variant='home'
                 component={Grid}
                 justifyContent='center'
                 boxShadow={3}
@@ -57,7 +58,7 @@ function Signup({ setUser }){
                 sx={{
                     width: 510,
                     height: 510,
-                    backgroundImage: `url(${"https://i.imgur.com/p2GWN6M.png"}`,
+                    backgroundImage: `url(${"https://i.imgur.com/Gu5dd6u.png"}`,
                     backgroundRepeat: 'no-repeat',
                     backgroundPosition: 'center',
                     backgroundSize: 'auto'
@@ -73,7 +74,7 @@ function Signup({ setUser }){
                             label='Name'
                             value={formData.name} 
                             onChange={handleChange}
-                            sx={{width: 218}}
+                            sx={{width: 218, background: "#FFF"}}
                         />
                     </Grid>
                     <Grid item
@@ -85,7 +86,7 @@ function Signup({ setUser }){
                             label='Email'
                             value={formData.email} 
                             onChange={handleChange}
-                            sx={{width: 218}}
+                            sx={{width: 218, background: "#FFF"}}
                         />
                     </Grid>
                     <Grid item
@@ -97,7 +98,7 @@ function Signup({ setUser }){
                             label='Password'
                             value={formData.password} 
                             onChange={handleChange}
-                            sx={{width: 218}}
+                            sx={{width: 218, background: "#FFF"}}
                         />
                     </Grid>
                     <Grid item
@@ -109,17 +110,17 @@ function Signup({ setUser }){
                             label='Confirm Password'
                             value={formData.password_confirmation} 
                             onChange={handleChange}
-                            sx={{width: 218}}
+                            sx={{width: 218, background: "#FFF"}}
                         />
                     </Grid>
                     <Grid item
                     >
-                        <Button type='submit' variant='outlined' sx={{width: 218, color: '#666666', border: '1px solid #666666', textAlign: 'center'}}>Register</Button>
+                        <Button type='submit' variant='contained' sx={{width: 218, color: '#666666', border: '1px solid #666666', textAlign: 'center'}}>Register</Button>
                     </Grid>
                     <Grid item
                         sx={{paddingTop:'14px', paddingBottom:'16px'}}
                     >
-                        <Button variant='outlined' sx={{width: 218, color: '#666666', border: '1px solid #666666', textAlign: 'center'}} component={NavLink} to='/login'>
+                        <Button variant='contained' sx={{width: 218, color: '#666666', border: '1px solid #666666', textAlign: 'center'}} component={NavLink} to='/login'>
                             {"Have an account?"}<br/>{"Log In"}
                         </Button>
                     </Grid>

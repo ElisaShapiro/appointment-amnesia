@@ -287,7 +287,7 @@ function Profile({ user, setHasUpdate, hasUpdate,
             </Drawer>
             <Container>
                 <Container>
-                    <Typography variant='h3' color='text.secondary' paddingTop='20px'>
+                    <Typography variant='h3' color='#FFF' paddingTop='20px'>
                         My Info: 
                     </Typography>
                     {showDemographicForm ?
@@ -390,7 +390,7 @@ function Profile({ user, setHasUpdate, hasUpdate,
                     </Grid>}
                 </Container>
                 <Container >
-                    <Typography variant='h3' color='text.secondary' paddingTop='32px'>
+                    <Typography variant='h3' color='#FFF' paddingTop='32px'>
                         My Providers: 
                     </Typography>
                     {providers.length > 0 ?
@@ -404,9 +404,9 @@ function Profile({ user, setHasUpdate, hasUpdate,
                             return (
                                 <Grid item xs={3}>
                                     <Card key={provider.id} sx={{minHeight: 318, display: 'flex', flexDirection: 'column', padding: '14px'}}>
-                                        <Typography variant='h5' component='div'>{provider.provider_name}</Typography>
+                                        <Typography variant='h5' color='text.secondary'>{provider.provider_name}</Typography>
                                         <Typography variant='body2' color='text.secondary'>{provider.phone_number}</Typography>
-                                        <Typography sx={{flexGrow: 1}} variant='body2' color='text.secondary'>{provider.address}</Typography>
+                                        <Typography sx={{flexGrow: 1, paddingTop: '10px'}} variant='body2' color='text.secondary'>{provider.address}</Typography>
                                         <CardActions sx={{display: 'flex', justifyContent: 'center'}}>
                                             <Button id={provider.id} onClick={setEditProvider}><EditSharpIcon/> Provider</Button>
                                         </CardActions>
@@ -416,11 +416,11 @@ function Profile({ user, setHasUpdate, hasUpdate,
                         })}
                     </Grid>
                     : 
-                    <Typography variant='h5' color='text.secondary'><ArrowBackSharpIcon /> Add Providers (will not appear here until associated with Event/Appointment/Medication)</Typography>
+                    <Typography variant='h5' color='#FFF'><ArrowBackSharpIcon /> Add Providers (will not appear here until associated with Event/Appointment/Medication)</Typography>
                     }
                 </Container>
                     <Container>
-                    <Typography variant='h3' color='text.secondary' paddingTop='32px'>
+                    <Typography variant='h3' color='#FFF' paddingTop='32px'>
                         My Categories: 
                     </Typography>
                     {categories.length >0 ? 
@@ -444,7 +444,7 @@ function Profile({ user, setHasUpdate, hasUpdate,
                     })}
                     </Grid>
                     :
-                    <Typography variant='h5' color='text.secondary'><ArrowBackSharpIcon /> Add Categories (will not appear here until associated with Event/Appointment/Medication)</Typography>
+                    <Typography variant='h5' color='#FFF'><ArrowBackSharpIcon /> Add Categories (will not appear here until associated with Event/Appointment/Medication)</Typography>
                     }
                 </Container>
             </Container>

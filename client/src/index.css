@@ -11,3 +11,13 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+#root {
+  background-image: url("https://i.imgur.com/xYy56Rs.png");
+  background-repeat: repeat-y;
+  /* background-size: cover; */
+  /* background-blend-mode: lighten; */
+  background-attachment: scroll;
+  min-height: 100vh;
+}
+

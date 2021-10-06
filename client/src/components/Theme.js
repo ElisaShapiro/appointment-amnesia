@@ -7,15 +7,15 @@ const theme = createTheme({
         main: '#bce2d7',
       },
       secondary: {
-        main: '#3b1c32',
+        main: '#769fb6',
       },
       background: {
-        default: '#188fa7',
+        // default: '#188fa7',
         paper: '#769fb6',
       },
       text: {
           primary: '#222',
-          secondary: '#666666'
+          secondary: '#4d4d4d'
       },
       buttonColor: {
           main: '#222'
@@ -23,10 +23,6 @@ const theme = createTheme({
     },
     typography: {
         fontFamily: 'Quicksand, sans-serif',
-        h1: {
-            fontSize: '64px',
-            fontWeight: '700'
-        },
         h2: {
             fontSize: '30px',
             fontWeight: '500',
@@ -67,6 +63,20 @@ const theme = createTheme({
             color: '#222'
         }
     },
+    components: {
+        MuiGrid:{
+             variants: [
+                {
+                    props: {
+                        variant: 'home'
+                    },
+                    style: {
+                        borderRadius: '10px'
+                    }
+                }
+            ]
+        }
+    }
 })
 
 export default theme;
