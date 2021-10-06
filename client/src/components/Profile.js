@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useState } from 'react';
+
 import { Box, Button, Card, CardActions, CardContent, CardMedia, Container, Divider, Drawer, FormControl, Grid, TextField, Toolbar, Typography } from '@mui/material';
 import EditSharpIcon from '@mui/icons-material/EditSharp';
 import AddSharpIcon from '@mui/icons-material/AddSharp';
@@ -8,10 +8,7 @@ import PersonAddAlt1SharpIcon from '@mui/icons-material/PersonAddAlt1Sharp';
 import ArrowBackSharpIcon from '@mui/icons-material/ArrowBackSharp';
 
 
-function Profile({ user, setHasUpdate, hasUpdate,
-    universalCategories, setUniversalCategories, universalProviders, setUniversalProviders}){
-    const history = useHistory()
-    
+function Profile({ user, hasUpdate, setHasUpdate }){
     const [showDemographicForm, setShowDemographicForm] = useState(false)
     const [demographicFormData, setDemographicFormData] = useState({
         email: user.email,
@@ -52,10 +49,8 @@ function Profile({ user, setHasUpdate, hasUpdate,
             body: JSON.stringify(demographicFormData)
         }).then(response=>response.json())
         .then(data=>{
-            //setUser needed?
             setShowDemographicForm(!showDemographicForm)
             setHasUpdate(!hasUpdate)
-            // history.go('/profile')
         })
     }
 

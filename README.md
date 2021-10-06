@@ -9,8 +9,9 @@ Log events (visit summaries, description/occurance of an issue you are monitorin
 - [Ruby on Rails](https://rubyonrails.org/)
 - [PostgreSQL](https://www.postgresql.org/)
 - [openFDA API](https://open.fda.gov/apis/)
-- [Chart.js](https://www.chartjs.org/)
 - [Material UI](https://mui.com/)
+- [date-fns](https://date-fns.org/)
+- [Chart.js](https://www.chartjs.org/)
 
 ## Getting Started
 Use these commands to run this project locally:

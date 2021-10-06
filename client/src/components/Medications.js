@@ -10,7 +10,6 @@ import ArrowBackSharpIcon from '@mui/icons-material/ArrowBackSharp';
 
 function Medications({ user, universalProviders, medications, setMedications, hasUpdate, setHasUpdate}) {
     const history = useHistory()
-    // const [medications, setMedications] = useState([])
     const [genericMedication, setGenericMedication] = useState(false)
     const [medicationName, setMedicationName] = useState("")
     const [medicationsFromAPI, setMedicationsFromAPI] = useState([])
@@ -21,12 +20,14 @@ function Medications({ user, universalProviders, medications, setMedications, ha
         provider_name: ""
     })
 
+    //GET user's providers
     useEffect(() => {
         if (user && user.user_providers.length > 0) {
             setMedicationProviders(user.user_providers)
         }
     }, [user])
     
+    //GET medications from API via search
     function searchMedicationsOnAPI(e){
         e.preventDefault()
         if (genericMedication) {
@@ -81,6 +82,7 @@ function Medications({ user, universalProviders, medications, setMedications, ha
         setGenericMedication(!genericMedication)
     }
 
+    //CREATE medication
     function handleMedicationSubmit(e){
         e.preventDefault()
         if (!radioSelectedOption) {
@@ -124,9 +126,6 @@ function Medications({ user, universalProviders, medications, setMedications, ha
             }
         })
         setHasUpdate(!hasUpdate)
-
-        // setMedications(medications) //needs refresh
-        // history.go("/medications")
     }
 
     return(

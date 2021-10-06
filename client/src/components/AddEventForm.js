@@ -8,11 +8,11 @@ import SentimentDissatisfiedIcon from '@mui/icons-material/SentimentDissatisfied
 import SentimentSatisfiedIcon from '@mui/icons-material/SentimentSatisfied';
 import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAltOutlined';
 import SentimentVerySatisfiedIcon from '@mui/icons-material/SentimentVerySatisfied';
-
 import { Button, Container, FormControl, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material';
 import AddSharpIcon from '@mui/icons-material/AddSharp';
 import AddBoxSharpIcon from '@mui/icons-material/AddBoxSharp';
 
+//ICONS for Severity Selection
 const customIcons = {
     1: {
       icon: <SentimentVerySatisfiedIcon />,
@@ -47,7 +47,6 @@ const customIcons = {
   
 function AddEventForm({ universalCategories, formData, setFormData, manageFormData, handleSubmit, eventTimeValue, setEventTimeValue, isEdit}){
 
-    
     return(
         <Container>  
             <form onSubmit={handleSubmit}>

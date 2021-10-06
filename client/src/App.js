@@ -1,6 +1,6 @@
-import './App.css';
 import { useState, useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
+
 import Signup from './components/Signup';
 import Login from './components/Login';
 import NavBar from './components/NavBar';
@@ -9,6 +9,7 @@ import Events from './components/Events';
 import Appointments from './components/Appointments';
 import Medications from './components/Medications';
 import Footer from './components/Footer';
+import Error from './components/Error';
 
 import theme from './components/Theme';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -18,11 +19,14 @@ const Offset = styled('div')(({ theme }) => theme.mixins.toolbar);
 
 function App() {
   const [user, setUser] = useState(null)
-
+  const [hasUpdate, setHasUpdate] = useState(false)
   const [universalCategories, setUniversalCategories] = useState([])
   const [universalProviders, setUniversalProviders] = useState([])
-  const [hasUpdate, setHasUpdate] = useState(false)
+  const [events, setEvents] = useState([])
+  const [appointments, setAppointments] = useState([])
+  const [medications, setMedications] = useState([])
 
+  //GET requests
   useEffect(() => {
     fetch('/categories')
     .then(response => response.json())
@@ -35,21 +39,18 @@ function App() {
     .then(data => setUniversalProviders(data))
   }, [hasUpdate])  
   
-  const [events, setEvents] = useState([])
   useEffect(() => {
     fetch('/events')
     .then(response => response.json())
     .then(data => setEvents(data))
   }, [hasUpdate])
 
-  const [appointments, setAppointments] = useState([])
   useEffect(() => {
     fetch('/appointments')
     .then(response => response.json())
     .then(data => setAppointments(data))
 }, [hasUpdate])
 
-  const [medications, setMedications] = useState([])
   useEffect(() => {
     fetch('/medications')
     .then(response => response.json())
@@ -57,7 +58,7 @@ function App() {
   }, [hasUpdate])
 
 
-  // auto-login
+  // AUTOLOGIN
   useEffect(() => {
     fetch('/me').then((r) => {
       if (r.ok) {
@@ -88,12 +89,9 @@ function App() {
           <Signup setUser={setUser}/>
         </Route>
         <Route path="/events">
-          <Events user={user} events={events} setEvents={setEvents}
+          <Events user={user} events={events} 
             universalCategories={universalCategories} 
-            setUniversalCategories={setUniversalCategories}
-            universalProviders={universalProviders} 
-            setUniversalProviders={setUniversalProviders}
-            setHasUpdate={setHasUpdate} hasUpdate={hasUpdate}
+            hasUpdate={hasUpdate} setHasUpdate={setHasUpdate}
           />
         </Route>
         <Route path="/appointments">
@@ -101,7 +99,7 @@ function App() {
             appointments={appointments} setAppointments={setAppointments}
             universalCategories={universalCategories} 
             universalProviders={universalProviders}
-            setHasUpdate={setHasUpdate} hasUpdate={hasUpdate}
+            hasUpdate={hasUpdate} setHasUpdate={setHasUpdate}
 
           />
         </Route>
@@ -109,10 +107,10 @@ function App() {
           <Medications user={user} 
             medications={medications} setMedications={setMedications}
             universalProviders={universalProviders}
-            setHasUpdate={setHasUpdate} hasUpdate={hasUpdate}
-
+            hasUpdate={hasUpdate} setHasUpdate={setHasUpdate}
           />
         </Route>
+        <Route component={Error} />
       </Switch>
       <Footer />
     </ThemeProvider>

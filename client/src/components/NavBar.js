@@ -1,11 +1,12 @@
 import { NavLink, useHistory } from 'react-router-dom';
+
 import { format } from 'date-fns';
 import { AppBar, Avatar, Button, Toolbar, Typography } from '@mui/material';
 
 function NavBar({ user, setUser }){
     const history = useHistory()
     
-    //logout
+    //LOGOUT
     function handleLogoutClick() {
         fetch('/logout', {
             method: "DELETE"

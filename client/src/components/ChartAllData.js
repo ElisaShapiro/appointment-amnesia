@@ -1,7 +1,7 @@
-import { Bar } from 'react-chartjs-2'
-import { format,  differenceInCalendarMonths } from 'date-fns'
-import { useEffect, useState } from 'react'
+import { useState, useEffect } from 'react';
 
+import { format,  differenceInCalendarMonths } from 'date-fns'
+import { Bar } from 'react-chartjs-2'
 
 const ChartAllData = ({eventData}) => {
     const [chartData, setChartData] = useState([])
@@ -22,6 +22,7 @@ const ChartAllData = ({eventData}) => {
     let currentMonth=new Date().getMonth()
     let sixMonths = allMonths.slice(0, currentMonth + 1).slice(currentMonth - 5)
     
+    //eventData organized by month and severity so five datasets in chartData covering last six months
     useEffect(() => {
         if (eventData.length > 0) {
         let eventsPerMonthOnes = {}

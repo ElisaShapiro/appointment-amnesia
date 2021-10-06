@@ -1,27 +1,27 @@
 import { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
 import AppointmentDetail from './AppointmentDetail';
 import AddAppointmentForm from './AddAppointmentForm';
 import SearchBar from './SearchBar';
+
 import { isPast } from 'date-fns';
+
 import { Box, Button, Card, Container, Divider, Drawer, Grid, Toolbar, Typography } from '@mui/material';
 import EditSharpIcon from '@mui/icons-material/EditSharp';
 import DeleteSharpIcon from '@mui/icons-material/DeleteSharp';
 import SouthWestSharpIcon from '@mui/icons-material/SouthWestSharp';
 
-function Appointments({ user, universalCategories, universalProviders, appointments, setAppointments, hasUpdate, setHasUpdate }){
-    const history = useHistory()
-    // const [appointments, setAppointments] = useState([])
+function Appointments({ user, universalCategories, universalProviders, appointments, hasUpdate, setHasUpdate }){
     const [isEdit, setIsEdit] = useState(false)
     const [appointmentCategories, setAppointmentCategories] = useState([])
     const [appointmentProviders, setAppointmentProviders] = useState([])
+    const [appointmentTimeValue, setAppointmentTimeValue] = useState(new Date())
     const [formData, setFormData] = useState({
         category: "",
         provider: "", 
         appointment_time: new Date()
     })
-    const [appointmentTimeValue, setAppointmentTimeValue] = useState(new Date())
 
+    //GET user's categories and providers
     useEffect(()=>{
         if (user && user.user_categories.length > 0) {
             setAppointmentCategories(user.user_categories)
@@ -122,7 +122,7 @@ function Appointments({ user, universalCategories, universalProviders, appointme
         setHasUpdate(!hasUpdate)
     }
 
-    //SEARCH and SORT appointments
+    //SEARCH and SORT appointments, separate by PAST or FUTURE
     const [sortAppointmentCategory, setSortAppointmentCategory] = useState("All")
     const [sortAppointmentProvider, setSortAppointmentProvider] = useState("All")
     const filteredAppointments = appointments.filter(appointment => {
@@ -142,12 +142,10 @@ function Appointments({ user, universalCategories, universalProviders, appointme
             return false
         }
     })
-
     const pastAppointments = filteredAppointments.filter(oneAppointment=> {
         let date = new Date(oneAppointment.appointment_time)
         return isPast(date)
     })
-
     const futureAppointments = filteredAppointments.filter(oneAppointment=> {
         let date = new Date(oneAppointment.appointment_time)
         return !isPast(date)
@@ -225,8 +223,6 @@ function Appointments({ user, universalCategories, universalProviders, appointme
                 :
                 <Typography variant='h5' color='#FFF'><SouthWestSharpIcon /> Log an Upcoming Appointment</Typography>
                 }
-            {/* </Container>
-            <Container> */}
                 <Typography variant='h3' color='#FFF' paddingTop='20px'>               
                     Past Appointments:
                 </Typography>   

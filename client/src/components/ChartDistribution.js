@@ -1,9 +1,11 @@
+import { useState, useEffect } from 'react';
+
 import { Bar } from 'react-chartjs-2';
-import { useEffect, useState } from 'react';
 
 const ChartDistribution = ({eventData, sortEventCategory}) => {
     const [chartData, setChartData] = useState([])
     
+    //Use category filter to dynamically render chartData, set chartData to organize by severity
     useEffect(() => {
         let filteredEventData = eventData.filter((event) => {
             if (sortEventCategory === "All") {

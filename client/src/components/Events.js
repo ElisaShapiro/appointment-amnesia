@@ -1,34 +1,34 @@
 import { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
 import EventDetail from './EventDetail';
 import AddEventForm from './AddEventForm';
 import SearchBar from './SearchBar';
 import ChartAllData from './ChartAllData';
 import ChartDistribution from './ChartDistribution';
 
-import { Box, Button, Card, Container, Divider, Drawer, Grid, TextField, Toolbar, Typography } from '@mui/material';
+import { Box, Button, Card, Container, Divider, Drawer, Grid, Toolbar, Typography } from '@mui/material';
 import EditSharpIcon from '@mui/icons-material/EditSharp';
 import DeleteSharpIcon from '@mui/icons-material/DeleteSharp';
 import SouthWestSharpIcon from '@mui/icons-material/SouthWestSharp';
 
-function Events({ user, universalCategories, events, setEvents, hasUpdate, setHasUpdate }){
-    const history = useHistory()
+function Events({ user, universalCategories, events, hasUpdate, setHasUpdate }){
     const [showCharts, setShowCharts] = useState(true)
     const [isEdit, setIsEdit] = useState(false)
     const [eventCategories, setEventCategories] = useState([])
+    const [eventTimeValue, setEventTimeValue] = useState(new Date())
     const [formData, setFormData] = useState({
         category: "",
         content: "",
         severity: "",
         event_time: new Date()
     })
+
+    //GET user's categories
     useEffect(()=>{
         if (user && user.user_categories.length > 0) {
             setEventCategories(user.user_categories)
         }
     }, [user])
 
-    const [eventTimeValue, setEventTimeValue] = useState(new Date())
 
     function handleClickEdit(eventId){
         const editedEvent = events.filter((event) => event.id == eventId)[0]
@@ -100,13 +100,6 @@ function Events({ user, universalCategories, events, setEvents, hasUpdate, setHa
         }
     } 
 
-    //GET events
-    // useEffect(() => {
-    //     fetch('/events')
-    //     .then(response => response.json())
-    //     .then(data => setEvents(data))
-    // }, [])
-
     //DELETE events
     function handleDeleteEvent(eventId){
         fetch(`/events/${eventId}`, {
@@ -116,8 +109,6 @@ function Events({ user, universalCategories, events, setEvents, hasUpdate, setHa
             }
         })
         setHasUpdate(!hasUpdate)
-        // setEvents(events)  //needs manual refresh
-        // history.push("/events")
     }
 
     //SEARCH and SORT events
