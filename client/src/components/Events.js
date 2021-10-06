@@ -13,7 +13,7 @@ import SouthWestSharpIcon from '@mui/icons-material/SouthWestSharp';
 
 function Events({ user, universalCategories, events, setEvents, hasUpdate, setHasUpdate }){
     const history = useHistory()
-    // const [events, setEvents] = useState([])
+    const [showCharts, setShowCharts] = useState(true)
     const [isEdit, setIsEdit] = useState(false)
     const [eventCategories, setEventCategories] = useState([])
     const [formData, setFormData] = useState({
@@ -203,26 +203,34 @@ function Events({ user, universalCategories, events, setEvents, hasUpdate, setHa
                     <Divider />
                 </Box>
             </Drawer>
-            
-            <Container>{events.length > 0 ?
             <Container>
-            <Box 
-                sx={{backgroundColor: '#bce2d7', height: '450px', marginTop: '16px',  maxWidth: "910px" }}
-            >
-                <ChartAllData eventData={events} />
-            </Box>
-            {filteredEvents.length > 0 ?
-            
-                <Box 
-                    sx={{backgroundColor: '#bce2d7', height: '450px', marginTop: '16px', maxWidth: "910px"}}
-                >
-                    <ChartDistribution eventData={events} sortEventCategory={sortEventCategory} />
-                </Box>
-                :
-                null
-            }
-            </Container>
-            : null }
+                <div style={{display: 'flex', alignItems: 'center', paddingTop: '20px', paddingLeft: '24px'}}>
+                    <Typography variant='h3' color='text.secondary'>               
+                        Charts: 
+                    </Typography>
+                    <Button size='small' color='primary' variant='text' onClick={()=>setShowCharts(!showCharts)}>{showCharts ? "HIDE CHARTS" : "SHOW CHARTS"}</Button>
+                </div>
+                {showCharts ?
+                    <Container>
+                        {events.length > 0 ?
+                            <Container>
+                                <Box 
+                                    sx={{backgroundColor: '#bce2d7', height: '450px', marginTop: '16px',  maxWidth: "910px" }}
+                                >
+                                    <ChartAllData eventData={events} />
+                                </Box>
+                            {filteredEvents.length > 0 ?
+                                <Box 
+                                    sx={{backgroundColor: '#bce2d7', height: '450px', marginTop: '16px', maxWidth: "910px"}}
+                                >
+                                    <ChartDistribution eventData={events} sortEventCategory={sortEventCategory} />
+                                </Box>
+                                :
+                                null}
+                            </Container>
+                        : null }
+                    </Container>
+                : null}
             <Container>
             <Grid>
                 <Typography variant='h3' color='text.secondary' paddingTop='20px'>               

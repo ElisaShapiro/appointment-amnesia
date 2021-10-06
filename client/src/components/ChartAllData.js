@@ -74,7 +74,7 @@ const ChartAllData = ({eventData}) => {
             labels: sixMonths,
             datasets: [
                 {
-                    label: ':D Severity 1',
+                    label: '1 :D',
                     data: dataForSeverityOneEvents, 
                     backgroundColor: [
                         'rgba(153, 102, 255, 0.2)'
@@ -82,7 +82,7 @@ const ChartAllData = ({eventData}) => {
                     borderWidth: 1
                 },
                 {
-                    label: ':) Severity 2',
+                    label: '2 :)',
                     data: dataForSeverityTwoEvents, 
                     backgroundColor: [
                         'rgba(54, 162, 235, 0.2)'
@@ -90,7 +90,7 @@ const ChartAllData = ({eventData}) => {
                     borderWidth: 1
                 },
                 {
-                    label: ':| Severity 3',
+                    label: '3 :|',
                     data: dataForSeverityThreeEvents, 
                     backgroundColor: [
                         'rgba(255, 206, 86, 0.2)'
@@ -98,7 +98,7 @@ const ChartAllData = ({eventData}) => {
                     borderWidth: 1
                 },
                 {
-                    label: ':( Severity 4',
+                    label: '4 :(',
                     data: dataForSeverityFourEvents, 
                     backgroundColor: [
                         'rgba(255, 159, 64, 0.2)'
@@ -106,7 +106,7 @@ const ChartAllData = ({eventData}) => {
                     borderWidth: 1
                 },
                 {
-                    label: '>: Severity 5',
+                    label: '5 >:',
                     data: dataForSeverityFiveEvents, 
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)'
@@ -122,7 +122,7 @@ const ChartAllData = ({eventData}) => {
         responsive: true,
         plugins: {
             title: {
-                text: "Number of Events by Severity per Month", 
+                text: "Number of Events per Month by Severity", 
                 display: true
             }
         },

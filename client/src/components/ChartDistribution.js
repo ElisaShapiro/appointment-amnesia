@@ -24,7 +24,7 @@ const ChartDistribution = ({eventData, sortEventCategory}) => {
             let severityData = Object.values(severityCounts)
 
             setChartData({
-                labels: ['1', '2', '3', '4', '5'],
+                labels: ['1 :D', '2 :)', '3 :|', '4 :(', '5 >:'],
                 datasets: [
                     {
                         label: 'Events',
@@ -43,7 +43,7 @@ const ChartDistribution = ({eventData, sortEventCategory}) => {
         responsive: true,
         plugins: {
             title: {
-                text: `Number of Events by Severity for Category: ${sortEventCategory}`, 
+                text: `Number of Events for Category: ${sortEventCategory} by Severity`, 
                 display: true
             }
         },

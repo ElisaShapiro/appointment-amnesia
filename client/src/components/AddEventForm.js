@@ -83,7 +83,7 @@ function AddEventForm({ universalCategories, formData, setFormData, manageFormDa
                         })}
                     </Select>
                 </FormControl>
-                <Typography component='legend'>Severity</Typography>
+                <Typography component='legend'>Severity (1-5)</Typography>
                     <Rating
                         onChange={manageFormData}
                         name='severity'
