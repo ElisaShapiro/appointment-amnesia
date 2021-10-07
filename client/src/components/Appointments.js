@@ -23,10 +23,10 @@ function Appointments({ user, universalCategories, universalProviders, appointme
 
     //GET user's categories and providers
     useEffect(()=>{
-        if (user && user.user_categories.length > 0) {
+        if (user && user.user_categories&& user.user_categories.length > 0) {
             setAppointmentCategories(user.user_categories)
         }
-        if (user && user.user_providers.length > 0) {
+        if (user && user.user_providers && user.user_providers.length > 0) {
             setAppointmentProviders(user.user_providers)
         }
     }, [user])
@@ -208,7 +208,7 @@ function Appointments({ user, universalCategories, universalProviders, appointme
                 <Grid container spacing={4} >
                     {futureAppointments.map((oneAppointment) => {
                         return (
-                            <Grid item xs={4} spacing={2}>
+                            <Grid item xs={4} key={oneAppointment.id}>
                                 <Card key={oneAppointment.id}>
                                     <AppointmentDetail oneAppointment={oneAppointment}/>
                                     <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
@@ -230,7 +230,7 @@ function Appointments({ user, universalCategories, universalProviders, appointme
                 <Grid container spacing={4} >
                     {pastAppointments.map((oneAppointment) => {
                         return (
-                            <Grid item xs={4} spacing={2}>
+                            <Grid item xs={4} key={oneAppointment.id}>
                                 <Card key={oneAppointment.id}>
                                     <AppointmentDetail oneAppointment={oneAppointment}/>
                                     <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>

@@ -46,7 +46,14 @@ const customIcons = {
   };
   
 function AddEventForm({ universalCategories, formData, setFormData, manageFormData, handleSubmit, eventTimeValue, setEventTimeValue, isEdit}){
+  let universalCategoryElement = Array.isArray(universalCategories) ? universalCategories.map((eventCategory) => {
     return(
+        <MenuItem key={eventCategory.id} name={eventCategory.category_name} value={eventCategory.category_name}>
+            {eventCategory.category_name}
+        </MenuItem>
+    )
+  }) : null
+  return(
         <Container>  
             <form onSubmit={handleSubmit}>
                 <Typography sx={{paddingBottom: '10px'}}><AddBoxSharpIcon />Log Event</Typography>
@@ -72,14 +79,7 @@ function AddEventForm({ universalCategories, formData, setFormData, manageFormDa
                         onChange={manageFormData}
                         sx={{background: '#9dbbae'}}
                     >
-
-                    {universalCategories.map((eventCategory) => {
-                            return(
-                                <MenuItem key={eventCategory.id} name={eventCategory.category_name} value={eventCategory.category_name}>
-                                    {eventCategory.category_name}
-                                </MenuItem>
-                            )
-                        })}
+                    {universalCategoryElement}
                     </Select>
                 </FormControl>
                 <Typography component='legend'>Severity (1-5)</Typography>

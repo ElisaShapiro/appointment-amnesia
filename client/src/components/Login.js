@@ -27,17 +27,18 @@ function Login({ setUser } ){
             },
             body: JSON.stringify(loginInfo)
         })
-        .then(resp => resp.json())
-        .then(data => {
-            if(data.error) {
-                alert(data.error)
-            } else {
-                setUser(data)
-                history.push("/")
-            }
+        .then(resp => {
+            if (resp.ok) {
+                resp.json().then(data=>{
+                    setUser(data)
+                    history.push('/');
+                })
+              } else {
+                resp.json().then(error => alert(error.errors))
+              }
         })
-    }
 
+    }
 
     return(
         <Container sx={{paddingTop: '124px'}}>

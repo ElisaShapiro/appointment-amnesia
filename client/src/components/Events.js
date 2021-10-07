@@ -24,7 +24,7 @@ function Events({ user, universalCategories, events, hasUpdate, setHasUpdate }){
 
     //GET user's categories
     useEffect(()=>{
-        if (user && user.user_categories.length > 0) {
+        if (user && user.user_categories && user.user_categories.length > 0) {
             setEventCategories(user.user_categories)
         }
     }, [user])
@@ -197,9 +197,15 @@ function Events({ user, universalCategories, events, hasUpdate, setHasUpdate }){
             <Container>
                 <div style={{display: 'flex', alignItems: 'center', paddingTop: '20px', paddingLeft: '24px'}}>
                     <Typography variant='h3' color='#FFF'>               
-                        Charts: 
+                        Charts:  
                     </Typography>
-                    <Button size='small' color='secondary' variant='contained' onClick={()=>setShowCharts(!showCharts)}>{showCharts ? "HIDE CHARTS" : "SHOW CHARTS"}</Button>
+                    {events.length > 0 ? 
+                    <Button size='small' color='secondary' variant='contained' onClick={()=>setShowCharts(!showCharts)}>
+                        {showCharts ? "HIDE CHARTS" : "SHOW CHARTS"}
+                    </Button> 
+                    : <Typography variant='h4' color='#FFF' sx={{paddingLeft: "6px"}}>
+                        No Charts Created Yet
+                    </Typography>}
                 </div>
                 {showCharts ?
                     <Container>
@@ -210,14 +216,13 @@ function Events({ user, universalCategories, events, hasUpdate, setHasUpdate }){
                                 >
                                     <ChartAllData eventData={events} />
                                 </Box>
-                            {filteredEvents.length > 0 ?
+                                {filteredEvents.length > 0 ?
                                 <Box 
                                     sx={{backgroundColor: '#bce2d7', height: '450px', marginTop: '16px', maxWidth: "910px"}}
                                 >
                                     <ChartDistribution eventData={events} sortEventCategory={sortEventCategory} />
                                 </Box>
-                                :
-                                null}
+                                : null}
                             </Container>
                         : null }
                     </Container>
@@ -231,7 +236,7 @@ function Events({ user, universalCategories, events, hasUpdate, setHasUpdate }){
                 <Grid container spacing={3} sx={{flexWrap: 'wrap'}}> 
                     {filteredEvents.map((oneEvent) => {
                         return (
-                            <Grid item xs={6} spacing={2}>
+                            <Grid item xs={6} key={oneEvent.id}>
                                 <Card key={oneEvent.id}>
                                     <EventDetail oneEvent={oneEvent}/>
                                     <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>

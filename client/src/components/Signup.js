@@ -26,7 +26,6 @@ function Signup({ setUser }){
             password: formData.password,
             password_confirmation: formData.password_confirmation
         }
-        console.log('usercreate',data)
         fetch('/signup', {
             method: "POST",
             headers: {

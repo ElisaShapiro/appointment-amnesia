@@ -28,33 +28,43 @@ function App() {
 
   //GET requests
   useEffect(() => {
-    fetch('/categories')
-    .then(response => response.json())
-    .then(data => setUniversalCategories(data))
+    if (user) {
+      fetch('/categories')
+      .then(response => response.json())
+      .then(data => setUniversalCategories(data))
+    }
   }, [hasUpdate, user])  
 
   useEffect(() => {
-    fetch('/providers')
-    .then(response => response.json())
-    .then(data => setUniversalProviders(data))
+    if (user) {
+      fetch('/providers')
+      .then(response => response.json())
+      .then(data => setUniversalProviders(data))
+    }
   }, [hasUpdate, user])  
   
   useEffect(() => {
-    fetch('/events')
-    .then(response => response.json())
-    .then(data => setEvents(data))
+    if (user) {
+      fetch('/events')
+      .then(response => response.json())
+      .then(data => setEvents(data))
+    }
   }, [hasUpdate, user])
 
   useEffect(() => {
-    fetch('/appointments')
-    .then(response => response.json())
-    .then(data => setAppointments(data))
+    if (user) {
+      fetch('/appointments')
+      .then(response => response.json())
+      .then(data => setAppointments(data))
+    }
 }, [hasUpdate, user])
 
   useEffect(() => {
-    fetch('/medications')
-    .then(response => response.json())
-    .then(data => setMedications(data))
+    if (user) {
+      fetch('/medications')
+      .then(response => response.json())
+      .then(data => setMedications(data))
+    }
   }, [hasUpdate, user])
 
 
@@ -104,9 +114,7 @@ function App() {
           />
         </Route>
         <Route path="/medications">
-          <Medications user={user} 
-            medications={medications} setMedications={setMedications}
-            universalProviders={universalProviders}
+          <Medications user={user} medications={medications}
             hasUpdate={hasUpdate} setHasUpdate={setHasUpdate}
           />
         </Route>

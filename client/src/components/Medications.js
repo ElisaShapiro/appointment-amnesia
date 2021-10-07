@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
 
 import { Box, Button, Card, CardContent, Container, Divider, Drawer, FormControl, FormControlLabel, FormGroup, FormLabel, Grid, InputLabel, MenuItem, Radio, RadioGroup, Select, Switch, TextField, Toolbar, Typography } from '@mui/material';
 import DeleteSharpIcon from '@mui/icons-material/DeleteSharp';
@@ -8,8 +7,7 @@ import SearchSharpIcon from '@mui/icons-material/SearchSharp';
 import AddSharpIcon from '@mui/icons-material/AddSharp';
 import ArrowBackSharpIcon from '@mui/icons-material/ArrowBackSharp';
 
-function Medications({ user, universalProviders, medications, setMedications, hasUpdate, setHasUpdate}) {
-    const history = useHistory()
+function Medications({ user, medications, hasUpdate, setHasUpdate}) {
     const [genericMedication, setGenericMedication] = useState(false)
     const [medicationName, setMedicationName] = useState("")
     const [medicationsFromAPI, setMedicationsFromAPI] = useState([])
@@ -22,7 +20,7 @@ function Medications({ user, universalProviders, medications, setMedications, ha
 
     //GET user's providers
     useEffect(() => {
-        if (user && user.user_providers.length > 0) {
+        if (user &&  user.user_providers && user.user_providers.length > 0) {
             setMedicationProviders(user.user_providers)
         }
     }, [user])
@@ -176,8 +174,8 @@ function Medications({ user, universalProviders, medications, setMedications, ha
                                 value={radioSelectedOption}
                                 onChange={(e)=>setRadioSelectedOption(e.target.value)}
                             >
-                                {medicationsFromAPI.map((medFromAPI) => {
-                                    return <FormControlLabel value={medFromAPI.strength} control={<Radio />} label={`NAME: ${medFromAPI.name} STRENGTH: ${medFromAPI.strength}`} />
+                                {medicationsFromAPI.map((medFromAPI, index) => {
+                                    return <FormControlLabel key={index} value={medFromAPI.strength} control={<Radio />} label={`NAME: ${medFromAPI.name} STRENGTH: ${medFromAPI.strength}`} />
                                 })} 
                             </RadioGroup>
                             </FormControl>
@@ -201,10 +199,11 @@ function Medications({ user, universalProviders, medications, setMedications, ha
                                 value={medicationFormData.provider_name}
                                 onChange={manageMedicationFormData}
                                 sx={{background: '#9dbbae'}}
+                                disabled={medicationProviders.length === 0}
                             >
-                                {medicationProviders.length > 0 && medicationProviders.map((provider) => {
+                                {medicationProviders.length > 0 && medicationProviders.map((provider, index) => {
                                     return (
-                                        <MenuItem key={medicationProviders.provider_name} value={provider.provider_name}>
+                                        <MenuItem key={index} value={provider.provider_name}>
                                             {provider.provider_name}
                                         </MenuItem>
                                     )
@@ -230,8 +229,8 @@ function Medications({ user, universalProviders, medications, setMedications, ha
                     >
                         {medications.map((medication) => {
                         return (
-                            <Grid item xs={5} spacing={2}>
-                            <Card key={medication.id}>
+                            <Grid item xs={5} key={medication.id}>
+                            <Card>
                                 <Card>
                                     <CardContent>
                                         <Typography variant='body1' color='text.primary'>Medicine:</Typography> 

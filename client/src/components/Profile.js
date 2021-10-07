@@ -400,7 +400,7 @@ function Profile({ user, hasUpdate, setHasUpdate }){
                     >
                         {providers.map((provider) => {
                             return (
-                                <Grid item xs={3}>
+                                <Grid item xs={3} key={provider.id}>
                                     <Card key={provider.id} sx={{minHeight: 318, display: 'flex', flexDirection: 'column', padding: '14px'}}>
                                         <Typography variant='h5' color='text.secondary'>{provider.provider_name}</Typography>
                                         <Typography variant='body2' color='text.secondary'>{provider.phone_number}</Typography>
@@ -430,7 +430,7 @@ function Profile({ user, hasUpdate, setHasUpdate }){
                     >
                     {categories.map((category) => {
                         return (
-                            <Grid item xs={3}>
+                            <Grid item xs={3} key={category.id}>
                                 <Card key={category.id} sx={{minHeight: 130, display: 'flex', flexDirection: 'column', padding: '14px'}}>
                                     <Typography sx={{flexGrow: 1}} variant='body2' color='text.secondary'>{category.category_name}</Typography>
                                     <CardActions  sx={{display: 'flex', justifyContent: 'center'}}>
