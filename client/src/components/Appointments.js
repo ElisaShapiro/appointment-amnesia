@@ -125,7 +125,7 @@ function Appointments({ user, universalCategories, universalProviders, appointme
     //SEARCH and SORT appointments, separate by PAST or FUTURE
     const [sortAppointmentCategory, setSortAppointmentCategory] = useState("All")
     const [sortAppointmentProvider, setSortAppointmentProvider] = useState("All")
-    const filteredAppointments = appointments.filter(appointment => {
+    const filteredAppointments = Array.isArray(appointments) ? appointments.filter(appointment => {
         if (sortAppointmentCategory === "All") {
             return true
         } else if (appointment.category.category_name.toLowerCase() === sortAppointmentCategory.toLowerCase()) {
@@ -141,7 +141,7 @@ function Appointments({ user, universalCategories, universalProviders, appointme
         } else {
             return false
         }
-    })
+    }) : [];
     const pastAppointments = filteredAppointments.filter(oneAppointment=> {
         let date = new Date(oneAppointment.appointment_time)
         return isPast(date)

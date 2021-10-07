@@ -31,31 +31,31 @@ function App() {
     fetch('/categories')
     .then(response => response.json())
     .then(data => setUniversalCategories(data))
-  }, [hasUpdate])  
+  }, [hasUpdate, user])  
 
   useEffect(() => {
     fetch('/providers')
     .then(response => response.json())
     .then(data => setUniversalProviders(data))
-  }, [hasUpdate])  
+  }, [hasUpdate, user])  
   
   useEffect(() => {
     fetch('/events')
     .then(response => response.json())
     .then(data => setEvents(data))
-  }, [hasUpdate])
+  }, [hasUpdate, user])
 
   useEffect(() => {
     fetch('/appointments')
     .then(response => response.json())
     .then(data => setAppointments(data))
-}, [hasUpdate])
+}, [hasUpdate, user])
 
   useEffect(() => {
     fetch('/medications')
     .then(response => response.json())
     .then(data => setMedications(data))
-  }, [hasUpdate])
+  }, [hasUpdate, user])
 
 
   // AUTOLOGIN

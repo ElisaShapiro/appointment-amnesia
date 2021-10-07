@@ -46,7 +46,6 @@ const customIcons = {
   };
   
 function AddEventForm({ universalCategories, formData, setFormData, manageFormData, handleSubmit, eventTimeValue, setEventTimeValue, isEdit}){
-
     return(
         <Container>  
             <form onSubmit={handleSubmit}>
@@ -73,7 +72,8 @@ function AddEventForm({ universalCategories, formData, setFormData, manageFormDa
                         onChange={manageFormData}
                         sx={{background: '#9dbbae'}}
                     >
-                        {universalCategories.map((eventCategory) => {
+
+                    {universalCategories.map((eventCategory) => {
                             return(
                                 <MenuItem key={eventCategory.id} name={eventCategory.category_name} value={eventCategory.category_name}>
                                     {eventCategory.category_name}

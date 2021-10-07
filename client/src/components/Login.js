@@ -8,7 +8,7 @@ function Login({ setUser } ){
     const history = useHistory()
 
     const [loginInfo, setLoginInfo] = useState({
-        username: '',
+        name: '',
         password: ''
     })
 

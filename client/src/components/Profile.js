@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import { Box, Button, Card, CardActions, CardContent, CardMedia, Container, Divider, Drawer, FormControl, Grid, TextField, Toolbar, Typography } from '@mui/material';
 import EditSharpIcon from '@mui/icons-material/EditSharp';
@@ -18,7 +18,7 @@ function Profile({ user, hasUpdate, setHasUpdate }){
         avatar: user.avatar 
     })
     
-    const [providers, setProviders] = useState(user.user_providers)
+    const [providers, setProviders] = useState([])
     const [isEditProviders, setIsEditProviders] = useState(false)
     const [providerFormData, setProviderFormData] = useState({ 
         provider_name: "",
@@ -26,10 +26,13 @@ function Profile({ user, hasUpdate, setHasUpdate }){
         address: "" 
     })
 
-    const [categories, setCategories] = useState(user.user_categories)
+    const [categories, setCategories] = useState([])
     const [isEditCategories, setisEditCategories] = useState(false)
     const [categoryFormData, setCategoryFormData] = useState({ category_name: "" })
-    
+    useEffect(()=>{
+        setProviders(user.user_providers)
+        setCategories(user.user_categories)
+    }, [user])
     //DEMOGRAPHICS RU
     function manageDemographicFormData(e){
         let key = e.target.name
@@ -388,7 +391,7 @@ function Profile({ user, hasUpdate, setHasUpdate }){
                     <Typography variant='h3' color='#FFF' paddingTop='32px'>
                         My Providers: 
                     </Typography>
-                    {providers.length > 0 ?
+                    {providers && providers.length > 0 ?
                     <Grid container 
                         direction='row'
                         justifyContent='flex-start'
@@ -418,7 +421,7 @@ function Profile({ user, hasUpdate, setHasUpdate }){
                     <Typography variant='h3' color='#FFF' paddingTop='32px'>
                         My Categories: 
                     </Typography>
-                    {categories.length >0 ? 
+                    {categories && categories.length >0 ? 
                     <Grid container 
                         direction='row'
                         justifyContent='flex-start'

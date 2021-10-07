@@ -115,7 +115,7 @@ function Events({ user, universalCategories, events, hasUpdate, setHasUpdate }){
     const [searchEvents, setSearchEvents] = useState("")
     const [sortEventCategory, setSortEventCategory] = useState("All")
     const [sortEventSeverity, setSortEventSeverity] = useState("All")
-    const filteredEvents = events.filter(event => {
+    const filteredEvents = Array.isArray(events) ? events.filter(event => {
         if (searchEvents.length > 0) {
             return event.content.toLowerCase().includes(searchEvents.toLowerCase())
         } else {
@@ -143,7 +143,7 @@ function Events({ user, universalCategories, events, hasUpdate, setHasUpdate }){
         } else {
             return -1
         }
-    })
+    }) : [];
 
    
     
